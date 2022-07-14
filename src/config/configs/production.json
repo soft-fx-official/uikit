@@ -1,0 +1,12 @@
+{
+  "debug": false,
+  "i18next": {
+    "debug": false,
+    "fallbackLng": "en"
+  },
+  "api": {
+    "main": {
+      "baseUrl": "https://api.fxopen.b2et.com"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "appName": "uikit",
+  "title": "Uikit",
+  "debug": false,
+  "i18next": {
+    "debug": false,
+    "fallbackLng": "en"
+  },
+  "api": {
+    "main": {
+      "baseUrl": ""
+    }
+  }
+}
