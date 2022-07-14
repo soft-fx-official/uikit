@@ -1,28 +1,12 @@
 import React from 'react'
-import { FormControl, Grid, Input, InputLabel } from '@mui/material'
+import Grid from '@mui/material/Grid'
 import { observer } from 'mobx-react-lite'
+import InputExamples from './InputExamples'
 
 function Inputs() {
   return (
-    <Grid container spacing={4} justifyContent="center">
-      <Grid item xs={2}>
-        <FormControl variant="filled" fullWidth>
-          <InputLabel>Default</InputLabel>
-          <Input />
-        </FormControl>
-      </Grid>
-      <Grid item xs={2}>
-        <FormControl variant="filled" fullWidth>
-          <InputLabel>Primary</InputLabel>
-          <Input color="primary" />
-        </FormControl>
-      </Grid>
-      <Grid item xs={2}>
-        <FormControl variant="filled" fullWidth>
-          <InputLabel>Secondary</InputLabel>
-          <Input color="secondary" />
-        </FormControl>
-      </Grid>
+    <Grid container spacing={2}>
+      <InputExamples title="Default inputs" />
     </Grid>
   )
 }
