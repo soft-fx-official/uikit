@@ -6,7 +6,6 @@ import TextFieldsExamples from './TextFieldsExamples'
 function TextFields() {
   return (
     <Grid container spacing={2}>
-      <TextFieldsExamples title="Default text fields" />
       <TextFieldsExamples title="Outlined text fields" variant="outlined" />
       <TextFieldsExamples title="Filled text fields" variant="filled" />
       <TextFieldsExamples title="Standard text fields" variant="standard" />

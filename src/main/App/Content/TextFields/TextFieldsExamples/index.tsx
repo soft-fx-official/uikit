@@ -7,7 +7,7 @@ const colors: TColor[] = [undefined, 'primary', 'secondary', 'success', 'error',
 
 interface TextFieldsExamplesProps {
   title: string
-  variant?: 'standard' | 'outlined' | 'filled'
+  variant: 'standard' | 'outlined' | 'filled'
 }
 
 function TextFieldsExamples({ title, variant }: TextFieldsExamplesProps) {
