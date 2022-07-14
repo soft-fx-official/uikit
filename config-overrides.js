@@ -13,7 +13,8 @@ module.exports = {
         name: config.appName,
         filename: 'remoteEntry.js',
         exposes: {
-          './Main': './src/main',
+          './mainTheme': './src/theme/main',
+          './components': './src/components',
         },
         remotes: {},
         shared: {
