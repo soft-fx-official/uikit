@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions, Theme } from '@mui/material'
+import { createTheme, Theme, ThemeOptions } from '@mui/material'
 import { deepmerge } from '@mui/utils'
 
 // NOTE: Remote load theme from config

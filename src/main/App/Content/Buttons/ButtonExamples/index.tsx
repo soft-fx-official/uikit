@@ -1,6 +1,7 @@
 import React from 'react'
-import { Button, Grid, Typography } from '@mui/material'
 import { observer } from 'mobx-react-lite'
+
+import { Button, Grid, Typography } from '@mui/material'
 
 type TColor =
   | 'inherit'
@@ -28,24 +29,22 @@ interface ButtonExamplesProps {
   variant?: 'outlined' | 'contained'
 }
 
-function ButtonExamples({ title, variant }: ButtonExamplesProps) {
-  return (
-    <>
-      <Grid item xs={12}>
-        <Typography variant="subtitle1" textAlign="center">
-          {title}
-        </Typography>
-      </Grid>
+const ButtonExamples = ({ title, variant }: ButtonExamplesProps) => (
+  <>
+    <Grid item xs={12}>
+      <Typography variant="subtitle1" textAlign="center">
+        {title}
+      </Typography>
+    </Grid>
 
-      {colors.map(color => (
-        <Grid item xs={3}>
-          <Button color={color} variant={variant} fullWidth>
-            {color ?? 'Default'}
-          </Button>
-        </Grid>
-      ))}
-    </>
-  )
-}
+    {colors.map(color => (
+      <Grid key={color} item xs={3}>
+        <Button color={color} variant={variant} fullWidth>
+          {color ?? 'Default'}
+        </Button>
+      </Grid>
+    ))}
+  </>
+)
 
 export default observer(ButtonExamples)

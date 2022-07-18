@@ -1,10 +1,12 @@
 import React from 'react'
-import { FormControlLabel, Grid } from '@mui/material'
 import { observer } from 'mobx-react-lite'
+
+import { FormControlLabel, Grid } from '@mui/material'
+
 import ThemeSwitch from '../../../components/ThemeSwitch'
 import { useThemeContext } from '../../../theme/context'
 
-function Header() {
+const Header = () => {
   const { isDark, toggleColorMode } = useThemeContext()
 
   return (

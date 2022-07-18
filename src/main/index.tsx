@@ -1,9 +1,8 @@
 import React from 'react'
 
 import config from '../config'
-
-import Loader from './Loader'
 import Error from './Error'
+import Loader from './Loader'
 import Page from './Page'
 
 import '@fontsource/inter/300.css'
