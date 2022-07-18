@@ -1,13 +1,15 @@
-import React, { useMemo, useState, useCallback } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
+import { observer } from 'mobx-react-lite'
+
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import Stack from '@mui/material/Stack'
-import { observer } from 'mobx-react-lite'
+
 import Buttons from './Buttons'
 import Inputs from './Inputs'
-import TextFields from './TextFields'
 import Selectors from './Selectors'
+import TextFields from './TextFields'
 
 const tabs = [
   { value: '1', label: 'Buttons', content: <Buttons /> },
@@ -16,12 +18,12 @@ const tabs = [
   { value: '4', label: 'Select', content: <Selectors /> },
 ]
 
-function Content() {
+const Content = () => {
   const [activeTab, setActiveTab] = useState('1')
 
   const activeContent = useMemo(
     () => tabs.find(item => item.value === activeTab)?.content,
-    [activeTab]
+    [activeTab],
   )
 
   const handleChange = useCallback((_: unknown, newValue: string) => {
