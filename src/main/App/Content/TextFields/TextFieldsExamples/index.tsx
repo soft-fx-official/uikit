@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import { Grid, TextField, Typography } from '@mui/material'
 
@@ -19,8 +19,8 @@ const TextFieldsExamples = ({ title, variant }: TextFieldsExamplesProps) => (
       </Typography>
     </Grid>
 
-    {colors.map(color => (
-      <Grid key={color} item xs={3}>
+    {colors.map((color, index) => (
+      <Grid key={index} item xs={3}>
         <TextField label={color ?? 'Default'} variant={variant} fullWidth />
       </Grid>
     ))}

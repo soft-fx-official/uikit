@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import { Grid, MenuItem, TextField, Typography } from '@mui/material'
 
 type TColor = 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
@@ -20,16 +17,23 @@ const SelectExamples = ({ title, variant }: SelectExamplesProps) => (
       </Typography>
     </Grid>
 
-    {colors.map(color => (
-      <Grid key={color} item xs={3}>
-        <TextField select variant={variant} fullWidth color={color} label={color ?? 'Default'}>
-          <MenuItem value={1}>Option 1</MenuItem>
-          <MenuItem value={2}>Option 2</MenuItem>
-          <MenuItem value={3}>Option 3</MenuItem>
+    {colors.map((color, index) => (
+      <Grid key={index} item xs={3}>
+        <TextField
+          select
+          variant={variant}
+          defaultValue="1"
+          fullWidth
+          color={color}
+          label={color ?? 'Default'}
+        >
+          <MenuItem value="1">Option 1</MenuItem>
+          <MenuItem value="2">Option 2</MenuItem>
+          <MenuItem value="3">Option 3</MenuItem>
         </TextField>
       </Grid>
     ))}
   </>
 )
 
-export default observer(SelectExamples)
+export default SelectExamples
