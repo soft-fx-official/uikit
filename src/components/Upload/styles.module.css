@@ -1,0 +1,33 @@
+.upload {
+  min-width: 288px;
+  min-height: 288px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #777;
+  border-radius: 24px;
+  padding: 40px 20px;
+  text-align: center;
+  transition-duration: 0.3s;
+}
+
+.error {
+  border-color: red;
+}
+
+.upload:hover,
+.upload:active {
+  background-color: rgba(83, 83, 83, 0.4);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  background-color: #777;
+  border-radius: 50%;
+}
