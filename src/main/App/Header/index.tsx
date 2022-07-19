@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import { FormControlLabel, Grid } from '@mui/material'
 
 import ThemeSwitch from '../../../components/ThemeSwitch'
@@ -21,4 +18,4 @@ const Header = () => {
   )
 }
 
-export default observer(Header)
+export default Header

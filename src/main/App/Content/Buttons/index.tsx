@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import { Grid } from '@mui/material'
 
 import ButtonExamples from './ButtonExamples'
@@ -13,4 +10,4 @@ const Buttons = () => (
   </Grid>
 )
 
-export default observer(Buttons)
+export default Buttons

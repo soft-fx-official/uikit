@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import { Button, Grid, Typography } from '@mui/material'
 
 type TColor =
@@ -37,8 +34,8 @@ const ButtonExamples = ({ title, variant }: ButtonExamplesProps) => (
       </Typography>
     </Grid>
 
-    {colors.map(color => (
-      <Grid key={color} item xs={3}>
+    {colors.map((color, index) => (
+      <Grid key={index} item xs={3}>
         <Button color={color} variant={variant} fullWidth>
           {color ?? 'Default'}
         </Button>
@@ -47,4 +44,4 @@ const ButtonExamples = ({ title, variant }: ButtonExamplesProps) => (
   </>
 )
 
-export default observer(ButtonExamples)
+export default ButtonExamples

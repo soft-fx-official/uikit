@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import Grid from '@mui/material/Grid'
 
 import TextFieldsExamples from './TextFieldsExamples'
@@ -13,4 +10,4 @@ const TextFields = () => (
   </Grid>
 )
 
-export default observer(TextFields)
+export default TextFields
