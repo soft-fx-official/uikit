@@ -13,10 +13,12 @@ module.exports = {
         name: config.appName,
         filename: 'remoteEntry.js',
         exposes: {
-          './mainTheme': './src/theme/main',
+          './themes': './src/theme/themes',
           './components': './src/components',
         },
-        remotes: {},
+        remotes: {
+          '@common': 'common@http://localhost:4001/remoteEntry.js',
+        },
         shared: {
           ...dependencies,
           react: {

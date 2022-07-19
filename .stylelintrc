@@ -20,6 +20,7 @@
       {
         "ignorePseudoClasses": ["global"]
       }
-    ]
+    ],
+    "block-no-empty": null
   }
 }
