@@ -5,7 +5,11 @@ import Upload from '../../../../components/Upload'
 const Other = () => (
   <Grid container spacing={2}>
     <Grid item xs={12}>
-      <Upload />
+      <Upload
+        title="Just Title"
+        description="Only JPEG, PNG or PDF files with max size 10Mb"
+        onSelect={v => console.log(v)}
+      />
     </Grid>
   </Grid>
 )
