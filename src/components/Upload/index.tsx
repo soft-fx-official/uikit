@@ -1,14 +1,20 @@
 import React, { ChangeEvent, memo, useCallback, useState } from 'react'
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
-import { Box, Fab, IconButton, Stack, Typography } from '@mui/material'
+import { Box, Fab, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 // TODO: реализовать когда будет понятно какие типи документов существуют
 // import certificateIcon from '../../assets/certificate.svg'
 // import idIcon from '../../assets/id.svg'
 // import passportIcon from '../../assets/passport.svg'
+
+const options = {
+  cMapUrl: 'cmaps/',
+  cMapPacked: true,
+  standardFontDataUrl: 'standard_fonts/',
+}
 
 interface UploadProps {
   title?: string
@@ -27,15 +33,15 @@ const Upload: React.FC<UploadProps> = ({
   minFileSize = 1,
   maxFileSize = 10,
 }) => {
+  const theme = useTheme()
+  const isTablet = useMediaQuery(theme.breakpoints.down('lg'))
   const [preview, setPreview] = useState<string>()
   const [isShowError, setIsShowError] = useState(false)
   const [isPDF, setIsPDF] = useState(false)
+  const [file, setFile] = useState<File>()
 
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { files } = e.target
-      const file = files && files[0]
-
+  const prepareFile = useCallback(
+    (file?: File | null) => {
       if (file) {
         const isPDF = /.pdf/g.test(file.name)
         setIsPDF(isPDF)
@@ -46,14 +52,26 @@ const Upload: React.FC<UploadProps> = ({
         const url = window.URL.createObjectURL(file)
         setPreview(url)
         onSelect(file)
+        setFile(file)
       }
     },
-    [onSelect, maxFileSize, setIsShowError, isShowError],
+    [isShowError, maxFileSize, onSelect],
+  )
+
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { files } = e.target
+      const file = files && files[0]
+
+      prepareFile(file)
+    },
+    [prepareFile],
   )
   const onDeleteFile = useCallback(() => {
     setPreview(undefined)
     onSelect(null)
     setIsPDF(false)
+    setFile(undefined)
   }, [onSelect])
 
   const onDrop = useCallback(
@@ -61,21 +79,10 @@ const Upload: React.FC<UploadProps> = ({
       const files = e.nativeEvent.dataTransfer?.files
       const file = files && files[0]
 
-      if (file) {
-        const isPDF = /.pdf/g.test(file.name)
-        setIsPDF(isPDF)
-
-        if (file.size > maxFileSize * 1024 * 1024) return setIsShowError(true)
-        if (isShowError) setIsShowError(false)
-
-        const url = window.URL.createObjectURL(file)
-        setPreview(url)
-        onSelect(file)
-      }
-
+      prepareFile(file)
       e.preventDefault()
     },
-    [maxFileSize, isShowError, onSelect],
+    [prepareFile],
   )
 
   const onDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => e.preventDefault(), [])
@@ -99,9 +106,6 @@ const Upload: React.FC<UploadProps> = ({
         ':hover': { backgroundColor: `${theme.palette.secondary.main}40` },
       })}
     >
-      {/* <img src={certificateIcon} alt="" />
-      <img src={idIcon} alt="" />
-      <img src={passportIcon} alt="" /> */}
       <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
         {!preview && (
           <IconButton color="primary" aria-label="upload picture" component="label">
@@ -109,9 +113,13 @@ const Upload: React.FC<UploadProps> = ({
             <AddCircleIcon sx={{ fontSize: '60px' }} />
           </IconButton>
         )}
-        {!preview && title && <Typography variant="h5">{title}</Typography>}
+        {!preview && title && (
+          <Typography variant="h5" align="center">
+            {title}
+          </Typography>
+        )}
         {!preview && description && (
-          <Typography variant="subtitle2" color="secondary">
+          <Typography variant="subtitle2" color="secondary" align="center">
             {description}
           </Typography>
         )}
@@ -124,7 +132,11 @@ const Upload: React.FC<UploadProps> = ({
               maxHeight: '1000px',
             }}
           >
-            {isPDF && <PictureAsPdfIcon sx={{ fontSize: '150px' }} />}
+            {isPDF && (
+              <Document file={file} options={options}>
+                <Page pageNumber={1} width={isTablet ? 240 : 400} />
+              </Document>
+            )}
             {!isPDF && <img src={preview} width="100%" alt="" />}
             <Fab
               color="secondary"
