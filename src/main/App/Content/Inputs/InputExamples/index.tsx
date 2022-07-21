@@ -1,6 +1,3 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-
 import { FormControl, Grid, Input, InputLabel, Typography } from '@mui/material'
 
 type TColor = 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
@@ -19,8 +16,8 @@ const InputExamples = ({ title }: InputExamplesProps) => (
       </Typography>
     </Grid>
 
-    {colors.map(color => (
-      <Grid key={color} item xs={3}>
+    {colors.map((color, index) => (
+      <Grid key={index} item xs={3}>
         <FormControl color={color} fullWidth>
           <InputLabel> {color ?? 'Default'}</InputLabel>
           <Input />
@@ -30,4 +27,4 @@ const InputExamples = ({ title }: InputExamplesProps) => (
   </>
 )
 
-export default observer(InputExamples)
+export default InputExamples

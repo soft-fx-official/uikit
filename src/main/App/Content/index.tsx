@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { observer } from 'mobx-react-lite'
+import { useCallback, useMemo, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
@@ -8,6 +7,7 @@ import Tabs from '@mui/material/Tabs'
 
 import Buttons from './Buttons'
 import Inputs from './Inputs'
+import Other from './Other'
 import Selectors from './Selectors'
 import TextFields from './TextFields'
 
@@ -16,6 +16,7 @@ const tabs = [
   { value: '2', label: 'Input', content: <Inputs /> },
   { value: '3', label: 'Text fields', content: <TextFields /> },
   { value: '4', label: 'Select', content: <Selectors /> },
+  { value: '5', label: 'Other', content: <Other /> },
 ]
 
 const Content = () => {
@@ -44,4 +45,4 @@ const Content = () => {
   )
 }
 
-export default observer(Content)
+export default Content
