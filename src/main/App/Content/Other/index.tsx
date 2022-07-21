@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 
-import Upload from '../../../../components/Upload'
+import { Upload } from '../../../../components'
 
 const Other = () => (
   <Grid container spacing={2}>

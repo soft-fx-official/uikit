@@ -20,7 +20,7 @@ const tabs = [
 ]
 
 const Content = () => {
-  const [activeTab, setActiveTab] = useState('5')
+  const [activeTab, setActiveTab] = useState('1')
 
   const activeContent = useMemo(
     () => tabs.find(item => item.value === activeTab)?.content,
