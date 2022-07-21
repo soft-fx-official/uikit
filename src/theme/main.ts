@@ -46,6 +46,9 @@ const main = {
           '&.Mui-error': {
             border: `1px solid ${theme.palette.warning.main}`,
           },
+          '&.MuiInputBase-colorSuccess': {
+            borderColor: theme.palette.success.main,
+          },
           '& .MuiButtonBase-root': {
             color: theme.palette.secondary.main,
           },
@@ -101,6 +104,13 @@ const main = {
     },
     secondary: {
       main: '#777777',
+    },
+    success: {
+      main: '#5CC89C',
+    },
+    grey: {
+      main: '#0E0E12',
+      light: '#1A1A1E',
     },
   },
 }
