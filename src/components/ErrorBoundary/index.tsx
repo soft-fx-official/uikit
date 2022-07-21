@@ -45,3 +45,4 @@ ErrorBoundary.defaultProps = {
 }
 
 export default ErrorBoundary
+export type { IErrorBoundary }

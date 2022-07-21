@@ -1,7 +1,6 @@
 import React from 'react'
-
-import { useDynamicScript } from '@common/hooks'
-import { IBus, loadDynamicComponent } from '@common/tools'
+import { useDynamicScript } from 'common/hooks'
+import { IBus, loadDynamicComponent } from 'common/tools'
 
 import ErrorBoundary from '../ErrorBoundary'
 import styles from './index.module.css'
@@ -41,3 +40,4 @@ const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
 }
 
 export default ModuleLoader
+export type { IModuleLoader }

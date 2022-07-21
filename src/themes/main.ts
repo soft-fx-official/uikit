@@ -105,5 +105,5 @@ const main = {
   },
 }
 
-export default main
+export { main }
 export type { ITheme }

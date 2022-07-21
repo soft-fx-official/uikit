@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import { ThemeProvider } from '@mui/material'
 
-import initTheme from './index'
+import initTheme from '../themes'
 
 const ThemeContext = React.createContext({
   isDark: true,
@@ -11,11 +11,11 @@ const ThemeContext = React.createContext({
 
 export const useThemeContext = () => React.useContext(ThemeContext)
 
-interface ThemeContextProviderProps {
+interface IThemeContextProvider {
   children: React.ReactNode
 }
 
-const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
+const ThemeContextProvider = ({ children }: IThemeContextProvider) => {
   const [isDark, setDark] = useState(true)
 
   const toggleColorMode = useCallback(() => setDark(prevState => !prevState), [])
@@ -40,3 +40,4 @@ const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
 }
 
 export default ThemeContextProvider
+export type { IThemeContextProvider }
