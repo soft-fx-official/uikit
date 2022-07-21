@@ -50,6 +50,9 @@ declare const main: {
                     '&.Mui-error': {
                         border: string;
                     };
+                    '&.MuiInputBase-colorSuccess': {
+                        borderColor: string;
+                    };
                     '& .MuiButtonBase-root': {
                         color: string;
                     };
@@ -105,6 +108,13 @@ declare const main: {
         };
         secondary: {
             main: string;
+        };
+        success: {
+            main: string;
+        };
+        grey: {
+            main: string;
+            light: string;
         };
     };
 };
