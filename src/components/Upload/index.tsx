@@ -153,4 +153,6 @@ const Upload: React.FC<UploadProps> = ({
   )
 }
 
-export default memo(Upload)
+const memoUpload = memo(Upload)
+
+export { memoUpload as Upload }

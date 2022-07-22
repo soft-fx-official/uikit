@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import { ThemeProvider } from '@mui/material'
 
-import initTheme from '../themes'
+import { initTheme } from '../themes'
 
 const ThemeContext = React.createContext({
   isDark: true,
@@ -39,5 +39,5 @@ const ThemeContextProvider = ({ children }: IThemeContextProvider) => {
   )
 }
 
-export default ThemeContextProvider
+export { ThemeContextProvider }
 export type { IThemeContextProvider }

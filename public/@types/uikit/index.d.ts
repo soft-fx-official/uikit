@@ -1,14 +1,142 @@
+declare module 'uikit/components/ButtonCard' {
+import React from 'react';
+import { BoxProps } from '@mui/material';
+declare type ButtonCardProps = BoxProps;
+declare const ButtonCard: React.FC<ButtonCardProps>;
+export { ButtonCard };
+
+};
+
+declare module 'uikit/components/ErrorBoundary' {
+import React from 'react';
+interface IErrorBoundary {
+    children: React.ReactElement;
+}
+declare class ErrorBoundary extends React.Component<IErrorBoundary> {
+    constructor(props: IErrorBoundary);
+    static getDerivedStateFromError(): {
+        hasError: boolean;
+    };
+    componentDidCatch(error: any, errorInfo: any): void;
+    render(): any;
+}
+export { ErrorBoundary };
+export type { IErrorBoundary };
+
+};
+
 declare module 'uikit/components' {
+import React from 'react';
+import { BoxProps } from '@mui/material';
+declare type ButtonCardProps = BoxProps;
+declare const ButtonCard: React.FC<ButtonCardProps>;
+export { ButtonCard };
+
+import React from 'react';
+interface IErrorBoundary {
+    children: React.ReactElement;
+}
+declare class ErrorBoundary extends React.Component<IErrorBoundary> {
+    constructor(props: IErrorBoundary);
+    static getDerivedStateFromError(): {
+        hasError: boolean;
+    };
+    componentDidCatch(error: any, errorInfo: any): void;
+    render(): any;
+}
+export { ErrorBoundary };
+export type { IErrorBoundary };
+
+export { ButtonCard } from './ButtonCard';
+export type { IErrorBoundary } from './ErrorBoundary';
+export { ErrorBoundary } from './ErrorBoundary';
+export type { IModuleLoader } from './ModuleLoader';
+export { ModuleLoader } from './ModuleLoader';
+export { ThemeSwitch } from './ThemeSwitch';
+export { Upload } from './Upload';
+
+/// <reference types="common" />
+import React from 'react';
+import { IBus } from 'common/tools';
+interface IModuleLoader {
+    url: string;
+    scope: string;
+    module: string;
+    bus: IBus | null;
+    fallback: React.ReactElement | string | undefined;
+}
+declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+export { ModuleLoader };
+export type { IModuleLoader };
+
+declare const ThemeSwitch: import("@emotion/styled").StyledComponent<import("@mui/material").SwitchProps & import("@mui/system").MUIStyledCommonProps<import("@mui/material").Theme>, {}, {}>;
+export { ThemeSwitch };
+
+/// <reference types="react" />
+interface UploadProps {
+    title?: string;
+    description?: string;
+    minFileSize?: number;
+    maxFileSize?: number;
+    acceptFormats?: string;
+    onSelect: (file: File | null) => void;
+}
+declare const memoUpload: import("react").MemoExoticComponent<React.FC<UploadProps>>;
+export { memoUpload as Upload };
+
+};
+
+declare module 'uikit/components/ModuleLoader' {
+/// <reference types="common" />
+import React from 'react';
+import { IBus } from 'common/tools';
+interface IModuleLoader {
+    url: string;
+    scope: string;
+    module: string;
+    bus: IBus | null;
+    fallback: React.ReactElement | string | undefined;
+}
+declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+export { ModuleLoader };
+export type { IModuleLoader };
+
+};
+
+declare module 'uikit/components/ThemeSwitch' {
+declare const ThemeSwitch: import("@emotion/styled").StyledComponent<import("@mui/material").SwitchProps & import("@mui/system").MUIStyledCommonProps<import("@mui/material").Theme>, {}, {}>;
+export { ThemeSwitch };
+
+};
+
+declare module 'uikit/components/Upload' {
+/// <reference types="react" />
+interface UploadProps {
+    title?: string;
+    description?: string;
+    minFileSize?: number;
+    maxFileSize?: number;
+    acceptFormats?: string;
+    onSelect: (file: File | null) => void;
+}
+declare const memoUpload: import("react").MemoExoticComponent<React.FC<UploadProps>>;
+export { memoUpload as Upload };
 
 };
 
 declare module 'uikit/themes' {
+import { Theme, ThemeOptions } from '@mui/material';
+import { ITheme, themeMain } from './main';
+declare const init: (updateTheme: ThemeOptions) => Theme;
+export { init as initTheme };
+export { themeMain };
+export type { ITheme };
 
 import { Theme } from '@mui/material';
 interface ITheme {
     theme: Theme;
 }
-declare const main: {
+declare const themeMain: {
     components: {
         MuiContainer: {
             styleOverrides: {
@@ -118,7 +246,7 @@ declare const main: {
         };
     };
 };
-export { main };
+export { themeMain };
 export type { ITheme };
 
 };

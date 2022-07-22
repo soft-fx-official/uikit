@@ -1,6 +1,6 @@
 import { FormControlLabel, Grid } from '@mui/material'
 
-import ThemeSwitch from '../../../components/ThemeSwitch'
+import { ThemeSwitch } from '../../../components'
 import { useThemeContext } from '../../context'
 
 const Header = () => {
@@ -18,4 +18,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export { Header }

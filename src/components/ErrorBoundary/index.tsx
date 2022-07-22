@@ -44,5 +44,5 @@ ErrorBoundary.defaultProps = {
   children: null,
 }
 
-export default ErrorBoundary
+export { ErrorBoundary }
 export type { IErrorBoundary }

@@ -4,7 +4,7 @@ interface ITheme {
   theme: Theme
 }
 
-const main = {
+const themeMain = {
   components: {
     MuiContainer: {
       styleOverrides: {
@@ -115,5 +115,5 @@ const main = {
   },
 }
 
-export { main }
+export { themeMain }
 export type { ITheme }

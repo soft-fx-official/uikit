@@ -1,9 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Tab from '@mui/material/Tab'
-import Tabs from '@mui/material/Tabs'
+import { Box, Stack, Tab, Tabs } from '@mui/material'
 
 import Buttons from './Buttons'
 import Inputs from './Inputs'
@@ -45,4 +42,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export { Content }

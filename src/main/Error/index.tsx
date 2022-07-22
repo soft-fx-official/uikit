@@ -14,4 +14,4 @@ const Error = ({ error }: IError) => (
   </div>
 )
 
-export default Error
+export { Error }

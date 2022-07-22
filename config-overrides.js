@@ -14,8 +14,8 @@ module.exports = {
         name: config.appName,
         filename: 'remoteEntry.js',
         exposes: {
-          './themes': './src/themes/index.ts',
-          './components': './src/components/index.ts',
+          './themes': './src/themes',
+          './components': './src/components',
         },
         remotes: {
           'common': 'common@http://localhost:4001/remoteEntry.js',

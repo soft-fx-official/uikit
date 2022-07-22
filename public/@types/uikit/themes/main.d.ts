@@ -2,7 +2,7 @@ import { Theme } from '@mui/material';
 interface ITheme {
     theme: Theme;
 }
-declare const main: {
+declare const themeMain: {
     components: {
         MuiContainer: {
             styleOverrides: {
@@ -112,5 +112,5 @@ declare const main: {
         };
     };
 };
-export { main };
+export { themeMain };
 export type { ITheme };

@@ -1,6 +1,6 @@
 import { Theme, ThemeOptions } from '@mui/material';
-import { ITheme, main as themeMain } from './main';
+import { ITheme, themeMain } from './main';
 declare const init: (updateTheme: ThemeOptions) => Theme;
-export default init;
+export { init as initTheme };
 export { themeMain };
 export type { ITheme };

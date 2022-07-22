@@ -1,9 +1,9 @@
 import React from 'react'
 
 import config from '../config'
-import Error from './Error'
-import Loader from './Loader'
-import Page from './Page'
+import { Error } from './Error'
+import { Loader } from './Loader'
+import { Page } from './Page'
 
 import '@fontsource/inter/300.css'
 import '@fontsource/inter/400.css'
@@ -29,4 +29,4 @@ const Main = () => {
   return Component
 }
 
-export default Main
+export { Main }

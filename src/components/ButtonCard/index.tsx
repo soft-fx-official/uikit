@@ -48,4 +48,4 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
   />
 )
 
-export default ButtonCard
+export { ButtonCard }

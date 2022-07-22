@@ -1,1 +1,1 @@
-["@types/uikit/components/index.d.ts","@types/uikit/index.d.ts","@types/uikit/themes/index.d.ts","@types/uikit/themes/main.d.ts"]
+["@types/uikit/components/ButtonCard/index.d.ts","@types/uikit/components/ErrorBoundary/index.d.ts","@types/uikit/components/index.d.ts","@types/uikit/components/ModuleLoader/index.d.ts","@types/uikit/components/ThemeSwitch/index.d.ts","@types/uikit/components/Upload/index.d.ts","@types/uikit/index.d.ts","@types/uikit/themes/index.d.ts","@types/uikit/themes/main.d.ts"]

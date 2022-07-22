@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 
 import { Container, CssBaseline } from '@mui/material'
 
-import App from '../App'
-import ThemeContextProvider from '../context'
+import { App } from '../App'
+import { ThemeContextProvider } from '../context'
 import styles from './index.module.css'
 
 const Page = () => (
@@ -16,4 +16,6 @@ const Page = () => (
   </ThemeContextProvider>
 )
 
-export default observer(Page)
+const observerPage = observer(Page)
+
+export { observerPage as Page }

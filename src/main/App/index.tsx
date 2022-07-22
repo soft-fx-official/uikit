@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite'
 
 import { Box } from '@mui/material'
 
-import Content from './Content'
-import Header from './Header'
+import { Content } from './Content'
+import { Header } from './Header'
 
 const App = () => (
   <Box>
@@ -13,4 +13,5 @@ const App = () => (
   </Box>
 )
 
-export default observer(App)
+const observerApp = observer(App)
+export { observerApp as App }
