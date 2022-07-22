@@ -1,0 +1,19 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+    "files.eol": true,
+    "files.insertFinalNewline": true,
+  },
+  "editor.formatOnSave": true,
+  "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?",
+  "prettier.endOfLine": "lf",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "cSpell.words": [
+    "patronum",
+    "Swiper"
+  ],
+}
