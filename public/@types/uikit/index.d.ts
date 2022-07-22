@@ -7,6 +7,20 @@ export { ButtonCard };
 
 };
 
+declare module 'uikit/components/ButtonCardContainer' {
+import React from 'react';
+declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
+export { ButtonCardContainer };
+
+};
+
+declare module 'uikit/components/CardContainer' {
+import React from 'react';
+declare const CardContainer: React.FC<React.PropsWithChildren>;
+export default CardContainer;
+
+};
+
 declare module 'uikit/components/ErrorBoundary' {
 import React from 'react';
 interface IErrorBoundary {
@@ -33,6 +47,14 @@ declare const ButtonCard: React.FC<ButtonCardProps>;
 export { ButtonCard };
 
 import React from 'react';
+declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
+export { ButtonCardContainer };
+
+import React from 'react';
+declare const CardContainer: React.FC<React.PropsWithChildren>;
+export default CardContainer;
+
+import React from 'react';
 interface IErrorBoundary {
     children: React.ReactElement;
 }
@@ -48,6 +70,7 @@ export { ErrorBoundary };
 export type { IErrorBoundary };
 
 export { ButtonCard } from './ButtonCard';
+export { ButtonCardContainer } from './ButtonCardContainer';
 export type { IErrorBoundary } from './ErrorBoundary';
 export { ErrorBoundary } from './ErrorBoundary';
 export type { IModuleLoader } from './ModuleLoader';
