@@ -33,7 +33,8 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
         height: '80px',
         width: 'auto',
       },
-
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
       [theme.breakpoints.down('sm')]: {
         width: MOBILE_SIZE,
         height: MOBILE_SIZE,
