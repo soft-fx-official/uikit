@@ -1,0 +1,15 @@
+{
+  "debug": true,
+  "remotes": {
+    "common": "common@http://localhost:4000/remoteEntry.js"
+  },
+  "i18next": {
+    "debug": true,
+    "fallbackLng": "en"
+  },
+  "api": {
+    "main": {
+      "baseUrl": "https://api.fxopen.b2et.com"
+    }
+  }
+}
