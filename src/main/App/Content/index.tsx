@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Box, Stack, Tab, Tabs } from '@mui/material'
 
 import Buttons from './Buttons'
+import Icons from './Icons'
 import Inputs from './Inputs'
 import Other from './Other'
 import Selectors from './Selectors'
@@ -13,7 +14,8 @@ const tabs = [
   { value: '2', label: 'Input', content: <Inputs /> },
   { value: '3', label: 'Text fields', content: <TextFields /> },
   { value: '4', label: 'Select', content: <Selectors /> },
-  { value: '5', label: 'Other', content: <Other /> },
+  { value: '5', label: 'Icons', content: <Icons /> },
+  { value: '6', label: 'Other', content: <Other /> },
 ]
 
 const Content = () => {
