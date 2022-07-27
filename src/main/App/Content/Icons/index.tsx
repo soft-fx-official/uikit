@@ -33,7 +33,7 @@ import {
   UnemployedIcon,
   UtilityBillIcon,
   WindowsIcon,
-} from '../../../../components/Icons'
+} from '../../../../icons'
 
 const icons = [
   { icon: AndroidIcon, title: 'AndroidIcon' },
