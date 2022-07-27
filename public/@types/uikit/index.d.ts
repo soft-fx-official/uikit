@@ -14,13 +14,6 @@ export { ButtonCardContainer };
 
 };
 
-declare module 'uikit/components/CardContainer' {
-import React from 'react';
-declare const CardContainer: React.FC<React.PropsWithChildren>;
-export default CardContainer;
-
-};
-
 declare module 'uikit/components/ErrorBoundary' {
 import React from 'react';
 interface IErrorBoundary {
@@ -501,10 +494,6 @@ export { ButtonCard };
 import React from 'react';
 declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
 export { ButtonCardContainer };
-
-import React from 'react';
-declare const CardContainer: React.FC<React.PropsWithChildren>;
-export default CardContainer;
 
 import React from 'react';
 interface IErrorBoundary {
