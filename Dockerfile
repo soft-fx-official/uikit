@@ -4,5 +4,5 @@ COPY . /tmp
 WORKDIR /tmp/
 RUN echo 'wget types' && \
     wget -d https://common.s3w.soft-fx.lv/main.develop/@types.json && \
-    ls -lah
-RUN npm install && npm run build
+    ls -lah && \
+    npm install && npm run build
