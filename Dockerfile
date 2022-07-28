@@ -3,5 +3,4 @@ ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/certs.crt
 
 COPY . /tmp
 WORKDIR /tmp/
-RUN npm install
-RUN npm run build
+RUN npm install && npm run build
