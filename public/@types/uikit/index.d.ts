@@ -712,7 +712,6 @@ export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Upload } from './Upload';
 
-/// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
@@ -744,7 +743,6 @@ export { memoUpload as Upload };
 };
 
 declare module 'uikit/components/ModuleLoader' {
-/// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {

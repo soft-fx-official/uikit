@@ -1,4 +1,3 @@
-/// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
