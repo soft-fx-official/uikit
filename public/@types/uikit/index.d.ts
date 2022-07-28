@@ -712,6 +712,7 @@ export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Upload } from './Upload';
 
+/// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
@@ -743,6 +744,7 @@ export { memoUpload as Upload };
 };
 
 declare module 'uikit/components/ModuleLoader' {
+/// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
@@ -1297,6 +1299,43 @@ declare const themeMain: {
                     '&:hover .MuiButtonBase-root': {
                         color: string;
                         transition: string;
+                    };
+                };
+            };
+        };
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: ({ theme }: ITheme) => {
+                    backgroundColor: string;
+                    borderRadius: string;
+                    border: string;
+                    transition: string;
+                    '&:hover': {
+                        backgroundColor: string;
+                        border: string;
+                    };
+                    '&.Mui-focused': {
+                        backgroundColor: string;
+                        border: string;
+                    };
+                    '&.Mui-error': {
+                        border: string;
+                    };
+                    '&.MuiInputBase-colorSuccess': {
+                        borderColor: string;
+                    };
+                    '& .MuiButtonBase-root': {
+                        color: string;
+                    };
+                    '&.Mui-focused .MuiButtonBase-root': {
+                        color: string;
+                    };
+                    '&:hover .MuiButtonBase-root': {
+                        color: string;
+                        transition: string;
+                    };
+                    '.MuiOutlinedInput-notchedOutline': {
+                        border: string;
                     };
                 };
             };
