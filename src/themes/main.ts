@@ -62,6 +62,45 @@ const themeMain = {
         }),
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }: ITheme) => ({
+          backgroundColor: 'inherit',
+          borderRadius: '6px',
+          border: `1px solid ${theme.palette.secondary.main}`,
+
+          transition: 'border-color .2s',
+          '&:hover': {
+            backgroundColor: 'inherit',
+            border: `1px solid white`,
+          },
+          '&.Mui-focused': {
+            backgroundColor: 'inherit',
+            border: `1px solid white`,
+          },
+          '&.Mui-error': {
+            border: `1px solid ${theme.palette.warning.main}`,
+          },
+          '&.MuiInputBase-colorSuccess': {
+            borderColor: theme.palette.success.main,
+          },
+          '& .MuiButtonBase-root': {
+            color: theme.palette.secondary.main,
+          },
+          '&.Mui-focused .MuiButtonBase-root': {
+            color: 'white',
+          },
+          '&:hover .MuiButtonBase-root': {
+            color: 'white',
+            transition: 'color .2s',
+          },
+
+          '.MuiOutlinedInput-notchedOutline': {
+            border: 'none',
+          },
+        }),
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         root: ({ theme }: ITheme) => ({

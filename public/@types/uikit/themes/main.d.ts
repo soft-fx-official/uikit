@@ -60,6 +60,43 @@ declare const themeMain: {
                 };
             };
         };
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: ({ theme }: ITheme) => {
+                    backgroundColor: string;
+                    borderRadius: string;
+                    border: string;
+                    transition: string;
+                    '&:hover': {
+                        backgroundColor: string;
+                        border: string;
+                    };
+                    '&.Mui-focused': {
+                        backgroundColor: string;
+                        border: string;
+                    };
+                    '&.Mui-error': {
+                        border: string;
+                    };
+                    '&.MuiInputBase-colorSuccess': {
+                        borderColor: string;
+                    };
+                    '& .MuiButtonBase-root': {
+                        color: string;
+                    };
+                    '&.Mui-focused .MuiButtonBase-root': {
+                        color: string;
+                    };
+                    '&:hover .MuiButtonBase-root': {
+                        color: string;
+                        transition: string;
+                    };
+                    '.MuiOutlinedInput-notchedOutline': {
+                        border: string;
+                    };
+                };
+            };
+        };
         MuiFormLabel: {
             styleOverrides: {
                 root: ({ theme }: ITheme) => {
