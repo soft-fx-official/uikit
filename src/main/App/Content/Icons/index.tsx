@@ -41,7 +41,7 @@ const icons = [
   { icon: ArtIcon, title: 'ArtIcon' },
   { icon: BankStatementIcon, title: 'BankStatementIcon' },
   { icon: BusinessIcon, title: 'BusinessIcon' },
-  { icon: CertificateGoodIcon, title: 'CertificateGoodIcon', error: true },
+  { icon: CertificateGoodIcon, title: 'CertificateGoodIcon' },
   { icon: CertificateIncorporationIcon, title: 'CertificateIncorporationIcon' },
   { icon: ComputerServicesIcon, title: 'ComputerServicesIcon' },
   { icon: CorporateAccountIcon, title: 'CorporateAccountIcon' },
@@ -54,11 +54,11 @@ const icons = [
   { icon: IOSIcon, title: 'IOSIcon' },
   { icon: LockIcon, title: 'LockIcon' },
   { icon: MemorandumAssociationIcon, title: 'MemorandumAssociationIcon' },
-  { icon: NationalIdCardIcon, title: 'NationalIdCardIcon', error: true },
+  { icon: NationalIdCardIcon, title: 'NationalIdCardIcon' },
   { icon: PassportIcon, title: 'PassportIcon' },
   { icon: PDFIcon, title: 'PDFIcon' },
   { icon: PersonalAccountIcon, title: 'PersonalAccountIcon' },
-  { icon: PowerAttorneyIcon, title: 'PowerAttorneyIcon', error: true },
+  { icon: PowerAttorneyIcon, title: 'PowerAttorneyIcon' },
   { icon: PrintIcon, title: 'PrintIcon' },
   { icon: RetiredIcon, title: 'RetiredIcon' },
   { icon: SalesMarketingIcon, title: 'SalesMarketingIcon' },
@@ -87,9 +87,7 @@ const Icons = () => (
       return (
         <Stack key={i} spacing={3} justifyContent="center" alignItems="center">
           <Icon fontSize="large" />
-          <Typography variant="subtitle1" color={iconItem.error ? 'error' : undefined}>
-            {iconItem.title}
-          </Typography>
+          <Typography variant="subtitle1">{iconItem.title}</Typography>
         </Stack>
       )
     })}
