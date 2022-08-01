@@ -13,7 +13,7 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
     sx={theme => ({
       width: DESKTOP_SIZE,
       height: DESKTOP_SIZE,
-      color: 'white',
+      color: 'common.white',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
@@ -23,11 +23,11 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
       gap: '20px',
       border: '1px solid #FFFFFF0C',
       borderRadius: '24px',
-      backgroundColor: 'grey.main',
+      backgroundColor: 'grey.600',
       transition: 'background-color border-color .2s',
       '&:hover': {
         borderColor: 'common.white',
-        backgroundColor: 'grey.light',
+        backgroundColor: 'grey.500',
       },
       svg: {
         height: '80px',

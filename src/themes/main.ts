@@ -1,10 +1,12 @@
-import { Theme } from '@mui/material'
+import { Theme, ThemeOptions } from '@mui/material'
+
+import colors from './colors'
 
 interface ITheme {
   theme: Theme
 }
 
-const themeMain = {
+const themeMain: ThemeOptions = {
   components: {
     MuiContainer: {
       styleOverrides: {
@@ -139,20 +141,20 @@ const themeMain = {
   },
   palette: {
     primary: {
-      main: '#FF5500',
+      main: colors.primary['400'],
     },
     secondary: {
-      main: '#777777',
+      main: colors.light['300'],
+    },
+    warning: {
+      main: colors.warning['400'],
     },
     success: {
-      main: '#5CC89C',
+      main: colors.success['400'],
     },
-    grey: {
-      main: '#0E0E12',
-      light: '#1A1A1E',
-    },
+    grey: colors.neutral,
   },
 }
 
-export { themeMain }
+export { colors, themeMain }
 export type { ITheme }

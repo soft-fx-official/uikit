@@ -1234,6 +1234,93 @@ export default _default;
 };
 
 declare module 'uikit/themes' {
+declare const colors: {
+    neutral: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+    };
+    light: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+    };
+    dark: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+    };
+    primary: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+    };
+    success: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+    };
+    error: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+    };
+    warning: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+    };
+    red: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+    };
+    green: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+    };
+    alpha: {
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+    };
+};
+export default colors;
+
 import { Theme, ThemeOptions } from '@mui/material';
 import { ITheme, themeMain } from './main';
 declare const init: (updateTheme: ThemeOptions) => Theme;
@@ -1241,158 +1328,13 @@ export { init as initTheme };
 export { themeMain };
 export type { ITheme };
 
-import { Theme } from '@mui/material';
+import { Theme, ThemeOptions } from '@mui/material';
+import colors from './colors';
 interface ITheme {
     theme: Theme;
 }
-declare const themeMain: {
-    components: {
-        MuiContainer: {
-            styleOverrides: {
-                root: ({ theme }: ITheme) => {
-                    bgColor: string;
-                };
-            };
-        };
-        MuiLink: {
-            defaultProps: {
-                underline: string;
-                variant: string;
-                color: string;
-            };
-        };
-        MuiButton: {
-            defaultProps: {
-                size: string;
-            };
-        };
-        MuiFilledInput: {
-            defaultProps: {
-                disableUnderline: boolean;
-            };
-            styleOverrides: {
-                root: ({ theme }: ITheme) => {
-                    backgroundColor: string;
-                    borderRadius: string;
-                    border: string;
-                    transition: string;
-                    '&:hover': {
-                        backgroundColor: string;
-                        border: string;
-                    };
-                    '&.Mui-focused': {
-                        backgroundColor: string;
-                        border: string;
-                    };
-                    '&.Mui-error': {
-                        border: string;
-                    };
-                    '&.MuiInputBase-colorSuccess': {
-                        borderColor: string;
-                    };
-                    '& .MuiButtonBase-root': {
-                        color: string;
-                    };
-                    '&.Mui-focused .MuiButtonBase-root': {
-                        color: string;
-                    };
-                    '&:hover .MuiButtonBase-root': {
-                        color: string;
-                        transition: string;
-                    };
-                };
-            };
-        };
-        MuiOutlinedInput: {
-            styleOverrides: {
-                root: ({ theme }: ITheme) => {
-                    backgroundColor: string;
-                    borderRadius: string;
-                    border: string;
-                    transition: string;
-                    '&:hover': {
-                        backgroundColor: string;
-                        border: string;
-                    };
-                    '&.Mui-focused': {
-                        backgroundColor: string;
-                        border: string;
-                    };
-                    '&.Mui-error': {
-                        border: string;
-                    };
-                    '&.MuiInputBase-colorSuccess': {
-                        borderColor: string;
-                    };
-                    '& .MuiButtonBase-root': {
-                        color: string;
-                    };
-                    '&.Mui-focused .MuiButtonBase-root': {
-                        color: string;
-                    };
-                    '&:hover .MuiButtonBase-root': {
-                        color: string;
-                        transition: string;
-                    };
-                    '.MuiOutlinedInput-notchedOutline': {
-                        border: string;
-                    };
-                };
-            };
-        };
-        MuiFormLabel: {
-            styleOverrides: {
-                root: ({ theme }: ITheme) => {
-                    color: string;
-                    '&.Mui-error': {
-                        color: string;
-                    };
-                };
-            };
-        };
-        MuiInputLabel: {
-            styleOverrides: {
-                root: ({ theme }: ITheme) => {
-                    '&.Mui-focused': {
-                        color: string;
-                    };
-                    '&.Mui-focused.Mui-error': {
-                        color: string;
-                    };
-                };
-            };
-        };
-        MuiFormControl: {
-            styleOverrides: {
-                root: {
-                    '&:hover .MuiInputLabel-filled:not(.Mui-error)': {
-                        color: string;
-                        transition: string;
-                    };
-                };
-            };
-        };
-    };
-    typography: {
-        fontFamily: string;
-    };
-    palette: {
-        primary: {
-            main: string;
-        };
-        secondary: {
-            main: string;
-        };
-        success: {
-            main: string;
-        };
-        grey: {
-            main: string;
-            light: string;
-        };
-    };
-};
-export { themeMain };
+declare const themeMain: ThemeOptions;
+export { colors, themeMain };
 export type { ITheme };
 
 };
