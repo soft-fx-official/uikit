@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 
 import {
+  AddPlusIcon,
   AndroidIcon,
   ArchitectureIcon,
   ArtIcon,
@@ -68,6 +69,7 @@ const icons = [
   { icon: UnemployedIcon, title: 'UnemployedIcon' },
   { icon: UtilityBillIcon, title: 'UtilityBillIcon' },
   { icon: WindowsIcon, title: 'WindowsIcon' },
+  { icon: AddPlusIcon, title: 'AddPlusIcon' },
 ]
 
 const Icons = () => (

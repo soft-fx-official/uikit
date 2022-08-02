@@ -4,6 +4,7 @@ interface UploadProps {
     description?: string;
     minFileSize?: number;
     maxFileSize?: number;
+    documentType?: 'idCard' | 'certificate' | 'passport';
     acceptFormats?: string;
     onSelect: (file: File | null) => void;
 }
