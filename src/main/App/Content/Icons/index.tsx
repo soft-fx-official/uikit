@@ -6,6 +6,7 @@ import {
   ArtIcon,
   BankStatementIcon,
   BusinessIcon,
+  CancelModalIcon,
   CertificateGoodIcon,
   CertificateIncorporationIcon,
   ComputerServicesIcon,
@@ -68,6 +69,7 @@ const icons = [
   { icon: UnemployedIcon, title: 'UnemployedIcon' },
   { icon: UtilityBillIcon, title: 'UtilityBillIcon' },
   { icon: WindowsIcon, title: 'WindowsIcon' },
+  { icon: CancelModalIcon, title: 'CancelModalIcon' },
 ]
 
 const Icons = () => (
