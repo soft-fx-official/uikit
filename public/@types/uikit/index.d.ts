@@ -865,6 +865,14 @@ export default _default;
 
 };
 
+declare module 'uikit/icons/CancelModalIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
 declare module 'uikit/icons/CertificateGoodIcon' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -1026,6 +1034,11 @@ import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
 export default _default;
 
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
 export { default as AddPlusIcon } from './AddPlusIcon';
 export { default as AndroidIcon } from './AndroidIcon';
 export { default as ArchitectureIcon } from './ArchitectureIcon';
@@ -1059,6 +1072,7 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
+export { default as CancelModalIcon } from './WindowsIcon';
 
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';

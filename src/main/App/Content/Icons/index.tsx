@@ -7,6 +7,7 @@ import {
   ArtIcon,
   BankStatementIcon,
   BusinessIcon,
+  CancelModalIcon,
   CertificateGoodIcon,
   CertificateIncorporationIcon,
   ComputerServicesIcon,
@@ -70,6 +71,7 @@ const icons = [
   { icon: UtilityBillIcon, title: 'UtilityBillIcon' },
   { icon: WindowsIcon, title: 'WindowsIcon' },
   { icon: AddPlusIcon, title: 'AddPlusIcon' },
+  { icon: CancelModalIcon, title: 'CancelModalIcon' },
 ]
 
 const Icons = () => (
