@@ -1,16 +1,25 @@
-import React, { ChangeEvent, memo, useCallback, useState } from 'react'
+/* eslint max-lines: off */
+import React, { ChangeEvent, memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import { SvgIcon } from '@mui/material'
-import { Box, Fab, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Box,
+  Fab,
+  IconButton,
+  Stack,
+  SvgIcon,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 
+import { ReactComponent as Certificate } from '../../assets/certificate.svg'
+import { ReactComponent as ErrorCertificate } from '../../assets/error_certificate.svg'
 import { ReactComponent as ErrorIdIcon } from '../../assets/error_ID.svg'
 import { ReactComponent as ErrorPassport } from '../../assets/error_passport.svg'
-import { ReactComponent as ErrorCertificate } from '../../assets/error_sertificate.svg'
 import { ReactComponent as IDdoc } from '../../assets/ID_doc.svg'
-import { ReactComponent as Passport } from '../../assets/pasport_illustration.svg'
-import { ReactComponent as Certificate } from '../../assets/sertificate.svg'
+import { ReactComponent as Passport } from '../../assets/passport.svg'
 import { AddPlusIcon } from '../../components/Icons'
 
 const options = {
@@ -19,7 +28,24 @@ const options = {
   standardFontDataUrl: 'standard_fonts/',
 }
 
-const documentTemplates = {
+enum UploadDocumentType {
+  idCard = 'idCard',
+  certificate = 'certificate',
+  passport = 'passport',
+}
+
+enum ErrorCode {
+  minFileSizeErr = 'MIN_FILE_SIZE_ERR',
+  maxFileSizeErr = 'MAX_FILE_SIZE_ERR',
+}
+
+type DocumentTemplate = {
+  viewBox: string
+  component: () => React.ReactNode
+  errorIcon: () => React.ReactNode
+}
+
+const documentTemplates: Record<UploadDocumentType, DocumentTemplate> = {
   idCard: {
     viewBox: '0 0 320 188',
     component: () => <IDdoc style={{ width: '320px', height: '187.83px' }} />,
@@ -42,16 +68,22 @@ interface UploadProps {
   description?: string
   minFileSize?: number
   maxFileSize?: number
-  documentType?: 'idCard' | 'certificate' | 'passport'
+  documentType?: UploadDocumentType
   acceptFormats?: string
   onSelect: (file: File | null) => void
+  customError?: string
+  onError?: (errCode: string) => string
 }
+
+const BYTES_IN_MB = 1024 * 1024
 
 const Upload: React.FC<UploadProps> = ({
   title,
   description,
   onSelect,
-  documentType = 'idCard',
+  onError,
+  customError,
+  documentType = UploadDocumentType.idCard,
   acceptFormats = '.jpeg,.png,.pdf',
   minFileSize = 1,
   maxFileSize = 10,
@@ -59,9 +91,24 @@ const Upload: React.FC<UploadProps> = ({
   const theme = useTheme()
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'))
   const [preview, setPreview] = useState<string>()
-  const [isShowError, setIsShowError] = useState(false)
+  const [error, setError] = useState<string | undefined>(undefined)
   const [isPDF, setIsPDF] = useState(false)
   const [file, setFile] = useState<File>()
+
+  useEffect(() => {
+    setError(customError)
+  }, [customError])
+
+  const handleErrorCode = useCallback(
+    (errCode: ErrorCode) => {
+      setError(onError ? onError(errCode) : errCode)
+    },
+    [onError],
+  )
+
+  const minSizeBytes = useMemo(() => minFileSize * BYTES_IN_MB, [minFileSize])
+
+  const maxSizeBytes = useMemo(() => maxFileSize * BYTES_IN_MB, [maxFileSize])
 
   const prepareFile = useCallback(
     (file?: File | null) => {
@@ -69,8 +116,9 @@ const Upload: React.FC<UploadProps> = ({
         const isPDF = /.pdf/g.test(file.name)
         setIsPDF(isPDF)
 
-        if (file.size > maxFileSize * 1024 * 1024) return setIsShowError(true)
-        if (isShowError) setIsShowError(false)
+        if (file.size < minSizeBytes) return handleErrorCode(ErrorCode.minFileSizeErr)
+        if (file.size > maxSizeBytes) return handleErrorCode(ErrorCode.maxFileSizeErr)
+        if (error) setError(undefined)
 
         const url = window.URL.createObjectURL(file)
         setPreview(url)
@@ -78,7 +126,7 @@ const Upload: React.FC<UploadProps> = ({
         setFile(file)
       }
     },
-    [isShowError, maxFileSize, onSelect],
+    [error, handleErrorCode, minSizeBytes, maxSizeBytes, onSelect],
   )
 
   const onChange = useCallback(
@@ -90,6 +138,7 @@ const Upload: React.FC<UploadProps> = ({
     },
     [prepareFile],
   )
+
   const onDeleteFile = useCallback(() => {
     setPreview(undefined)
     onSelect(null)
@@ -125,7 +174,6 @@ const Upload: React.FC<UploadProps> = ({
         borderRadius: '24px',
         borderWidth: '2px',
         borderStyle: 'dashed',
-        borderColor: isShowError ? theme.palette.error.main : theme.palette.secondary.main,
         transitionDuration: '0.3s',
         ':hover': { backgroundColor: `${theme.palette.secondary.main}40` },
       })}
@@ -174,7 +222,7 @@ const Upload: React.FC<UploadProps> = ({
                 sx={{ width: '100%', height: '100%' }}
                 viewBox={documentTemplates[documentType].viewBox}
               >
-                {!isShowError
+                {!error
                   ? documentTemplates[documentType].component()
                   : documentTemplates[documentType].errorIcon()}
               </SvgIcon>
@@ -204,9 +252,14 @@ const Upload: React.FC<UploadProps> = ({
             </IconButton>
           )}
         </Box>
-        {!preview && description && (
+        {!error && !preview && description && (
           <Typography variant="subtitle2" color="secondary" align="center">
             {description}
+          </Typography>
+        )}
+        {error && (
+          <Typography variant="subtitle2" color="warning.main" align="center">
+            {error}
           </Typography>
         )}
       </Stack>
@@ -214,7 +267,6 @@ const Upload: React.FC<UploadProps> = ({
   )
 }
 
-// eslint-disable-next-line max-lines
 const memoUpload = memo(Upload)
 
 export { memoUpload as Upload }
