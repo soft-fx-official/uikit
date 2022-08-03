@@ -1,3 +1,4 @@
+export { default as AddPlusIcon } from './AddPlusIcon'
 export { default as AndroidIcon } from './AndroidIcon'
 export { default as ArchitectureIcon } from './ArchitectureIcon'
 export { default as ArtIcon } from './ArtIcon'
