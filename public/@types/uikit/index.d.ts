@@ -1216,6 +1216,7 @@ export { default as ArchitectureIcon } from './ArchitectureIcon';
 export { default as ArtIcon } from './ArtIcon';
 export { default as BankStatementIcon } from './BankStatementIcon';
 export { default as BusinessIcon } from './BusinessIcon';
+export { default as CancelModalIcon } from './CancelModalIcon';
 export { default as CertificateGoodIcon } from './CertificateGoodIcon';
 export { default as CertificateIncorporationIcon } from './CertificateIncorporationIcon';
 export { default as ComputerServicesIcon } from './ComputerServicesIcon';
@@ -1243,7 +1244,6 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
-export { default as CancelModalIcon } from './WindowsIcon';
 
 };
 
