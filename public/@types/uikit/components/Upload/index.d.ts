@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare enum UploadDocumentType {
+export declare enum UploadDocumentType {
     idCard = "idCard",
     certificate = "certificate",
     passport = "passport"

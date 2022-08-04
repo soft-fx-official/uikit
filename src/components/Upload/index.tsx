@@ -28,7 +28,7 @@ const options = {
   standardFontDataUrl: 'standard_fonts/',
 }
 
-enum UploadDocumentType {
+export enum UploadDocumentType {
   idCard = 'idCard',
   certificate = 'certificate',
   passport = 'passport',
