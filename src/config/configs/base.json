@@ -1,6 +1,5 @@
 {
   "appName": "uikit",
-  "title": "Uikit",
   "debug": false,
   "theme": "main",
   "exposes": {
@@ -8,5 +7,15 @@
     "./components": "./src/components",
     "./icons": "./src/icons"
   },
-  "remotes": {}
+  "remotes": {},
+  "i18next": {
+    "debug": false,
+    "fallbackLng": "en",
+    "supportedLngs": ["en", "ru"]
+  },
+  "api": {
+    "main": {
+      "baseUrl": ""
+    }
+  }
 }

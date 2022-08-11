@@ -2,5 +2,14 @@
   "debug": false,
   "remotes": {
     "common": "common@https://common.s3w.soft-fx.lv/main.develop/remoteEntry.js"
+  },
+  "i18next": {
+    "debug": false,
+    "fallbackLng": "en"
+  },
+  "api": {
+    "main": {
+      "baseUrl": "https://api.fxopen.com"
+    }
   }
 }

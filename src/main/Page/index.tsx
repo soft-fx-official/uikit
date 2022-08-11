@@ -1,21 +1,40 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 
-import { Container, CssBaseline } from '@mui/material'
+import { Container, CssBaseline, ThemeProvider } from '@mui/material'
 
-import { App } from '../App'
-import { ThemeContextProvider } from '../context'
+import App from '../../App'
+import config from '../../config'
+import { initTheme } from '../../themes'
+import { useContext } from '../context'
 import styles from './index.module.css'
 
-const Page = () => (
-  <ThemeContextProvider>
-    <CssBaseline />
-    <Container className={styles.main} maxWidth="xl">
-      <App />
-    </Container>
-  </ThemeContextProvider>
-)
+const Page = () => {
+  const { state, theme } = useContext()
 
-const observerPage = observer(Page)
+  const updateTheme = React.useMemo(
+    () =>
+      initTheme(config.theme, {
+        palette: {
+          mode: state.main.isDarkTheme ? 'dark' : 'light',
+        },
+      }),
+    [state.main.isDarkTheme],
+  )
 
-export { observerPage as Page }
+  return theme ? (
+    <ThemeProvider theme={updateTheme}>
+      <CssBaseline />
+      <Container className={styles.main} maxWidth="xl">
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Container>
+    </ThemeProvider>
+  ) : (
+    <App />
+  )
+}
+
+export default observer(Page)
