@@ -14,6 +14,17 @@ export { ButtonCardContainer };
 
 };
 
+declare module 'uikit/components/CustomTooltip' {
+import React from 'react';
+import { TooltipProps } from '@mui/material';
+declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
+    color?: 'warning' | 'success';
+};
+declare const CustomTooltip: React.FC<CustomTooltipProps>;
+export { CustomTooltip };
+
+};
+
 declare module 'uikit/components/ErrorBoundary' {
 import React from 'react';
 interface IErrorBoundary {
@@ -81,6 +92,14 @@ declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
 export { ButtonCardContainer };
 
 import React from 'react';
+import { TooltipProps } from '@mui/material';
+declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
+    color?: 'warning' | 'success';
+};
+declare const CustomTooltip: React.FC<CustomTooltipProps>;
+export { CustomTooltip };
+
+import React from 'react';
 interface IErrorBoundary {
     children: React.ReactElement;
 }
@@ -131,6 +150,7 @@ export { default as WindowsIcon } from '../../icons/WindowsIcon';
 
 export { ButtonCard } from './ButtonCard';
 export { ButtonCardContainer } from './ButtonCardContainer';
+export { CustomTooltip } from './CustomTooltip';
 export type { IErrorBoundary } from './ErrorBoundary';
 export { ErrorBoundary } from './ErrorBoundary';
 export type { IModuleLoader } from './ModuleLoader';
