@@ -1,12 +1,12 @@
 import { Theme, ThemeOptions } from '@mui/material'
 
-import colors from './colors'
+import { colors } from './colors'
 
 interface ITheme {
   theme: Theme
 }
 
-const themeMain: ThemeOptions = {
+export const theme: ThemeOptions = {
   components: {
     MuiContainer: {
       styleOverrides: {
@@ -155,6 +155,3 @@ const themeMain: ThemeOptions = {
     grey: colors.neutral,
   },
 }
-
-export { colors, themeMain }
-export type { ITheme }

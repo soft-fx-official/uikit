@@ -1,10 +1,14 @@
 import React from 'react'
-import { observer } from 'mobx-react-lite'
 
 import { Box } from '@mui/material'
 
 import { Content } from './Content'
 import { Header } from './Header'
+
+import '@fontsource/inter/300.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/700.css'
 
 const App = () => (
   <Box>
@@ -13,5 +17,4 @@ const App = () => (
   </Box>
 )
 
-const observerApp = observer(App)
-export { observerApp as App }
+export default App

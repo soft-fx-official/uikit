@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import { ThemeProvider } from '@mui/material'
 
+import config from '../config'
 import { initTheme } from '../themes'
 
 const ThemeContext = React.createContext({
@@ -22,7 +23,7 @@ const ThemeContextProvider = ({ children }: IThemeContextProvider) => {
 
   const updateTheme = useMemo(
     () =>
-      initTheme({
+      initTheme(config.theme, {
         palette: {
           mode: isDark ? 'dark' : 'light',
         },

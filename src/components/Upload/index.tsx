@@ -20,7 +20,7 @@ import { ReactComponent as ErrorIdIcon } from '../../assets/error_ID.svg'
 import { ReactComponent as ErrorPassport } from '../../assets/error_passport.svg'
 import { ReactComponent as IDdoc } from '../../assets/ID_doc.svg'
 import { ReactComponent as Passport } from '../../assets/passport.svg'
-import { AddPlusIcon } from '../../components/Icons'
+import { AddPlusIcon } from '../../icons'
 
 const options = {
   cMapUrl: 'cmaps/',

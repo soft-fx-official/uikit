@@ -2,21 +2,11 @@
   "appName": "uikit",
   "title": "Uikit",
   "debug": false,
+  "theme": "main",
   "exposes": {
     "./themes": "./src/themes",
     "./components": "./src/components",
     "./icons": "./src/icons"
   },
-  "remotes": {
-    "common": ""
-  },
-  "i18next": {
-    "debug": false,
-    "fallbackLng": "en"
-  },
-  "api": {
-    "main": {
-      "baseUrl": ""
-    }
-  }
+  "remotes": {}
 }
