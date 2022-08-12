@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './index.module.css'
+import { ErrorIcon } from '../Icons'
 
 interface IErrorBoundary {
   children: React.ReactElement
@@ -27,7 +27,8 @@ class ErrorBoundary extends React.Component<IErrorBoundary> {
     // @ts-ignore
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.hasError) {
-      return <span className={styles.message}>Error components</span>
+      console.info('[COMPONENT][ERROR]: Has error')
+      return <ErrorIcon />
     }
     // @ts-ignore
     return this.props.children // eslint-disable-line react/destructuring-assignment

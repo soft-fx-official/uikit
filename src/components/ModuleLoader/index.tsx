@@ -2,8 +2,10 @@ import React from 'react'
 import { useDynamicScript } from 'common/hooks'
 import { IBus, loadDynamicComponent } from 'common/tools'
 
+import { CircularProgress } from '@mui/material'
+
 import { ErrorBoundary } from '../ErrorBoundary'
-import styles from './index.module.css'
+import { CancelModalIcon } from '../Icons'
 
 interface IModuleLoader {
   url: string
@@ -17,15 +19,18 @@ const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
   const { ready, failed } = useDynamicScript(url)
 
   if (!module) {
-    return <span className={styles.message}>Not system specified</span>
+    console.info(`[MODULE LOADER][ERROR]: Not system specified`)
+    return <CancelModalIcon />
   }
 
   if (!ready) {
-    return <span className={styles.message}>Loading dynamic script: {url}</span>
+    console.info(`[MODULE LOADER][READY]: Loading dynamic script: ${url}`)
+    return <CircularProgress />
   }
 
   if (failed) {
-    return <span className={styles.message}>Failed to load dynamic script: {url}</span>
+    console.info(`[MODULE LOADER][FAILED]: Failed to load dynamic script: ${url}`)
+    return <CancelModalIcon />
   }
 
   const Component = React.lazy(loadDynamicComponent(scope, module))

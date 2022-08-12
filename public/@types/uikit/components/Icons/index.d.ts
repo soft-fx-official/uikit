@@ -4,6 +4,7 @@ export { default as ArchitectureIcon } from '../../icons/ArchitectureIcon';
 export { default as ArtIcon } from '../../icons/ArtIcon';
 export { default as BankStatementIcon } from '../../icons/BankStatementIcon';
 export { default as BusinessIcon } from '../../icons/BusinessIcon';
+export { default as CancelModalIcon } from '../../icons/CancelModalIcon';
 export { default as CertificateGoodIcon } from '../../icons/CertificateGoodIcon';
 export { default as CertificateIncorporationIcon } from '../../icons/CertificateIncorporationIcon';
 export { default as ComputerServicesIcon } from '../../icons/ComputerServicesIcon';
