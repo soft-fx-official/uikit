@@ -46,7 +46,7 @@
     "lint": "npm run stylelint && npm run eslint",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix && npm run prettier",
     "lintstaged": "lint-staged",
-    "update:api:main": "npx swagger-typescript-api -p https://api.fxopen.com/api/docs/v1/ -o ./src/services/api/ -n main.ts",
+    "update:api:main": "npx swagger-typescript-api -p https://api.fxopen.co.uk/api/docs/v1/ -o ./src/services/api/ -n main.ts",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },

@@ -183,7 +183,6 @@ export interface OauthCoreModelsUserInfoProfileInfoViewModel {
   profileType?: string
   address?: OauthCoreModelsUserInfoAddressInfoViewModel
   contacts?: OauthCoreModelsUserInfoContactInfoViewModel[]
-  applicantId?: string
   country?: string
   documentSetTypeName?: string
 }
@@ -368,19 +367,17 @@ export interface PortalPsAdvcashModelsApiWithdrawModel {
    */
   chainId?: string
   state?: string
+  withdrawalType?: 'EmailWalletId' | 'AdvcashCard' | 'BankCard'
   advcashAccount?: string
   emailAddress?: string
-  isRefund?: boolean
-  cardNumber?: string
-
-  /** @format int32 */
-  expirationMonth?: number
-
-  /** @format int32 */
-  expirationYear?: number
-  cardholderName?: string
-  withdrawalType?: 'EmailWalletId' | 'AdvcashCard' | 'BankCard'
   advcashCardType?: 'Virtual' | 'Plastic'
+  isRefund?: boolean
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  userCardId?: string
 }
 
 export interface PortalPsAirtmModelsApiAddModel {
@@ -455,6 +452,46 @@ export interface PortalPsAlfabankModelsApiDepositModel {
    */
   chainId?: string
   gatewayUrl?: string
+}
+
+export interface PortalPsAlfabankModelsApiWithdrawModel {
+  domainName?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  userCardId?: string
+  accountNumber?: string
+
+  /** @format double */
+  amount?: number
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  state?: string
+}
+
+export interface PortalPsAlfabankModelsApiAvailableWithdrawBalanceRequestModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  userCardId?: string
+  currencyCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsAlfabankModelsApiAvailableWithdrawBalanceModel {
+  balance?: string
+  currency?: string
 }
 
 export interface PortalPsAllpay88ModelsApiProvincesRequestModel {
@@ -1084,6 +1121,7 @@ export interface PortalPsCreditdebitcardsModelsApiCardModel {
 
   /** Card currency code (ISO 4217) */
   currencyCode?: string
+  cardProductCode?: string
   paymentTypeCode?: string
 
   /** American Express/Discover/Mastercard/Visa/etc. */
@@ -1344,12 +1382,6 @@ export interface PortalPsCreditdebitcardsModelsApiIssueCardModel {
   /** Pass phraze */
   passPhraze?: string
 
-  /** Account to withdraw card issue fee from */
-  account?: string
-
-  /** Account currency code (ISO 3166-1 alpha-2) */
-  accountCurrency?: string
-
   /** User email */
   email?: string
 
@@ -1358,6 +1390,18 @@ export interface PortalPsCreditdebitcardsModelsApiIssueCardModel {
 
   /** Card delivery info (required for plastic cards) */
   deliveryInfo?: PortalPsCreditdebitcardsModelsApiDeliveryInfoCreateModel
+
+  /** Account to withdraw card issue fee from */
+  account?: string
+
+  /** Account currency code (ISO 3166-1 alpha-2) */
+  accountCurrency?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
 
   /** Domain name */
   domainName?: string
@@ -1508,8 +1552,11 @@ export interface PortalPsCreditdebitcardsModelsApiCardTransactionModel {
   fees?: PortalPsCreditdebitcardsModelsApiCardTransactionFeeModel[]
   status?: PortalPsCreditdebitcardsModelsApiCardTransactionStatusModel
 
-  /** MCC */
+  /** MCC obsolete */
   merchantCategoryCode?: string
+
+  /** Merchant info */
+  merchant?: PortalPsCreditdebitcardsModelsApiMerchantInfoModel
 }
 
 export interface PortalPsCreditdebitcardsModelsApiCardTransactionFeeModel {
@@ -1522,6 +1569,13 @@ export interface PortalPsCreditdebitcardsModelsApiCardTransactionFeeModel {
 export interface PortalPsCreditdebitcardsModelsApiCardTransactionStatusModel {
   name?: string
   description?: string
+}
+
+export interface PortalPsCreditdebitcardsModelsApiMerchantInfoModel {
+  categoryCode?: string
+  name?: string
+  country?: string
+  city?: string
 }
 
 export interface PortalPsCreditdebitcardsModelsApiReplaceCardModel {
@@ -1540,6 +1594,12 @@ export interface PortalPsCreditdebitcardsModelsApiReplaceCardModel {
 
   /** Account currency code (ISO 4217) */
   accountCurrencyCode?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
 
   /** MFA state */
   state?: string
@@ -1779,6 +1839,130 @@ export interface PortalPsCashuModelsApiCashuDirectNoticeModel {
 
   /** Domain name */
   domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiCreateDepositAddressModel {
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+  reuse?: boolean
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiDepositAddressModel {
+  address?: string
+  alternativeAddress?: string
+  destinationTag?: string
+  publicKey?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiSaveTemplateModel {
+  currencyCode?: string
+  address?: string
+  destinationTag?: string
+  pbnTag?: string
+  name?: string
+  isDefault?: boolean
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiTemplateModel {
+  currencyCode?: string
+  name?: string
+  address?: string
+  destinationTag?: string
+  pbnTag?: string
+  isDefault?: boolean
+}
+
+export interface PortalPsCoinpaymentsModelsApiGetTemplatesModel {
+  currencyCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiAddModel {
+  accountNumber?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  currencyCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiDepositModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  checkoutUrl?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiNoticeModel {
+  accountNumber?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  currencyCode?: string
+  txnId?: string
+  verificationCode?: string
+  sendTx?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsCoinpaymentsModelsApiWithdrawModel {
+  merchantCode?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  currencyCode?: string
+  address?: string
+  destinationTag?: string
+  pbnTag?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  state?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleCommentModelsApiCommentTemplateTypeModel {
+  name?: string
+}
+
+export interface PortalModuleCommentModelsApiRequestCommentModel {
+  commentTemplateTypeName?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleCommentModelsApiCommentModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+  description?: string
 }
 
 export interface PortalExtensionsForexcupModelsApiRequestModelsCompetitionsListRequestModel {
@@ -2466,7 +2650,7 @@ export interface PortalPsCryptoModelsApiCryptoAddressModel {
   value?: string
 
   /** Destination tag */
-  paymentId?: string
+  paymentTag?: string
 }
 
 export interface PortalPsCryptoModelsApiCryptoAddressResponseModel {
@@ -2993,6 +3177,154 @@ export interface PortalPsDixipayModelsApiWithdrawModel {
    */
   chainId?: string
   state?: string
+}
+
+export type PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel = object
+
+export interface PortalModuleConfigurationModelsApiDomainDomainModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+  domainName?: string
+  themeName?: string
+  isBlocked?: boolean
+  isPrimary?: boolean
+  apiUrl?: string
+  displayAccountNumber?: string
+  accountNumber?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  SwiftBicPlusIbanLocalId?: string
+  swiftBicPlusIbanRecordKey?: string
+}
+
+export interface PortalModuleConfigurationModelsApiDomainDomainConfigurationCreateModel {
+  domainName?: string
+  themeName?: string
+  isPrimary?: boolean
+  apiUrl?: string
+  accountNumber?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  swiftBicPlusIbanLocalId?: string
+}
+
+export interface PortalModuleConfigurationModelsApiDomainDomainConfigurationUpdateModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+  domainName?: string
+  themeName?: string
+  isPrimary?: boolean
+  apiUrl?: string
+  accountNumber?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  swiftBicPlusIbanLocalId?: string
+}
+
+export interface PortalModuleConfigurationModelsApiDomainDomainConfigurationDeleteModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+}
+
+export interface PortalModuleConfigurationModelsApiDomainDomainIsBlockedModel {
+  isBlocked?: boolean
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadRequestFileModel {
+  name?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadFileModel {
+  name?: string
+
+  /** @format byte */
+  binaryData?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadRequestDownloadsModel {
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadDownloadModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+  url?: string
+
+  /** @format date-time */
+  modified?: string
+  name?: string
+  comment?: string
+  roles?: PortalModuleUtilsModelsApiDownloadRoleModel[]
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadRoleModel {
+  name?: string
+  code?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadCreateDownloadModel {
+  name?: string
+  comment?: string
+  roles?: PortalModuleUtilsModelsApiDownloadRoleModel[]
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadUpdateDownloadModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+  name?: string
+  comment?: string
+  roles?: PortalModuleUtilsModelsApiDownloadRoleModel[]
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleUtilsModelsApiDownloadDeleteDownloadModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  id?: string
+
+  /** Domain name */
+  domainName?: string
 }
 
 export interface PortalPsDukascopyModelsApiAddModel {
@@ -4208,6 +4540,74 @@ export interface PortalPsIntercashModelsApiWithdrawModel {
   amount?: number
 }
 
+export interface PortalModuleConfigurationModelsApiLanguageModel {
+  url?: string
+  title?: string
+  isSelected?: boolean
+  code?: string
+}
+
+export interface PortalModuleConfigurationModelsApiPrefferedLanguageUpdateModel {
+  languageCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsLavapayModelsApiAddModel {
+  accountNumber?: string
+  currencyCode?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  lavapayAccount?: string
+  email?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsLavapayModelsApiDepositModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  ChainId?: string
+  GatewayUrl?: string
+}
+
+export interface PortalPsLavapayModelsApiNoticeModel {
+  accountNumber?: string
+  currencyCode?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  lavapayAccount?: string
+  email?: string
+  transactionId?: string
+
+  /** @format date-time */
+  transactionDate?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsLavapayModelsApiWithdrawModel {
+  accountNumber?: string
+  currencyCode?: string
+  accountCurrencyCode?: string
+
+  /** @format double */
+  amount?: number
+  lavapayAccount?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
 export interface PortalUserLeadModelsJsonLeadDataRequest {
   /** Client unique identifier */
   clientId?: string
@@ -5155,6 +5555,66 @@ export interface PortalPsNcwalletModelsApiWithdrawModel {
   state?: string
 }
 
+export interface PortalPsNetbanxModelsApiCreditDebitCardsAddModel {
+  paymentOptionCode?: string
+  paymentRouteName?: string
+  merchantCode?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+}
+
+export interface PortalPsNetbanxModelsApiDepositModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  gatewayUrl?: string
+}
+
+export interface PortalPsNetbanxModelsApiLocalWireTransferAddModel {
+  countryCode?: string
+  paymentOptionCode?: string
+  paymentRouteName?: string
+  merchantCode?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+}
+
+export interface PortalPsNetbanxModelsApiCreditDebitCardsWithdrawModel {
+  countryCode?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  userCardId?: string
+  isRefund?: boolean
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+}
+
 export interface PortalPsNetellerModelsApiAddModel {
   netellerAccountId?: string
   domainName?: string
@@ -5204,6 +5664,50 @@ export interface PortalPsNetellerModelsApiWithdrawModel {
   /** @format double */
   amount?: number
   currencyCode?: string
+}
+
+export interface PortalUserSettingsModelsApiNotificationNotificationTypeModel {
+  name?: string
+}
+
+export interface PortalUserSettingsModelsApiNotificationContactMethodsRequestModel {
+  notificationTypeName?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalUserSettingsModelsApiNotificationContactMethodModel {
+  name?: string
+}
+
+export interface PortalUserSettingsModelsApiNotificationNotificationSettingModel {
+  notificationTypeName?: string
+  contactMethodName?: string
+  isActive?: boolean
+
+  /** @format double */
+  price?: number
+}
+
+export interface PortalUserSettingsModelsApiNotificationCreateNotificationModel {
+  notificationTypeName?: string
+  contactMethodName?: string
+  isActive?: boolean
+  state?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalUserSettingsModelsApiNotificationUpdateNotificationModel {
+  notificationTypeName?: string
+  contactMethodName?: string
+  isActive?: boolean
+  state?: string
+
+  /** Domain name */
+  domainName?: string
 }
 
 export interface PortalPsOkpayModelsApiAddModel {
@@ -5265,6 +5769,87 @@ export interface PortalPsOkpayModelsApiWithdrawModel {
    */
   chainId?: string
   state?: string
+}
+
+export interface PortalPsOplatiModelsApiPaymentInfoRequestModel {
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsOplatiModelsApiPaymentInfoModel {
+  paymentInstruction?: string
+  accountNumber?: string
+}
+
+export interface PortalPsOplatiModelsApiNoticeModel {
+  serverTransactionId?: string
+
+  /** @format date-time */
+  serverTransactionDate?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  purseNumber?: string
+}
+
+export interface PortalPsOplatiModelsApiWithdrawModel {
+  merchantCode?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  purseNumber?: string
+}
+
+export interface PortalExtensionsPammModelsApiCreatePammAccountModel {
+  /** @format int32 */
+  clientTradingAccountLogin?: number
+  pammAccountTypeName?: string
+
+  /** @format int32 */
+  pammAccountLogin?: number
+  currencyCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalExtensionsPammModelsApiJoinPammAccountModel {
+  /** @format int32 */
+  clientTradingAccountLogin?: number
+
+  /** @format int32 */
+  pammAccountLogin?: number
+}
+
+export interface PortalExtensionsPammModelsApiRolloverExecutedModel {
+  /** @format int32 */
+  pammAccountLogin?: number
+  pammAccountUsers?: PortalExtensionsPammModelsApiPammAccountUser[]
+}
+
+export interface PortalExtensionsPammModelsApiPammAccountUser {
+  /** @format int32 */
+  clientTradingAccountLogin?: number
+
+  /** @format int32 */
+  userType?: number
+
+  /** @format double */
+  kus?: number
 }
 
 export interface PortalModulePartnershipModelsVisitorStatisticsApiVisitorModel {
@@ -5931,6 +6516,9 @@ export interface FinanceEwalletModelsApiFinanceOperationModel {
    */
   amount?: number
 
+  /** Is amount blocked */
+  isAmountBlocked?: boolean
+
   /**
    * Fee
    * @format double
@@ -5944,6 +6532,15 @@ export interface FinanceEwalletModelsApiFinanceOperationModel {
   balanceType?: string
 
   /** Payment type name */
+  paymentType?: string
+
+  /** Payment option name */
+  paymentOption?: string
+
+  /** Payment route name */
+  paymentRoute?: string
+
+  /** Payment type name */
   payment?: string
 
   /** Is external */
@@ -5951,6 +6548,9 @@ export interface FinanceEwalletModelsApiFinanceOperationModel {
 
   /** Current state of the operation */
   status?: string
+
+  /** Operation background status */
+  backgroundStatus?: string
 
   /** Reject reason */
   rejectReason?: string
@@ -7198,7 +7798,7 @@ export interface PortalPsQiwiModelsApiWithdrawModel {
   state?: string
 }
 
-export interface PortalUserQuestionnaireModelsApiQuestionnaireAnswersModel {
+export interface PortalUserQuestionnaireModelsApiQuestionnaireAnswerModel {
   questions?: PortalUserQuestionnaireModelsApiQuestionValueModel[]
   questionnaireCode?: string
 
@@ -7243,6 +7843,7 @@ export interface PortalUserQuestionnaireModelsApiQuestionTemplateModel {
    */
   id?: string
   value?: string
+  reference?: string
   answers?: PortalUserQuestionnaireModelsApiAnswerTemplateModel[]
 }
 
@@ -7253,6 +7854,7 @@ export interface PortalUserQuestionnaireModelsApiAnswerTemplateModel {
    */
   id?: string
   value?: string
+  reference?: string
   questionAnswerTypeCode?: string
 }
 
@@ -7550,6 +8152,51 @@ export interface PortalPsRedeemModelsRedeemCodeRequestedModel {
   status?: string
 }
 
+export interface PortalModuleConfigurationModelsApiRegionRegionNameModel {
+  regionName?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleConfigurationModelsApiRegionCountryModel {
+  name?: string
+}
+
+export interface PortalModuleConfigurationModelsApiRegionRequestRegionsModel {
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleConfigurationModelsApiRegionRegionModel {
+  name?: string
+  countries?: PortalModuleConfigurationModelsApiRegionCountryModel[]
+}
+
+export interface PortalModuleConfigurationModelsApiRegionCreateRegionModel {
+  regionName?: string
+  countries?: PortalModuleConfigurationModelsApiRegionCountryModel[]
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleConfigurationModelsApiRegionUpdateRegionModel {
+  currentRegionName?: string
+  regionName?: string
+  countries?: PortalModuleConfigurationModelsApiRegionCountryModel[]
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalModuleConfigurationModelsApiRegionDeleteRegionModel {
+  regionName?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
 export interface PortalModuleRegistrationUserModelsApiRegistrationRequestModel {
   email?: string
   password?: string
@@ -7587,9 +8234,152 @@ export interface SalvServiceModelsWebhookWebhookMetadata {
   currentLevel?: string
 }
 
-export interface PortalUserSettingsModelsApiSmsNotificationSendNotificationModel {
+export interface PortalPsSkrillModelsApiCardIssueParametersResponseModel {
+  merchantId?: string
+  channelId?: string
+  enviroment?: string
+  isTestMode?: boolean
+  scriptDomainName?: string
+}
+
+export interface PortalPsSkrillModelsApiCreditDebitCardsAddModel {
+  country?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  skrillCardId?: string
+  domainName?: string
   accountNumber?: string
-  notificationTypeName?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  email?: string
+}
+
+export interface PortalPsSkrillModelsApiCreditDebitCardsWithdrawModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  skrillCardId?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  phone?: string
+  mobile?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  email?: string
+}
+
+export interface PortalPsSkrillModelsApiCardListRequestModel {
+  payemntOptionCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsSkrillModelsApiCardModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  skrillCardId?: string
+  masked?: string
+  brand?: string
+  expirationMonth?: string
+  expirationYear?: string
+}
+
+export interface PortalPsSkrillModelsApiCardIssueRequestModel {
+  token?: string
+  last?: string
+  masked?: string
+  bin?: string
+  expirationMonth?: string
+  expirationYaer?: string
+  paymentOptionCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalPsSkrillModelsApiAddModel {
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  email?: string
+}
+
+export interface PortalPsSkrillModelsApiDepositModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  gatewayUrl?: string
+}
+
+export interface PortalPsSkrillModelsApiWithdrawModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  chainId?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  email?: string
+}
+
+export interface PortalPsSkrillModelsApiNoticeModel {
+  transactionId?: string
+
+  /** @format date-time */
+  transactionDate?: string
+  domainName?: string
+  accountNumber?: string
+  accountCurrencyCode?: string
+  currencyCode?: string
+
+  /** @format double */
+  amount?: number
+  email?: string
+}
+
+export interface PortalPsSkrillModelsApiCardDeleteModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  skrillCardId?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalUserSettingsModelsApiSmsNotificationSendProfileVerificationStatusNotificationModel {
+  accountNumber?: string
   status?: string
 
   /** Domain name */
@@ -8412,6 +9202,9 @@ export interface PortalUserSettingsModelsUserInformationUserSummaryResponseModel
   /** eWallet number */
   eWallet?: string
 
+  /** eWallet Iban BIC number */
+  ibanBic?: string
+
   /** User account type */
   userType?: string
 
@@ -8471,10 +9264,7 @@ export interface PortalUserSettingsModelsUserInformationProfileModel {
   /** User last name in original */
   lastNameOriginal?: string
 
-  /**
-   * Date of birth
-   * @format date-time
-   */
+  /** Date of birth */
   dateOfBirth?: string
 
   /** Nationality */
@@ -8626,12 +9416,71 @@ export interface PortalUserSettingsModelsUserInformationSearchUserRequestModel {
   domainName?: string
 }
 
-export interface PortalUserSettingsModelsUserInformationUserAccountNumberModel {
+export interface PortalUserSettingsModelsUserInformationUserModel {
   /** User login data */
   user?: string
 
   /** User account number */
   accountNumber?: string
+
+  /** User first name */
+  firstName?: string
+
+  /** User last name */
+  lastName?: string
+}
+
+export interface PortalUserBlockModelsApiUserStatusModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  userId?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
+export interface PortalUserBlockModelsApiAccountBlockModel {
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  accountId?: string
+  accountNumber?: string
+  accountDisplayNumber?: string
+  accountCurrencyCode?: string
+  changedBy?: string
+  changedByIban?: string
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  commentId?: string
+  commentDescription?: string
+  customComment?: string
+  isActive?: boolean
+  isArchived?: boolean
+  isChangedByUserNameClickable?: boolean
+
+  /** @format date-time */
+  statusChangedDate?: string
+}
+
+export interface PortalUserBlockModelsApiUserBlockModel {
+  accountIds?: string[]
+  isEnabled?: boolean
+
+  /**
+   * @format uuid
+   * @example 00000000-0000-0000-0000-000000000000
+   */
+  commentId?: string
+  customComment?: string
+
+  /** Domain name */
+  domainName?: string
 }
 
 export interface PortalModuleVerificationModelsApiDocumentsVerificationVerificationFormModel {
@@ -8644,9 +9493,6 @@ export interface PortalModuleVerificationModelsApiDocumentsVerificationVerificat
    * @example 00000000-0000-0000-0000-000000000000
    */
   documentSetId?: string
-
-  /** Type of document set */
-  documentSetTypeName?: string
 
   /** Comment for document set */
   documentSetComment?: string
@@ -8684,19 +9530,23 @@ export interface PortalModuleVerificationModelsApiUploadDocumentModel {
   domainName?: string
 }
 
-export interface PortalModuleVerificationModelsDocumentsVerificationDocumentModel {
+export interface PortalModuleVerificationModelsApiDocumentsVerificationDocumentModel {
   /**
    * @format uuid
    * @example 00000000-0000-0000-0000-000000000000
    */
-  Id?: string
-  Name?: string
-  Status?: string
-  Comment?: string
+  id?: string
+  name?: string
+  status?: string
+  comment?: string
 
   /** @format date-time */
-  ExpirationDate?: string
-  IsCanBeDeleted?: boolean
+  expirationDate?: string
+  isCanBeDeleted?: boolean
+  number?: string
+
+  /** @format date-time */
+  issuingDate?: string
 }
 
 export interface PortalModuleVerificationModelsApiDocumentsVerificationDocumentDeleteModel {
@@ -8741,6 +9591,14 @@ export interface PortalModuleVerificationModelsApiVerificationStatusModel {
   statusLocalized?: string
 }
 
+export interface PortalModuleVerificationModelsApiVerificationConfigurationRequestModel {
+  /** Country code (ISO 3166-1 alpha-2) - if not set, method will return configurations for user's local personal profile country */
+  countryCode?: string
+
+  /** Domain name */
+  domainName?: string
+}
+
 export interface PortalModuleVerificationModelsApiVerificationConfigurationModel {
   grades?: PortalModuleVerificationModelsApiGradeModel[]
 }
@@ -8777,7 +9635,7 @@ export interface PortalModuleVerificationModelsApiVerificationFormModel {
   /** Verification form name */
   name?: string
 
-  /** Verification status of the form */
+  /** Verification status of the form (can be null if the user hasn't started verification yet) */
   status?: 'Requested' | 'Approved' | 'Rejected' | 'Filling'
 
   /**
@@ -9784,6 +10642,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Accentpay
      * @name AccentpayApiCardWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AccentpayApi/Card/Withdraw
      */
     accentpayApiCardWithdraw: (
@@ -9804,6 +10663,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Accentpay
      * @name AccentpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AccentpayApi/Add
      */
     accentpayApiAdd: (model: PortalPsAccentpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -9821,13 +10681,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Accentpay
      * @name AccentpayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/AccentpayApi/Notice
      */
     accentpayApiNotice: (
       model: PortalPsAccentpayModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/AccentpayApi/Notice`,
         method: 'POST',
         body: model,
@@ -9841,6 +10702,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Accentpay
      * @name AccentpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AccentpayApi/Withdraw
      */
     accentpayApiWithdraw: (
@@ -9861,7 +10723,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Account
      * @name AccountApiAccountDetails
-     * @summary Account details info
+     * @summary Account details info (only for authorized users)
      * @request GET:/api/AccountApi/AccountDetails
      */
     accountApiAccountDetails: (query: { accountNumber: string }, params: RequestParams = {}) =>
@@ -9878,6 +10740,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Account
      * @name AccountApiCollection
+     * @summary  (only for authorized users)
      * @request GET:/api/AccountApi/Collection
      */
     accountApiCollection: (query?: { accountType?: string }, params: RequestParams = {}) =>
@@ -9894,6 +10757,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Advcash
      * @name AdvcashApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AdvcashApi/Add
      */
     advcashApiAdd: (model: PortalPsAdvcashModelsApiAddModel, params: RequestParams = {}) =>
@@ -9911,10 +10775,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Advcash
      * @name AdvcashApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/AdvcashApi/Notice
      */
     advcashApiNotice: (model: PortalPsAdvcashModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/AdvcashApi/Notice`,
         method: 'POST',
         body: model,
@@ -9928,6 +10793,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Advcash
      * @name AdvcashApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AdvcashApi/Withdraw
      */
     advcashApiWithdraw: (
@@ -9948,6 +10814,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Airtm
      * @name AirtmApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AirtmApi/Add
      */
     airtmApiAdd: (model: PortalPsAirtmModelsApiAddModel, params: RequestParams = {}) =>
@@ -9965,10 +10832,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Airtm
      * @name AirtmApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/AirtmApi/Notice
      */
     airtmApiNotice: (model: PortalPsAirtmModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/AirtmApi/Notice`,
         method: 'POST',
         body: model,
@@ -9982,6 +10850,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Airtm
      * @name AirtmApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AirtmApi/Withdraw
      */
     airtmApiWithdraw: (model: PortalPsAirtmModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -9999,6 +10868,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags AlfaBank
      * @name AlfaBankApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AlfaBankApi/Add
      */
     alfaBankApiAdd: (model: PortalPsAlfabankModelsApiAddModel, params: RequestParams = {}) =>
@@ -10014,8 +10884,50 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags AlfaBank
+     * @name AlfaBankApiWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/AlfaBankApi/Withdraw
+     */
+    alfaBankApiWithdraw: (
+      model: PortalPsAlfabankModelsApiWithdrawModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/AlfaBankApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags AlfaBank
+     * @name AlfaBankApiAvailableWithdrawBalance
+     * @summary  (only for authorized users)
+     * @request GET:/api/AlfaBankApi/AvailableWithdrawBalance
+     */
+    alfaBankApiAvailableWithdrawBalance: (
+      query?: { userCardId?: string; currencyCode?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsAlfabankModelsApiAvailableWithdrawBalanceModel, any>({
+        path: `/api/AlfaBankApi/AvailableWithdrawBalance`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Allpay88
      * @name Allpay88ApiProvinces
+     * @summary  (only for authorized users)
      * @request GET:/api/Allpay88Api/Provinces
      */
     allpay88ApiProvinces: (query?: { provinceCode?: string }, params: RequestParams = {}) =>
@@ -10032,6 +10944,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Allpay88
      * @name Allpay88ApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/Allpay88Api/Banks
      */
     allpay88ApiBanks: (params: RequestParams = {}) =>
@@ -10047,6 +10960,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Allpay88
      * @name Allpay88ApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/Allpay88Api/Add
      */
     allpay88ApiAdd: (model: PortalPsAllpay88ModelsApiAddModel, params: RequestParams = {}) =>
@@ -10064,6 +10978,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Allpay88
      * @name Allpay88ApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/Allpay88Api/Withdraw
      */
     allpay88ApiWithdraw: (
@@ -10084,6 +10999,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Astropay
      * @name AstropayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AstropayApi/Add
      */
     astropayApiAdd: (model: PortalPsAstropayModelsApiAddModel, params: RequestParams = {}) =>
@@ -10101,10 +11017,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Astropay
      * @name AstropayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/AstropayApi/Notice
      */
     astropayApiNotice: (model: PortalPsAstropayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/AstropayApi/Notice`,
         method: 'POST',
         body: model,
@@ -10118,6 +11035,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Astropay
      * @name AstropayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AstropayApi/Withdraw
      */
     astropayApiWithdraw: (
@@ -10244,14 +11162,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Auth
      * @name ExternalDeviceApiUpdate
-     * @summary Update user's custom parameter
+     * @summary Update user's custom parameter (only for authorized users)
      * @request POST:/api/ExternalDeviceApi/Update
      */
     externalDeviceApiUpdate: (
       model: PortalModuleAuthExternalModelsUpdateDeviceSettingModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/ExternalDeviceApi/Update`,
         method: 'POST',
         body: model,
@@ -10265,7 +11183,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Auth
      * @name ExternalDeviceApiSettings
-     * @summary Get full external device settings collection
+     * @summary Get full external device settings collection (only for authorized users)
      * @request GET:/api/ExternalDeviceApi/Settings
      */
     externalDeviceApiSettings: (query?: { deviceId?: string }, params: RequestParams = {}) =>
@@ -10303,10 +11221,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Auth
      * @name OAuthApiRevoke
+     * @summary  (only for authorized users)
      * @request POST:/api/OAuthApi/Revoke
      */
     oAuthApiRevoke: (params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/OAuthApi/Revoke`,
         method: 'POST',
         format: 'json',
@@ -10318,13 +11237,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Auth
      * @name QrCodeApiSignIn
+     * @summary  (only for authorized users)
      * @request POST:/api/QrCodeApi/SignIn
      */
     qrCodeApiSignIn: (
       model: PortalModuleAuthExternalModelsSignInModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/QrCodeApi/SignIn`,
         method: 'POST',
         body: model,
@@ -10338,6 +11258,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Awepay
      * @name AwepayApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/AwepayApi/Banks
      */
     awepayApiBanks: (query?: { currencyCode?: string }, params: RequestParams = {}) =>
@@ -10354,6 +11275,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Awepay
      * @name AwepayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/AwepayApi/Add
      */
     awepayApiAdd: (model: PortalPsAwepayModelsApiAddModel, params: RequestParams = {}) =>
@@ -10371,6 +11293,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Awepay
      * @name AwepayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/AwepayApi/Withdraw
      */
     awepayApiWithdraw: (model: PortalPsAwepayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -10388,7 +11311,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Bank
      * @name BankProductApiCollection
-     * @summary Bank products
+     * @summary Bank products (only for authorized users)
      * @request GET:/api/BankProductApi/Collection
      */
     bankProductApiCollection: (params: RequestParams = {}) =>
@@ -10403,7 +11326,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Bank
      * @name BankAccountApiCreate
-     * @summary Create bank account
+     * @summary Create bank account (only for authorized users)
      * @request POST:/api/BankAccountApi/Create
      */
     bankAccountApiCreate: (
@@ -10424,6 +11347,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags bePaid
      * @name BePaidApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/BePaidApi/Add
      */
     bePaidApiAdd: (request: PortalPsBepaidModelsApiAddModel, params: RequestParams = {}) =>
@@ -10441,6 +11365,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags bePaid
      * @name BePaidApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/BePaidApi/Withdraw
      */
     bePaidApiWithdraw: (model: PortalPsBepaidModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -10458,6 +11383,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Bfopay
      * @name BfopayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/BfopayApi/Add
      */
     bfopayApiAdd: (model: PortalPsBfopayModelsApiAddModel, params: RequestParams = {}) =>
@@ -10475,10 +11401,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Bfopay
      * @name BfopayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/BfopayApi/Notice
      */
     bfopayApiNotice: (model: PortalPsBfopayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/BfopayApi/Notice`,
         method: 'POST',
         body: model,
@@ -10492,6 +11419,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Bfopay
      * @name BfopayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/BfopayApi/Withdraw
      */
     bfopayApiWithdraw: (model: PortalPsBfopayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -10509,6 +11437,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardConfigurationApiIssueLimit
+     * @summary  (only for authorized users)
      * @request GET:/api/CardConfigurationApi/IssueLimit
      */
     cardConfigurationApiIssueLimit: (
@@ -10537,7 +11466,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardTemplateApiSave
-     * @summary Save card for future payments
+     * @summary Save card for future payments (only for authorized users)
      * @request POST:/api/CardTemplateApi/Save
      */
     cardTemplateApiSave: (
@@ -10558,14 +11487,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardTemplateApiDelete
-     * @summary Delete saved card
+     * @summary Delete saved card (only for authorized users)
      * @request DELETE:/api/CardTemplateApi/Delete
      */
     cardTemplateApiDelete: (
       query?: { userCardId?: string; domainName?: string },
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CardTemplateApi/Delete`,
         method: 'DELETE',
         query: query,
@@ -10616,7 +11545,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiCreate
-     * @summary Save card for future payments
+     * @summary Save card for future payments (only for authorized users)
      * @request POST:/api/CardApi/Create
      * @deprecated
      */
@@ -10638,7 +11567,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiGet
-     * @summary Get user's cards
+     * @summary Get user's cards (only for authorized users)
      * @request GET:/api/CardApi/Get
      */
     cardApiGet: (
@@ -10665,7 +11594,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiGetInfo
-     * @summary OBSOLETE!!! Instead collect data from GET api/CardApi/Get, GET api/CardApi/Balance and GET api/CardApi/DeliveryInfo
+     * @summary OBSOLETE!!! Instead collect data from GET api/CardApi/Get, GET api/CardApi/Balance and GET api/CardApi/DeliveryInfo (only for authorized users)
      * @request GET:/api/CardApi/GetInfo/{id}
      * @deprecated
      */
@@ -10682,7 +11611,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiGetBalance
-     * @summary OBSOLETE!!! Use GET api/CardApi/Balance instead
+     * @summary OBSOLETE!!! Use GET api/CardApi/Balance instead (only for authorized users)
      * @request GET:/api/CardApi/GetBalance/{id}
      * @deprecated
      */
@@ -10699,7 +11628,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiBalance
-     * @summary Get card balance
+     * @summary Get card balance (only for authorized users)
      * @request GET:/api/CardApi/Balance
      */
     cardApiBalance: (
@@ -10719,7 +11648,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiDeliveryInfo
-     * @summary Get delivery info for plastic card
+     * @summary Get delivery info for plastic card (only for authorized users)
      * @request GET:/api/CardApi/DeliveryInfo
      */
     cardApiDeliveryInfo: (
@@ -10739,7 +11668,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiConfiguration
-     * @summary Get available card issue options
+     * @summary Get available card issue options (only for authorized users)
      * @request GET:/api/CardApi/Configuration
      */
     cardApiConfiguration: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -10756,14 +11685,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiIssue
-     * @summary Issue a new card
+     * @summary Issue a new card (only for authorized users)
      * @request POST:/api/CardApi/Issue
      */
     cardApiIssue: (
       model: PortalPsCreditdebitcardsModelsApiIssueCardModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CardApi/Issue`,
         method: 'POST',
         body: model,
@@ -10777,14 +11706,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiActivate
-     * @summary Activate plastic card
+     * @summary Activate plastic card (only for authorized users)
      * @request POST:/api/CardApi/Activate
      */
     cardApiActivate: (
       model: PortalPsCreditdebitcardsModelsApiActivateCardModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CardApi/Activate`,
         method: 'POST',
         body: model,
@@ -10798,14 +11727,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiFreeze
-     * @summary Block card
+     * @summary Block card (only for authorized users)
      * @request POST:/api/CardApi/Freeze
      */
     cardApiFreeze: (
       model: PortalPsCreditdebitcardsModelsApiFreezeCardModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CardApi/Freeze`,
         method: 'POST',
         body: model,
@@ -10819,14 +11748,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiDefrost
-     * @summary Unblock card
+     * @summary Unblock card (only for authorized users)
      * @request POST:/api/CardApi/Defrost
      */
     cardApiDefrost: (
       model: PortalPsCreditdebitcardsModelsApiDefrostCardModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CardApi/Defrost`,
         method: 'POST',
         body: model,
@@ -10840,7 +11769,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiSendSecurityCode
-     * @summary Retrieve virtual card CVV or plastic card PIN code
+     * @summary Retrieve virtual card CVV or plastic card PIN code (only for authorized users)
      * @request POST:/api/CardApi/SendSecurityCode
      * @deprecated
      */
@@ -10862,7 +11791,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiRetrieveCardDetails
-     * @summary Retrieve virtual or plastic card details(PIN\CVV and Ppan) depending on configuration
+     * @summary Retrieve virtual or plastic card details(PIN\CVV and Ppan) depending on configuration (only for authorized users)
      * @request POST:/api/CardApi/RetrieveCardDetails
      */
     cardApiRetrieveCardDetails: (
@@ -10883,7 +11812,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiDelete
-     * @summary Delete saved card
+     * @summary Delete saved card (only for authorized users)
      * @request DELETE:/api/CardApi/Delete
      * @deprecated
      */
@@ -10891,7 +11820,7 @@ ToDo: verify if required factor is not configured for user
       query?: { userCardId?: string; domainName?: string },
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CardApi/Delete`,
         method: 'DELETE',
         query: query,
@@ -10904,7 +11833,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiTransactions
-     * @summary Card transactions
+     * @summary Card transactions (only for authorized users)
      * @request GET:/api/CardApi/Transactions
      */
     cardApiTransactions: (
@@ -10930,14 +11859,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiReplace
-     * @summary Replace plastic card
+     * @summary Replace plastic card (only for authorized users)
      * @request POST:/api/CardApi/Replace
      */
     cardApiReplace: (
       model: PortalPsCreditdebitcardsModelsApiReplaceCardModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CardApi/Replace`,
         method: 'POST',
         body: model,
@@ -10951,14 +11880,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Card
      * @name CardApiNotice
-     * @summary Notice about adding funds via credit/debit card
+     * @summary Notice about adding funds via credit/debit card (only for authorized users)
      * @request POST:/api/CardApi/Notice
      */
     cardApiNotice: (
       model: PortalPsCreditdebitcardsModelsApiCardNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CardApi/Notice`,
         method: 'POST',
         body: model,
@@ -10972,6 +11901,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashEX
      * @name CashExApiCities
+     * @summary  (only for authorized users)
      * @request GET:/api/CashExApi/Cities
      */
     cashExApiCities: (
@@ -10991,6 +11921,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashEX
      * @name CashExApiServices
+     * @summary  (only for authorized users)
      * @request GET:/api/CashExApi/Services
      */
     cashExApiServices: (
@@ -11010,6 +11941,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashEX
      * @name CashExApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/CashExApi/Add
      */
     cashExApiAdd: (model: PortalPsCashuModelsApiCashExAddModel, params: RequestParams = {}) =>
@@ -11027,10 +11959,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashEX
      * @name CashExApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/CashExApi/Notice
      */
     cashExApiNotice: (model: PortalPsCashuModelsApiCashExNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CashExApi/Notice`,
         method: 'POST',
         body: model,
@@ -11044,6 +11977,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashU
      * @name CashuApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/CashuApi/Add
      */
     cashuApiAdd: (model: PortalPsCashuModelsApiCashuAddModel, params: RequestParams = {}) =>
@@ -11061,10 +11995,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashU
      * @name CashuApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/CashuApi/Notice
      */
     cashuApiNotice: (model: PortalPsCashuModelsApiCashuNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CashuApi/Notice`,
         method: 'POST',
         body: model,
@@ -11078,6 +12013,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashU
      * @name CashuApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/CashuApi/Withdraw
      */
     cashuApiWithdraw: (
@@ -11098,6 +12034,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashUDirect
      * @name CashuDirectApiCountries
+     * @summary  (only for authorized users)
      * @request GET:/api/CashuDirectApi/Countries
      */
     cashuDirectApiCountries: (params: RequestParams = {}) =>
@@ -11113,6 +12050,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashUDirect
      * @name CashuDirectApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/CashuDirectApi/Add
      */
     cashuDirectApiAdd: (
@@ -11133,17 +12071,179 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags cashUDirect
      * @name CashuDirectApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/CashuDirectApi/Notice
      */
     cashuDirectApiNotice: (
       model: PortalPsCashuModelsApiCashuDirectNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/CashuDirectApi/Notice`,
         method: 'POST',
         body: model,
         type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsAddressApiCreate
+     * @summary  (only for authorized users)
+     * @request POST:/api/CoinPaymentsAddressApi/Create
+     */
+    coinPaymentsAddressApiCreate: (
+      model: PortalPsCoinpaymentsModelsApiCreateDepositAddressModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsCoinpaymentsModelsApiDepositAddressModel, any>({
+        path: `/api/CoinPaymentsAddressApi/Create`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsAddressApiSave
+     * @summary  (only for authorized users)
+     * @request POST:/api/CoinPaymentsAddressApi/Save
+     */
+    coinPaymentsAddressApiSave: (
+      model: PortalPsCoinpaymentsModelsApiSaveTemplateModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsCoinpaymentsModelsApiTemplateModel, any>({
+        path: `/api/CoinPaymentsAddressApi/Save`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsAddressApiTemplates
+     * @summary  (only for authorized users)
+     * @request GET:/api/CoinPaymentsAddressApi/Templates
+     */
+    coinPaymentsAddressApiTemplates: (
+      query?: { currencyCode?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsCoinpaymentsModelsApiTemplateModel[], any>({
+        path: `/api/CoinPaymentsAddressApi/Templates`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsApiAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/CoinPaymentsApi/Add
+     */
+    coinPaymentsApiAdd: (
+      model: PortalPsCoinpaymentsModelsApiAddModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsCoinpaymentsModelsApiDepositModel, any>({
+        path: `/api/CoinPaymentsApi/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsApiNotice
+     * @summary  (only for authorized users)
+     * @request POST:/api/CoinPaymentsApi/Notice
+     */
+    coinPaymentsApiNotice: (
+      model: PortalPsCoinpaymentsModelsApiNoticeModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/CoinPaymentsApi/Notice`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags CoinPayments
+     * @name CoinPaymentsApiWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/CoinPaymentsApi/Withdraw
+     */
+    coinPaymentsApiWithdraw: (
+      model: PortalPsCoinpaymentsModelsApiWithdrawModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/CoinPaymentsApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Comment
+     * @name CommentApiCommentTemplateTypes
+     * @summary  (only for authorized users)
+     * @request GET:/api/CommentApi/CommentTemplateTypes
+     */
+    commentApiCommentTemplateTypes: (params: RequestParams = {}) =>
+      this.request<PortalModuleCommentModelsApiCommentTemplateTypeModel[], any>({
+        path: `/api/CommentApi/CommentTemplateTypes`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Comment
+     * @name CommentApiComments
+     * @summary  (only for authorized users)
+     * @request GET:/api/CommentApi/Comments
+     */
+    commentApiComments: (
+      query?: { commentTemplateTypeName?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleCommentModelsApiCommentModel[], any>({
+        path: `/api/CommentApi/Comments`,
+        method: 'GET',
+        query: query,
         format: 'json',
         ...params,
       }),
@@ -11471,11 +12571,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Competition
      * @name CompetitionApiJoinCompetition
-     * @summary Join competition
+     * @summary Join competition (only for authorized users)
      * @request POST:/api/CompetitionApi/JoinCompetition
      */
     competitionApiJoinCompetition: (query?: { code?: string }, params: RequestParams = {}) =>
-      this.request<PortalExtensionsForexcupModelsJsonJoinModel, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CompetitionApi/JoinCompetition`,
         method: 'POST',
         query: query,
@@ -11488,7 +12588,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Competition
      * @name CompetitionApiUserCompetitions
-     * @summary All competitions of authorized user
+     * @summary All competitions of authorized user (only for authorized users)
      * @request GET:/api/CompetitionApi/UserCompetitions
      */
     competitionApiUserCompetitions: (query?: { code?: string }, params: RequestParams = {}) =>
@@ -11505,7 +12605,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Competition
      * @name CompetitionApiSetPrizeAccount
-     * @summary Sets selected account as account for competition prize
+     * @summary Sets selected account as account for competition prize (only for authorized users)
      * @request POST:/api/CompetitionApi/SetPrizeAccount
      */
     competitionApiSetPrizeAccount: (query: { accountNumber: string }, params: RequestParams = {}) =>
@@ -11537,7 +12637,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Crypto
      * @name CryptoAddressApiCreate
-     * @summary Request a crypto address for deposit
+     * @summary Request a crypto address for deposit (only for authorized users)
      * @request POST:/api/CryptoAddressApi/Create
      */
     cryptoAddressApiCreate: (
@@ -11558,6 +12658,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Crypto
      * @name CryptoApiCreateAddress
+     * @summary  (only for authorized users)
      * @request GET:/api/CryptoApi/CreateAddress
      * @deprecated
      */
@@ -11584,7 +12685,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Crypto
      * @name CryptoApiAdd
-     * @summary Crypto deposit
+     * @summary Crypto deposit (only for authorized users)
      * @request POST:/api/CryptoApi/Add
      */
     cryptoApiAdd: (model: PortalPsCryptoModelsApiAddModel, params: RequestParams = {}) =>
@@ -11602,11 +12703,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Crypto
      * @name CryptoApiNotice
-     * @summary Notice about adding funds via cryptocurrency
+     * @summary Notice about adding funds via cryptocurrency (only for authorized users)
      * @request POST:/api/CryptoApi/Notice
      */
     cryptoApiNotice: (model: PortalPsCryptoModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CryptoApi/Notice`,
         method: 'POST',
         body: model,
@@ -11620,7 +12721,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Crypto
      * @name CryptoApiWithdraw
-     * @summary Crypto withdrawal
+     * @summary Crypto withdrawal (only for authorized users)
      * @request POST:/api/CryptoApi/Withdraw
      */
     cryptoApiWithdraw: (model: PortalPsCryptoModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -11638,6 +12739,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DCPay
      * @name DcPayApiProvinces
+     * @summary  (only for authorized users)
      * @request GET:/api/DCPayApi/Provinces
      */
     dcPayApiProvinces: (
@@ -11658,6 +12760,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DCPay
      * @name DcPayApiCities
+     * @summary  (only for authorized users)
      * @request GET:/api/DCPayApi/Cities
      */
     dcPayApiCities: (
@@ -11682,6 +12785,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DCPay
      * @name DcPayApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/DCPayApi/Banks
      */
     dcPayApiBanks: (params: RequestParams = {}) =>
@@ -11697,6 +12801,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DCPay
      * @name DcPayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DCPayApi/Add
      */
     dcPayApiAdd: (model: PortalPsDcpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -11714,6 +12819,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DCPay
      * @name DcPayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/DCPayApi/Withdraw
      */
     dcPayApiWithdraw: (model: PortalPsDcpayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -11731,7 +12837,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Decta
      * @name DectaApiAdd
-     * @summary DECTA Gate
+     * @summary DECTA Gate (only for authorized users)
      * @request POST:/api/DectaApi/Add
      */
     dectaApiAdd: (model: PortalPsDectaModelsApiAddModel, params: RequestParams = {}) =>
@@ -11749,7 +12855,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Decta
      * @name DectaCardApiLoad
-     * @summary Transfer funds from ewallet to Decta card
+     * @summary Transfer funds from ewallet to Decta card (only for authorized users)
      * @request POST:/api/DectaCardApi/Load
      */
     dectaCardApiLoad: (model: PortalPsDectaModelsApiCardLoadModel, params: RequestParams = {}) =>
@@ -11767,7 +12873,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Decta
      * @name DectaCardApiUnload
-     * @summary Transfer funds from Decta card to ewallet
+     * @summary Transfer funds from Decta card to ewallet (only for authorized users)
      * @request POST:/api/DectaCardApi/Unload
      */
     dectaCardApiUnload: (
@@ -11788,6 +12894,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DeltaPay
      * @name DeltaPayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DeltaPayApi/Add
      */
     deltaPayApiAdd: (model: PortalPsDeltapayModelsApiAddModel, params: RequestParams = {}) =>
@@ -11805,6 +12912,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DengiOnline
      * @name DengiOnlineAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DengiOnline/Add
      */
     dengiOnlineAdd: (
@@ -11825,13 +12933,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DengiOnline
      * @name DengiOnlineNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/DengiOnline/Notice
      */
     dengiOnlineNotice: (
       model: PortalPsDengionlineModelsApiDengiOnlineNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/DengiOnline/Notice`,
         method: 'POST',
         body: model,
@@ -11845,6 +12954,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dinpay
      * @name DinpayApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/DinpayApi/Banks
      */
     dinpayApiBanks: (params: RequestParams = {}) =>
@@ -11860,6 +12970,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dinpay
      * @name DinpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DinpayApi/Add
      */
     dinpayApiAdd: (model: PortalPsDinpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -11877,10 +12988,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dinpay
      * @name DinpayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/DinpayApi/Notice
      */
     dinpayApiNotice: (model: PortalPsDinpayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/DinpayApi/Notice`,
         method: 'POST',
         body: model,
@@ -11894,6 +13006,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dinpay
      * @name DinpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/DinpayApi/Withdraw
      */
     dinpayApiWithdraw: (model: PortalPsDinpayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -11911,6 +13024,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DixiPay
      * @name DixiPayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DixiPayApi/Add
      */
     dixiPayApiAdd: (model: PortalPsDixipayModelsApiAddModel, params: RequestParams = {}) =>
@@ -11928,10 +13042,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DixiPay
      * @name DixiPayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/DixiPayApi/Notice
      */
     dixiPayApiNotice: (model: PortalPsDixipayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/DixiPayApi/Notice`,
         method: 'POST',
         body: model,
@@ -11945,6 +13060,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags DixiPay
      * @name DixiPayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/DixiPayApi/Withdraw
      */
     dixiPayApiWithdraw: (
@@ -11963,8 +13079,208 @@ ToDo: verify if required factor is not configured for user
     /**
      * No description
      *
+     * @tags Domain
+     * @name DomainConfigurationApiRead
+     * @summary  (only for authorized users)
+     * @request GET:/api/DomainConfigurationApi/Read
+     */
+    domainConfigurationApiRead: (params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainModel[], any>({
+        path: `/api/DomainConfigurationApi/Read`,
+        method: 'GET',
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Domain
+     * @name DomainConfigurationApiCreate
+     * @summary  (only for authorized users)
+     * @request POST:/api/DomainConfigurationApi/Create
+     */
+    domainConfigurationApiCreate: (
+      model: PortalModuleConfigurationModelsApiDomainDomainConfigurationCreateModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainModel, any>({
+        path: `/api/DomainConfigurationApi/Create`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Domain
+     * @name DomainConfigurationApiUpdate
+     * @summary  (only for authorized users)
+     * @request POST:/api/DomainConfigurationApi/Update
+     */
+    domainConfigurationApiUpdate: (
+      model: PortalModuleConfigurationModelsApiDomainDomainConfigurationUpdateModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainModel, any>({
+        path: `/api/DomainConfigurationApi/Update`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Domain
+     * @name DomainConfigurationApiDelete
+     * @summary  (only for authorized users)
+     * @request DELETE:/api/DomainConfigurationApi/Delete
+     */
+    domainConfigurationApiDelete: (
+      model: PortalModuleConfigurationModelsApiDomainDomainConfigurationDeleteModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/DomainConfigurationApi/Delete`,
+        method: 'DELETE',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Domain
+     * @name DomainConfigurationApiUpdateIsBlocked
+     * @summary  (only for authorized users)
+     * @request POST:/api/DomainConfigurationApi/UpdateIsBlocked
+     */
+    domainConfigurationApiUpdateIsBlocked: (
+      model: PortalModuleConfigurationModelsApiDomainDomainIsBlockedModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/DomainConfigurationApi/UpdateIsBlocked`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Download
+     * @name DownloadApiGetObject
+     * @summary Get file by name
+     * @request GET:/api/DownloadApi/GetObject
+     */
+    downloadApiGetObject: (
+      query?: { name?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleUtilsModelsApiDownloadFileModel, void>({
+        path: `/api/DownloadApi/GetObject`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description Only for ADMINISTRATOR and CONTENT_WRITER roles
+     *
+     * @tags Download
+     * @name DownloadApiCollection
+     * @summary Collection (only for authorized users)
+     * @request GET:/api/DownloadApi/Collection
+     */
+    downloadApiCollection: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleUtilsModelsApiDownloadDownloadModel[], void>({
+        path: `/api/DownloadApi/Collection`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description Only for ADMINISTRATOR and CONTENT_WRITER roles<br /> Content-Type: multipart/form-data
+     *
+     * @tags Download
+     * @name DownloadApiCreate
+     * @summary Create download (only for authorized users)
+     * @request POST:/api/DownloadApi/Create
+     */
+    downloadApiCreate: (
+      query?: { name?: string; comment?: string; roles?: any[]; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleUtilsModelsApiDownloadDownloadModel, void>({
+        path: `/api/DownloadApi/Create`,
+        method: 'POST',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description Only for ADMINISTRATOR and CONTENT_WRITER roles<br /> Content-Type: multipart/form-data
+     *
+     * @tags Download
+     * @name DownloadApiUpdate
+     * @summary Update download (only for authorized users)
+     * @request POST:/api/DownloadApi/Update
+     */
+    downloadApiUpdate: (
+      query?: { id?: string; name?: string; comment?: string; roles?: any[]; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
+        path: `/api/DownloadApi/Update`,
+        method: 'POST',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * @description Only for ADMINISTRATOR and CONTENT_WRITER roles
+     *
+     * @tags Download
+     * @name DownloadApiDelete
+     * @summary Delete download (only for authorized users)
+     * @request POST:/api/DownloadApi/Delete
+     */
+    downloadApiDelete: (
+      model: PortalModuleUtilsModelsApiDownloadDeleteDownloadModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
+        path: `/api/DownloadApi/Delete`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Dukascopy
      * @name DukascopyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/DukascopyApi/Add
      */
     dukascopyApiAdd: (model: PortalPsDukascopyModelsApiAddModel, params: RequestParams = {}) =>
@@ -11982,13 +13298,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dukascopy
      * @name DukascopyApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/DukascopyApi/Withdraw
      */
     dukascopyApiWithdraw: (
       model: PortalPsDukascopyModelsApiWithdrawModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/DukascopyApi/Withdraw`,
         method: 'POST',
         body: model,
@@ -12002,13 +13319,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Dukascopy
      * @name DukascopyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/DukascopyApi/Notice
      */
     dukascopyApiNotice: (
       model: PortalPsDukascopyModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/DukascopyApi/Notice`,
         method: 'POST',
         body: model,
@@ -12022,6 +13340,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Ecommpay
      * @name EcommpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/EcommpayApi/Add
      */
     ecommpayApiAdd: (model: PortalPsEcommpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -12039,10 +13358,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Ecommpay
      * @name EcommpayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/EcommpayApi/Notice
      */
     ecommpayApiNotice: (model: PortalPsEcommpayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/EcommpayApi/Notice`,
         method: 'POST',
         body: model,
@@ -12056,6 +13376,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Ecommpay
      * @name EcommpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/EcommpayApi/Withdraw
      */
     ecommpayApiWithdraw: (
@@ -12076,6 +13397,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Epay
      * @name EpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/EpayApi/Add
      */
     epayApiAdd: (model: PortalPsEpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -12093,10 +13415,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Epay
      * @name EpayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/EpayApi/Notice
      */
     epayApiNotice: (model: PortalPsEpayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/EpayApi/Notice`,
         method: 'POST',
         body: model,
@@ -12110,6 +13433,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Epay
      * @name EpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/EpayApi/Withdraw
      */
     epayApiWithdraw: (model: PortalPsEpayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -12127,6 +13451,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiCardWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/ePaymentsApi/Card/Withdraw
      */
     epaymentsApiCardWithdraw: (
@@ -12147,6 +13472,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/EpaymentsApi/Add
      */
     epaymentsApiAdd: (model: PortalPsEpaymentsModelsApiAddModel, params: RequestParams = {}) =>
@@ -12164,13 +13490,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/EpaymentsApi/Notice
      */
     epaymentsApiNotice: (
       model: PortalPsEpaymentsModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/EpaymentsApi/Notice`,
         method: 'POST',
         body: model,
@@ -12184,6 +13511,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/EpaymentsApi/Withdraw
      */
     epaymentsApiWithdraw: (
@@ -12204,6 +13532,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiLinkUser
+     * @summary  (only for authorized users)
      * @request POST:/api/EpaymentsApi/LinkUser
      */
     epaymentsApiLinkUser: (
@@ -12224,6 +13553,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ePayments
      * @name EpaymentsApiLinkCard
+     * @summary  (only for authorized users)
      * @request POST:/api/EpaymentsApi/LinkCard
      */
     epaymentsApiLinkCard: (
@@ -12244,6 +13574,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Erip
      * @name EripApiPaymentInfo
+     * @summary  (only for authorized users)
      * @request POST:/api/EripApi/PaymentInfo
      */
     eripApiPaymentInfo: (
@@ -12264,10 +13595,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Erip
      * @name EripApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/EripApi/Notice
      */
     eripApiNotice: (model: PortalPsEripModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/EripApi/Notice`,
         method: 'POST',
         body: model,
@@ -12281,6 +13613,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags eShop
      * @name DeliveryApiConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/DeliveryApi/Configuration
      */
     deliveryApiConfiguration: (
@@ -12307,7 +13640,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name CurrencyRateApiCurrencyRate
-     * @summary Gets specific currency rate
+     * @summary Gets specific currency rate (only for authorized users)
      * @request GET:/api/CurrencyRateApi/CurrencyRate
      */
     currencyRateApiCurrencyRate: (
@@ -12332,7 +13665,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name CurrencyRateApiCollection
-     * @summary Currency rates
+     * @summary Currency rates (only for authorized users)
      * @request GET:/api/CurrencyRateApi/Collection
      */
     currencyRateApiCollection: (
@@ -12352,14 +13685,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name CurrencyRateApiCreate
-     * @summary Manual create currency rate
+     * @summary Manual create currency rate (only for authorized users)
      * @request POST:/api/CurrencyRateApi/Create
      */
     currencyRateApiCreate: (
       model: FinanceConversionModelsCurrencyRateRequestModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/CurrencyRateApi/Create`,
         method: 'POST',
         body: model,
@@ -12373,7 +13706,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name SymbolApiGetCollection
-     * @summary Symbols
+     * @summary Symbols (only for authorized users)
      * @request GET:/api/SymbolApi/GetCollection
      */
     symbolApiGetCollection: (params: RequestParams = {}) =>
@@ -12392,7 +13725,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name SymbolApiCollection
-     * @summary Symbols
+     * @summary Symbols (only for authorized users)
      * @request GET:/api/SymbolApi/Collection
      */
     symbolApiCollection: (params: RequestParams = {}) =>
@@ -12411,7 +13744,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name UtilsApiCurrencyRates
-     * @summary Latest Currency rate info
+     * @summary Latest Currency rate info (only for authorized users)
      * @request POST:/api/UtilsApi/CurrencyRates
      */
     utilsApiCurrencyRates: (
@@ -12431,7 +13764,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name UtilsApiExchange
-     * @summary OBSOLETE!!! Use POST api/UtilsApi/Exchange instead
+     * @summary OBSOLETE!!! Use POST api/UtilsApi/Exchange instead (only for authorized users)
      * @request GET:/api/UtilsApi/Exchange
      * @deprecated
      */
@@ -12452,7 +13785,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Exchange
      * @name UtilsApiExchange2
-     * @summary Currency exchange
+     * @summary Currency exchange (only for authorized users)
      * @request POST:/api/UtilsApi/Exchange
      * @originalName utilsApiExchange
      * @duplicate
@@ -12475,6 +13808,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags FasaPay
      * @name FasaPayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/FasaPayApi/Add
      */
     fasaPayApiAdd: (model: PortalPsFasapayModelsApiAddModel, params: RequestParams = {}) =>
@@ -12492,10 +13826,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags FasaPay
      * @name FasaPayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/FasaPayApi/Notice
      */
     fasaPayApiNotice: (model: PortalPsFasapayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/FasaPayApi/Notice`,
         method: 'POST',
         body: model,
@@ -12509,6 +13844,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags FasaPay
      * @name FasaPayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/FasaPayApi/Withdraw
      */
     fasaPayApiWithdraw: (
@@ -12529,6 +13865,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags FocalPayments
      * @name FocalPaymentsApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/FocalPaymentsApi/Add
      */
     focalPaymentsApiAdd: (
@@ -12549,6 +13886,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags FocalPayments
      * @name FocalPaymentsApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/FocalPaymentsApi/Withdraw
      */
     focalPaymentsApiWithdraw: (
@@ -12669,7 +14007,7 @@ ToDo: verify if required factor is not configured for user
      * @request GET:/api/GoalTypeApi/GoalTypes
      */
     goalTypeApiGoalTypes: (query: { groupName: string }, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/GoalTypeApi/GoalTypes`,
         method: 'GET',
         query: query,
@@ -12682,7 +14020,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name GoogleAuthenticatorApiActivate
-     * @summary Google Authenticator activation settings
+     * @summary Google Authenticator activation settings (only for authorized users)
      * @request GET:/api/GoogleAuthenticatorApi/Activate
      */
     googleAuthenticatorApiActivate: (params: RequestParams = {}) =>
@@ -12698,14 +14036,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name IdentityApiActivate
-     * @summary Enable identity of the specified type
+     * @summary Enable identity of the specified type (only for authorized users)
      * @request POST:/api/IdentityApi/Activate
      */
     identityApiActivate: (
       model: PortalUserIdentityModelsApiActivateIdentityModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/IdentityApi/Activate`,
         method: 'POST',
         body: model,
@@ -12719,14 +14057,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name IdentityApiUpdate
-     * @summary Change password/PIN code/etc. for security reasons
+     * @summary Change password/PIN code/etc. for security reasons (only for authorized users)
      * @request POST:/api/IdentityApi/Update
      */
     identityApiUpdate: (
       model: PortalUserIdentityModelsApiUpdateIdentityModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/IdentityApi/Update`,
         method: 'POST',
         body: model,
@@ -12740,14 +14078,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name IdentityApiDeactivate
-     * @summary Disable identity of the specified type
+     * @summary Disable identity of the specified type (only for authorized users)
      * @request POST:/api/IdentityApi/Deactivate
      */
     identityApiDeactivate: (
       model: PortalUserIdentityModelsApiDeactivateIdentityModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/IdentityApi/Deactivate`,
         method: 'POST',
         body: model,
@@ -12781,14 +14119,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name MultiFactorApiOn
-     * @summary Turn on client factor
+     * @summary Turn on client factor (only for authorized users)
      * @request POST:/api/MultiFactorApi/On
      */
     multiFactorApiOn: (
       model: PortalUserIdentityModelsApiTurnOnClientFactorModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/MultiFactorApi/On`,
         method: 'POST',
         body: model,
@@ -12802,14 +14140,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name MultiFactorApiOff
-     * @summary Turn off client factor
+     * @summary Turn off client factor (only for authorized users)
      * @request POST:/api/MultiFactorApi/Off
      */
     multiFactorApiOff: (
       model: PortalUserIdentityModelsApiTurnOffClientFactorModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/MultiFactorApi/Off`,
         method: 'POST',
         body: model,
@@ -12823,13 +14161,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name PhoneApiOperatorCall
+     * @summary  (only for authorized users)
      * @request POST:/api/PhoneApi/OperatorCall
      */
     phoneApiOperatorCall: (
       model: PortalUserIdentitySmsModelsApiOperatorCallModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PhoneApi/OperatorCall`,
         method: 'POST',
         body: model,
@@ -12843,13 +14182,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name PhoneApiVerify
+     * @summary  (only for authorized users)
      * @request POST:/api/PhoneApi/Verify
      */
     phoneApiVerify: (
       model: PortalUserIdentitySmsModelsApiVerifyModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PhoneApi/Verify`,
         method: 'POST',
         body: model,
@@ -12863,7 +14203,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name BackupCodeApiGet
-     * @summary View active backup codes
+     * @summary View active backup codes (only for authorized users)
      * @request GET:/api/BackupCodeApi/Get
      */
     backupCodeApiGet: (
@@ -12883,7 +14223,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name BackupCodeApiRegenerate
-     * @summary Regenerate current backup codes
+     * @summary Regenerate current backup codes (only for authorized users)
      * @request POST:/api/BackupCodeApi/Regenerate
      */
     backupCodeApiRegenerate: (
@@ -12904,14 +14244,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name EmailApiVerify
-     * @summary Email verification
+     * @summary Email verification (only for authorized users)
      * @request POST:/api/EmailApi/Verify
      */
     emailApiVerify: (
       model: PortalUserIdentityEmailModelsApiEmailVerificationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/EmailApi/Verify`,
         method: 'POST',
         body: model,
@@ -12925,6 +14265,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name IdentityTypeApiConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/IdentityTypeApi/Configuration
      */
     identityTypeApiConfiguration: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -12937,11 +14278,11 @@ ToDo: verify if required factor is not configured for user
       }),
 
     /**
-     * No description
+     * @description Verification code for /api/MultiFactorApi/Verify is encrypted with public key returned by current method. Message format - {creation_datetime_in_ticks}:{identityKeyName}. See also: https://www.datetimetoticks-converter.com.
      *
      * @tags Identity
      * @name GenericIdentityApiCreate
-     * @summary Create generic identity with specified identity key
+     * @summary Create generic identity with specified identity key (only for authorized users)
      * @request POST:/api/GenericIdentityApi/Create
      */
     genericIdentityApiCreate: (
@@ -12962,14 +14303,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Identity
      * @name GenericIdentityApiDeactivate
-     * @summary Disable generic identity of the specified identity key
+     * @summary Disable generic identity of the specified identity key (only for authorized users)
      * @request POST:/api/GenericIdentityApi/Deactivate
      */
     genericIdentityApiDeactivate: (
       model: PortalUserIdentityModelsApiDeactivateGenericIdentityModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/GenericIdentityApi/Deactivate`,
         method: 'POST',
         body: model,
@@ -12983,6 +14324,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Inpay
      * @name InpayApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/InpayApi/Banks
      */
     inpayApiBanks: (
@@ -13002,6 +14344,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Inpay
      * @name InpayApiCurrencies
+     * @summary  (only for authorized users)
      * @request GET:/api/InpayApi/Currencies
      */
     inpayApiCurrencies: (params: RequestParams = {}) =>
@@ -13017,6 +14360,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Inpay
      * @name InpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/InpayApi/Add
      */
     inpayApiAdd: (model: PortalPsInpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -13034,6 +14378,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Inpay
      * @name InpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/InpayApi/Withdraw
      */
     inpayApiWithdraw: (model: PortalPsInpayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -13051,6 +14396,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags IntellectMoney
      * @name IntellectMoneyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/IntellectMoneyApi/Add
      */
     intellectMoneyApiAdd: (
@@ -13071,13 +14417,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags IntellectMoney
      * @name IntellectMoneyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/IntellectMoneyApi/Notice
      */
     intellectMoneyApiNotice: (
       model: PortalPsIntellectmoneyModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/IntellectMoneyApi/Notice`,
         method: 'POST',
         body: model,
@@ -13144,10 +14491,11 @@ ToDo: verify if required factor is not configured for user
      * No description
      *
      * @tags Intercash
-     * @name IntercashApiCardList
-     * @request GET:/api/IntercashApi/CardList
+     * @name IntercashApiGet
+     * @summary  (only for authorized users)
+     * @request GET:/api/IntercashApi/Get
      */
-    intercashApiCardList: (
+    intercashApiGet: (
       query?: {
         statuses?: string[]
         isExternal?: boolean
@@ -13157,7 +14505,7 @@ ToDo: verify if required factor is not configured for user
       params: RequestParams = {},
     ) =>
       this.request<PortalPsIntercashModelsApiCardModel[], any>({
-        path: `/api/IntercashApi/CardList`,
+        path: `/api/IntercashApi/Get`,
         method: 'GET',
         query: query,
         format: 'json',
@@ -13169,6 +14517,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/IntercashApi/Details
      */
     intercashApiDetails: (
@@ -13188,6 +14537,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiIssue
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Issue
      */
     intercashApiIssue: (
@@ -13208,6 +14558,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiActivate
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Activate
      */
     intercashApiActivate: (
@@ -13228,13 +14579,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiConvertToPlastic
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/ConvertToPlastic
      */
     intercashApiConvertToPlastic: (
       model: PortalPsIntercashModelsApiCardConvertToPlasticModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/IntercashApi/ConvertToPlastic`,
         method: 'POST',
         body: model,
@@ -13248,13 +14600,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiSuspend
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Suspend
      */
     intercashApiSuspend: (
       model: PortalPsIntercashModelsApiCardSuspendModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/IntercashApi/Suspend`,
         method: 'POST',
         body: model,
@@ -13268,13 +14621,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiDelete
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Delete
      */
     intercashApiDelete: (
       model: PortalPsIntercashModelsApiCardDeleteModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/IntercashApi/Delete`,
         method: 'POST',
         body: model,
@@ -13288,6 +14642,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Add
      */
     intercashApiAdd: (model: PortalPsIntercashModelsApiAddModel, params: RequestParams = {}) =>
@@ -13305,6 +14660,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Intercash
      * @name IntercashApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/IntercashApi/Withdraw
      */
     intercashApiWithdraw: (
@@ -13313,6 +14669,100 @@ ToDo: verify if required factor is not configured for user
     ) =>
       this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
         path: `/api/IntercashApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Language
+     * @name LanguageApiLanguages
+     * @request GET:/api/LanguageApi/Languages
+     */
+    languageApiLanguages: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiLanguageModel[], any>({
+        path: `/api/LanguageApi/Languages`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Language
+     * @name LanguageApiUpdatePrefferedLanguage
+     * @summary  (only for authorized users)
+     * @request POST:/api/LanguageApi/UpdatePrefferedLanguage
+     */
+    languageApiUpdatePrefferedLanguage: (
+      model: PortalModuleConfigurationModelsApiPrefferedLanguageUpdateModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/LanguageApi/UpdatePrefferedLanguage`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Lavapay
+     * @name LavapayApiAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/LavapayApi/Add
+     */
+    lavapayApiAdd: (model: PortalPsLavapayModelsApiAddModel, params: RequestParams = {}) =>
+      this.request<PortalPsLavapayModelsApiDepositModel, any>({
+        path: `/api/LavapayApi/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Lavapay
+     * @name LavapayApiNotice
+     * @summary  (only for authorized users)
+     * @request POST:/api/LavapayApi/Notice
+     */
+    lavapayApiNotice: (model: PortalPsLavapayModelsApiNoticeModel, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/LavapayApi/Notice`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Lavapay
+     * @name LavapayApiWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/LavapayApi/Withdraw
+     */
+    lavapayApiWithdraw: (
+      model: PortalPsLavapayModelsApiWithdrawModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/LavapayApi/Withdraw`,
         method: 'POST',
         body: model,
         type: ContentType.Json,
@@ -13349,7 +14799,7 @@ ToDo: verify if required factor is not configured for user
       form: SystemCollectionsGenericKeyValuePair2SystemStringMscorlibVersion4000CultureNeutralPublicKeyTokenB77A5C561934E089SystemStringMscorlibVersion4000CultureNeutralPublicKeyTokenB77A5C561934E089[],
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/LeadApi/Submit`,
         method: 'POST',
         body: form,
@@ -13363,11 +14813,12 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Lead
      * @name LeadApiGetDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/LeadApi/GetDetails
      * @deprecated
      */
     leadApiGetDetails: (query: { dateFrom: string; dateTo: string }, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/LeadApi/GetDetails`,
         method: 'GET',
         query: query,
@@ -13380,10 +14831,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Lead
      * @name LeadApiDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/LeadApi/Details
      */
     leadApiDetails: (query: { dateFrom: string; dateTo: string }, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/LeadApi/Details`,
         method: 'GET',
         query: query,
@@ -13396,13 +14848,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags LocalDeposit
      * @name LocalDepositApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/LocalDepositApi/Notice
      */
     localDepositApiNotice: (
       model: PortalPsLocaldepositModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/LocalDepositApi/Notice`,
         method: 'POST',
         body: model,
@@ -13416,6 +14869,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags LocalDeposit
      * @name LocalDepositApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/LocalDepositApi/Withdraw
      */
     localDepositApiWithdraw: (
@@ -13436,6 +14890,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags LocalWithdrawal
      * @name LocalWithdrawalApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/LocalWithdrawalApi/Banks
      */
     localWithdrawalApiBanks: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -13452,6 +14907,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags LocalWithdrawal
      * @name LocalWithdrawalApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/LocalWithdrawalApi/Withdraw
      */
     localWithdrawalApiWithdraw: (
@@ -13521,7 +14977,7 @@ ToDo: verify if required factor is not configured for user
       },
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/OAuthApi/Login`,
         method: 'GET',
         query: query,
@@ -13534,7 +14990,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Login
      * @name OAuthApiLogin2
-     * @summary Complete login/registration via OAuth
+     * @summary Complete login/registration via OAuth (only for authorized users)
      * @request POST:/api/OAuthApi/Login
      * @originalName oAuthApiLogin
      * @duplicate
@@ -13648,7 +15104,7 @@ ToDo: verify if required factor is not configured for user
       model: PortalPsMerchantModelsNotificationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/MerchantApi/Notification`,
         method: 'POST',
         body: model,
@@ -13662,6 +15118,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Minerva
      * @name MinervaApiLocalWireTransfer
+     * @summary  (only for authorized users)
      * @request POST:/api/MinervaApi/LocalWireTransfer
      */
     minervaApiLocalWireTransfer: (
@@ -13682,6 +15139,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Minerva
      * @name MinervaApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/MinervaApi/Withdraw
      */
     minervaApiWithdraw: (
@@ -13702,6 +15160,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MisterTango
      * @name MisterTangoApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MisterTangoApi/Add
      */
     misterTangoApiAdd: (model: PortalPsMistertangoModelsApiAddModel, params: RequestParams = {}) =>
@@ -13719,6 +15178,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MisterTango
      * @name MisterTangoApiCreditDebitCardsAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MisterTangoApi/CreditDebitCardsAdd
      */
     misterTangoApiCreditDebitCardsAdd: (
@@ -13739,13 +15199,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MisterTango
      * @name MisterTangoApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/MisterTangoApi/Notice
      */
     misterTangoApiNotice: (
       model: PortalPsMistertangoModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/MisterTangoApi/Notice`,
         method: 'POST',
         body: model,
@@ -13759,6 +15220,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MisterTango
      * @name MisterTangoApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/MisterTangoApi/Withdraw
      */
     misterTangoApiWithdraw: (
@@ -13779,6 +15241,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiAddBy
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/ElectronicPayments/Add
      */
     moneybookersApiAddBy: (
@@ -13799,6 +15262,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiCreditDebitCardsAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/CreditDebitCards/Add
      */
     moneybookersApiCreditDebitCardsAdd: (
@@ -13819,6 +15283,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiLocalWireTransferAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/LocalWireTransfer/Add
      */
     moneybookersApiLocalWireTransferAdd: (
@@ -13839,6 +15304,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/Add
      */
     moneybookersApiAdd: (
@@ -13859,6 +15325,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/Withdraw
      */
     moneybookersApiWithdraw: (
@@ -13879,13 +15346,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Moneybookers
      * @name MoneybookersApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/MoneybookersApi/Notice
      */
     moneybookersApiNotice: (
       model: PortalPsMoneybookersModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/MoneybookersApi/Notice`,
         method: 'POST',
         body: model,
@@ -13899,6 +15367,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MtBank
      * @name MtBankApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/MtBankApi/Add
      */
     mtBankApiAdd: (model: PortalPsMtbankModelsApiAddModel, params: RequestParams = {}) =>
@@ -13916,6 +15385,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags MtBank
      * @name MtBankApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/MtBankApi/Withdraw
      */
     mtBankApiWithdraw: (model: PortalPsMtbankModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -14000,6 +15470,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Nab
      * @name NabApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/NabApi/Add
      */
     nabApiAdd: (model: PortalPsNabModelsApiAddModel, params: RequestParams = {}) =>
@@ -14017,10 +15488,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Nab
      * @name NabApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/NabApi/Withdraw
      */
     nabApiWithdraw: (model: PortalPsNabModelsApiWithdrawModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/NabApi/Withdraw`,
         method: 'POST',
         body: model,
@@ -14034,10 +15506,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Nab
      * @name NabApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/NabApi/Notice
      */
     nabApiNotice: (model: PortalPsNabModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/NabApi/Notice`,
         method: 'POST',
         body: model,
@@ -14051,6 +15524,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags NCwallet
      * @name NcwalletApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/NcwalletApi/Withdraw
      */
     ncwalletApiWithdraw: (
@@ -14069,8 +15543,72 @@ ToDo: verify if required factor is not configured for user
     /**
      * No description
      *
+     * @tags Netbanx
+     * @name NetbanxApiCreditDebitCardsAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/NetbanxApi/CreditDebitCards/Add
+     */
+    netbanxApiCreditDebitCardsAdd: (
+      model: PortalPsNetbanxModelsApiCreditDebitCardsAddModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsNetbanxModelsApiDepositModel, any>({
+        path: `/api/NetbanxApi/CreditDebitCards/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Netbanx
+     * @name NetbanxApiLocalWireTransferAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/NetbanxApi/LocalWireTransfer/Add
+     */
+    netbanxApiLocalWireTransferAdd: (
+      model: PortalPsNetbanxModelsApiLocalWireTransferAddModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsNetbanxModelsApiDepositModel, any>({
+        path: `/api/NetbanxApi/LocalWireTransfer/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Netbanx
+     * @name NetbanxApiCreditDebitCardsWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/NetbanxApi/CreditDebitCards/Withdraw
+     */
+    netbanxApiCreditDebitCardsWithdraw: (
+      model: PortalPsNetbanxModelsApiCreditDebitCardsWithdrawModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/NetbanxApi/CreditDebitCards/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Neteller
      * @name NetellerApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/NetellerApi/Add
      */
     netellerApiAdd: (model: PortalPsNetellerModelsApiAddModel, params: RequestParams = {}) =>
@@ -14088,10 +15626,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Neteller
      * @name NetellerApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/NetellerApi/Notice
      */
     netellerApiNotice: (model: PortalPsNetellerModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/NetellerApi/Notice`,
         method: 'POST',
         body: model,
@@ -14105,6 +15644,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Neteller
      * @name NetellerApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/NetellerApi/Withdraw
      */
     netellerApiWithdraw: (
@@ -14123,8 +15663,103 @@ ToDo: verify if required factor is not configured for user
     /**
      * No description
      *
+     * @tags Notification
+     * @name NotificationApiNotificationTypes
+     * @summary Set of notification types (only for authorized users)
+     * @request GET:/api/NotificationApi/NotificationTypes
+     */
+    notificationApiNotificationTypes: (params: RequestParams = {}) =>
+      this.request<PortalUserSettingsModelsApiNotificationNotificationTypeModel[], void>({
+        path: `/api/NotificationApi/NotificationTypes`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Notification
+     * @name NotificationApiContactMethods
+     * @summary Set of contact methods (only for authorized users)
+     * @request GET:/api/NotificationApi/ContactMethods
+     */
+    notificationApiContactMethods: (
+      query?: { notificationTypeName?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalUserSettingsModelsApiNotificationContactMethodModel[], void>({
+        path: `/api/NotificationApi/ContactMethods`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Notification
+     * @name NotificationApiNotificationUserSettings
+     * @summary Set of user notification settings (only for authorized users)
+     * @request GET:/api/NotificationApi/NotificationUserSettings
+     */
+    notificationApiNotificationUserSettings: (params: RequestParams = {}) =>
+      this.request<PortalUserSettingsModelsApiNotificationNotificationSettingModel[], void>({
+        path: `/api/NotificationApi/NotificationUserSettings`,
+        method: 'GET',
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Notification
+     * @name NotificationApiCreate
+     * @summary Create notification setting (only for authorized users)
+     * @request POST:/api/NotificationApi/Create
+     */
+    notificationApiCreate: (
+      model: PortalUserSettingsModelsApiNotificationCreateNotificationModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalUserSettingsModelsApiNotificationNotificationSettingModel, void>({
+        path: `/api/NotificationApi/Create`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Notification
+     * @name NotificationApiUpdate
+     * @summary Update notification setting (only for authorized users)
+     * @request POST:/api/NotificationApi/Update
+     */
+    notificationApiUpdate: (
+      model: PortalUserSettingsModelsApiNotificationUpdateNotificationModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalUserSettingsModelsApiNotificationNotificationSettingModel, void>({
+        path: `/api/NotificationApi/Update`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Okpay
      * @name OkpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/OkpayApi/Add
      */
     okpayApiAdd: (model: PortalPsOkpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -14142,10 +15777,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Okpay
      * @name OkpayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/OkpayApi/Notice
      */
     okpayApiNotice: (model: PortalPsOkpayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/OkpayApi/Notice`,
         method: 'POST',
         body: model,
@@ -14159,11 +15795,175 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Okpay
      * @name OkpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/OkpayApi/Withdraw
      */
     okpayApiWithdraw: (model: PortalPsOkpayModelsApiWithdrawModel, params: RequestParams = {}) =>
       this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
         path: `/api/OkpayApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Oplati
+     * @name OplatiApiPaymentInfo
+     * @summary  (only for authorized users)
+     * @request POST:/api/OplatiApi/PaymentInfo
+     */
+    oplatiApiPaymentInfo: (
+      model: PortalPsOplatiModelsApiPaymentInfoRequestModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsOplatiModelsApiPaymentInfoModel, any>({
+        path: `/api/OplatiApi/PaymentInfo`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Oplati
+     * @name OplatiApiNotice
+     * @summary  (only for authorized users)
+     * @request POST:/api/OplatiApi/Notice
+     */
+    oplatiApiNotice: (model: PortalPsOplatiModelsApiNoticeModel, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/OplatiApi/Notice`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Oplati
+     * @name OplatiApiWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/OplatiApi/Withdraw
+     */
+    oplatiApiWithdraw: (model: PortalPsOplatiModelsApiWithdrawModel, params: RequestParams = {}) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/OplatiApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Pamm
+     * @name PammApiCreatePammAccount
+     * @request POST:/api/PammApi/CreatePammAccount
+     * @deprecated
+     */
+    pammApiCreatePammAccount: (
+      query: {
+        clientLogin: number
+        domainAddress: string
+        pammLogin: number
+        pammAccountTypeName: string
+        currencyCode: string
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<boolean, any>({
+        path: `/api/PammApi/CreatePammAccount`,
+        method: 'POST',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Pamm
+     * @name PammApiCreateAccount
+     * @request POST:/api/PammApi/CreateAccount
+     */
+    pammApiCreateAccount: (
+      model: PortalExtensionsPammModelsApiCreatePammAccountModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/PammApi/CreateAccount`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Pamm
+     * @name PammApiJoinPammAccount
+     * @request POST:/api/PammApi/JoinPammAccount
+     * @deprecated
+     */
+    pammApiJoinPammAccount: (
+      query: { pammLogin: number; clientLogin: number },
+      params: RequestParams = {},
+    ) =>
+      this.request<boolean, any>({
+        path: `/api/PammApi/JoinPammAccount`,
+        method: 'POST',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Pamm
+     * @name PammApiJoinAccount
+     * @request POST:/api/PammApi/JoinAccount
+     */
+    pammApiJoinAccount: (
+      model: PortalExtensionsPammModelsApiJoinPammAccountModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/PammApi/JoinAccount`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Pamm
+     * @name PammApiRolloverExecuted
+     * @request POST:/api/PammApi/RolloverExecuted
+     */
+    pammApiRolloverExecuted: (
+      model: PortalExtensionsPammModelsApiRolloverExecutedModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/PammApi/RolloverExecuted`,
         method: 'POST',
         body: model,
         type: ContentType.Json,
@@ -14202,6 +16002,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Partnership
      * @name VisitorsStatisticsApiGet
+     * @summary  (only for authorized users)
      * @request GET:/api/VisitorsStatisticsApi/Get
      */
     visitorsStatisticsApiGet: (
@@ -14228,6 +16029,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Partnership
      * @name ReferralsApiGet
+     * @summary  (only for authorized users)
      * @request GET:/api/ReferralsApi/Get
      */
     referralsApiGet: (
@@ -14255,6 +16057,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PastaBank
      * @name PastabankApiDepositConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/PastabankApi/Configuration/Add
      */
     pastabankApiDepositConfiguration: (params: RequestParams = {}) =>
@@ -14270,6 +16073,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PastaBank
      * @name PastabankApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PastabankApi/Add
      */
     pastabankApiAdd: (model: PortalPsPastabankModelsApiAddModel, params: RequestParams = {}) =>
@@ -14287,6 +16091,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Paybal51
      * @name Paybal51ApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/Paybal51Api/Banks
      */
     paybal51ApiBanks: (params: RequestParams = {}) =>
@@ -14302,6 +16107,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Paybal51
      * @name Paybal51ApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/Paybal51Api/Add
      */
     paybal51ApiAdd: (model: PortalPsPaybal51ModelsApiAddModel, params: RequestParams = {}) =>
@@ -14319,6 +16125,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Paybal51
      * @name Paybal51ApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/Paybal51Api/Withdraw
      */
     paybal51ApiWithdraw: (
@@ -14339,6 +16146,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payclub
      * @name PayClubApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayClubApi/Add
      */
     payClubApiAdd: (model: PortalPsPayclubModelsApiAddModel, params: RequestParams = {}) =>
@@ -14451,7 +16259,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name FeeApiFormula
-     * @summary Fee formulas info
+     * @summary Fee formulas info (only for authorized users)
      * @request GET:/api/FeeApi/Formula
      */
     feeApiFormula: (
@@ -14479,7 +16287,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiGetFinanceOperationStatuses
-     * @summary Finance operation statuses list
+     * @summary Finance operation statuses list (only for authorized users)
      * @request GET:/api/OperationApi/GetFinanceOperationStatuses
      * @deprecated
      */
@@ -14496,7 +16304,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiFinanceOperationStatuses
-     * @summary Finance operation statuses list
+     * @summary Finance operation statuses list (only for authorized users)
      * @request GET:/api/OperationApi/FinanceOperationStatuses
      */
     operationApiFinanceOperationStatuses: (params: RequestParams = {}) =>
@@ -14512,7 +16320,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiGetBackgroundStatuses
-     * @summary Background statuses list
+     * @summary Background statuses list (only for authorized users)
      * @request GET:/api/OperationApi/GetBackgroundStatuses
      * @deprecated
      */
@@ -14529,7 +16337,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiBackgroundStatuses
-     * @summary Background statuses list
+     * @summary Background statuses list (only for authorized users)
      * @request GET:/api/OperationApi/BackgroundStatuses
      */
     operationApiBackgroundStatuses: (params: RequestParams = {}) =>
@@ -14545,7 +16353,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiSummary
-     * @summary Account operations info
+     * @summary Account operations info (only for authorized users)
      * @request GET:/api/OperationApi/Summary
      */
     operationApiSummary: (
@@ -14581,7 +16389,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name OperationApiStartBalances
-     * @summary Account operations info
+     * @summary Account operations info (only for authorized users)
      * @request GET:/api/OperationApi/StartBalances
      */
     operationApiStartBalances: (
@@ -14608,7 +16416,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name FinanceApiBalance
-     * @summary Account balance info
+     * @summary Account balance info (only for authorized users)
      * @request GET:/api/FinanceApi/Balance
      */
     financeApiBalance: (
@@ -14654,7 +16462,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name FinanceApiPaymentSystems
-     * @summary Payment systems
+     * @summary Payment systems (only for authorized users)
      * @request GET:/api/FinanceApi/PaymentSystems
      */
     financeApiPaymentSystems: (
@@ -14682,7 +16490,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name CurrencyApiCollection
-     * @summary Get all currencies
+     * @summary Get all currencies (only for authorized users)
      * @request GET:/api/CurrencyApi/Collection
      */
     currencyApiCollection: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -14699,13 +16507,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name FinanceOperationApiAuthorize
+     * @summary  (only for authorized users)
      * @request POST:/api/FinanceOperationApi/Authorize
      */
     financeOperationApiAuthorize: (
       model: FinanceTransferModelsApiPaymentAuthorizationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/FinanceOperationApi/Authorize`,
         method: 'POST',
         body: model,
@@ -14719,14 +16528,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name FinanceOperationApiCancel
-     * @summary Cancel payment
+     * @summary Cancel payment (only for authorized users)
      * @request POST:/api/FinanceOperationApi/Cancel
      */
     financeOperationApiCancel: (
       model: FinanceTransferModelsApiPaymentCancellationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/FinanceOperationApi/Cancel`,
         method: 'POST',
         body: model,
@@ -14763,6 +16572,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentWizardApiPaymentMethod
+     * @summary  (only for authorized users)
      * @request GET:/api/PaymentWizardApi/PaymentMethod
      */
     paymentWizardApiPaymentMethod: (
@@ -14790,7 +16600,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name LimitApiLimit
-     * @summary Get account limits
+     * @summary Get account limits (only for authorized users)
      * @request GET:/api/LimitApi/Limit
      */
     limitApiLimit: (
@@ -14820,14 +16630,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentTypeAccountApiCreate
-     * @summary Create user's saved payment account
+     * @summary Create user's saved payment account (only for authorized users)
      * @request POST:/api/PaymentTypeAccountApi/Create
      */
     paymentTypeAccountApiCreate: (
       model: FinanceTransferModelsApiPaymentTypeAccountCreateRequestModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/PaymentTypeAccountApi/Create`,
         method: 'POST',
         body: model,
@@ -14841,7 +16651,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentTypeAccountApiGet
-     * @summary Get user's saved payment accounts
+     * @summary Get user's saved payment accounts (only for authorized users)
      * @request GET:/api/PaymentTypeAccountApi/Get
      * @deprecated
      */
@@ -14868,7 +16678,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentTypeAccountApiCollection
-     * @summary Get user's saved payment accounts
+     * @summary Get user's saved payment accounts (only for authorized users)
      * @request GET:/api/PaymentTypeAccountApi/Collection
      */
     paymentTypeAccountApiCollection: (
@@ -14894,14 +16704,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentTypeAccountApiDelete
-     * @summary Delete user's saved payment account by name
+     * @summary Delete user's saved payment account by name (only for authorized users)
      * @request POST:/api/PaymentTypeAccountApi/Delete
      */
     paymentTypeAccountApiDelete: (
       model: FinanceTransferModelsApiPaymentTypeAccountDeleteModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/PaymentTypeAccountApi/Delete`,
         method: 'POST',
         body: model,
@@ -14915,6 +16725,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentConfigurationApiCountries
+     * @summary  (only for authorized users)
      * @request GET:/api/PaymentConfigurationApi/Countries
      */
     paymentConfigurationApiCountries: (
@@ -14942,6 +16753,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentConfigurationApiCurrencies
+     * @summary  (only for authorized users)
      * @request GET:/api/PaymentConfigurationApi/Currencies
      */
     paymentConfigurationApiCurrencies: (
@@ -14970,6 +16782,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payment
      * @name PaymentConfigurationApiCollection
+     * @summary  (only for authorized users)
      * @request GET:/api/PaymentConfigurationApi/Collection
      */
     paymentConfigurationApiCollection: (
@@ -15002,6 +16815,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaymentAsia
      * @name PaymentAsiaApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PaymentAsiaApi/Add
      */
     paymentAsiaApiAdd: (model: PortalPsPaymentasiaModelsApiAddModel, params: RequestParams = {}) =>
@@ -15019,13 +16833,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaymentAsia
      * @name PaymentAsiaApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PaymentAsiaApi/Notice
      */
     paymentAsiaApiNotice: (
       model: PortalPsPaymentasiaModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PaymentAsiaApi/Notice`,
         method: 'POST',
         body: model,
@@ -15039,6 +16854,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaymentAsia
      * @name PaymentAsiaApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PaymentAsiaApi/Withdraw
      */
     paymentAsiaApiWithdraw: (
@@ -15059,6 +16875,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payoma
      * @name PayomaApiWithdrawParameters
+     * @summary  (only for authorized users)
      * @request GET:/api/PayomaApi/Parameters/Withdraw
      */
     payomaApiWithdrawParameters: (
@@ -15087,6 +16904,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payoma
      * @name PayomaApiWithdrawConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/PayomaApi/Configuration/Withdraw
      */
     payomaApiWithdrawConfiguration: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -15103,6 +16921,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payoma
      * @name PayomaApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PayomaApi/Withdraw
      */
     payomaApiWithdraw: (model: PortalPsPayomaModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15120,6 +16939,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payoma
      * @name PayomaApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayomaApi/Add
      */
     payomaApiAdd: (model: PortalPsPayomaModelsApiAddModel, params: RequestParams = {}) =>
@@ -15137,6 +16957,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayPal
      * @name PayPalApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayPalApi/Add
      */
     payPalApiAdd: (model: PortalPsPaypalModelsApiAddModel, params: RequestParams = {}) =>
@@ -15154,10 +16975,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayPal
      * @name PayPalApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PayPalApi/Notice
      */
     payPalApiNotice: (model: PortalPsPaypalModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PayPalApi/Notice`,
         method: 'POST',
         body: model,
@@ -15171,6 +16993,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayPal
      * @name PayPalApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PayPalApi/Withdraw
      */
     payPalApiWithdraw: (model: PortalPsPaypalModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15188,6 +17011,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaySafeCard
      * @name PaySafeCardApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PaySafeCardApi/Add
      */
     paySafeCardApiAdd: (model: PortalPsPaysafecardModelsApiAddModel, params: RequestParams = {}) =>
@@ -15205,13 +17029,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaySafeCard
      * @name PaySafeCardApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PaySafeCardApi/Notice
      */
     paySafeCardApiNotice: (
       model: PortalPsPaysafecardModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PaySafeCardApi/Notice`,
         method: 'POST',
         body: model,
@@ -15225,6 +17050,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PaySafeCard
      * @name PaySafeCardApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PaySafeCardApi/Withdraw
      */
     paySafeCardApiWithdraw: (
@@ -15307,6 +17133,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayToday
      * @name PayTodayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayTodayApi/Add
      */
     payTodayApiAdd: (model: PortalPsPaytodayModelsApiAddModel, params: RequestParams = {}) =>
@@ -15324,10 +17151,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayToday
      * @name PayTodayApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PayTodayApi/Notice
      */
     payTodayApiNotice: (model: PortalPsPaytodayModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PayTodayApi/Notice`,
         method: 'POST',
         body: model,
@@ -15341,6 +17169,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PayToday
      * @name PayTodayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PayTodayApi/Withdraw
      */
     payTodayApiWithdraw: (
@@ -15361,6 +17190,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payza
      * @name PayzaApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzaApi/Add
      */
     payzaApiAdd: (model: PortalPsPayzaModelsApiAddModel, params: RequestParams = {}) =>
@@ -15378,10 +17208,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payza
      * @name PayzaApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzaApi/Notice
      */
     payzaApiNotice: (model: PortalPsPayzaModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PayzaApi/Notice`,
         method: 'POST',
         body: model,
@@ -15395,6 +17226,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payza
      * @name PayzaApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzaApi/Withdraw
      */
     payzaApiWithdraw: (model: PortalPsPayzaModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15412,6 +17244,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/PayzenApi/Banks
      */
     payzenApiBanks: (
@@ -15443,6 +17276,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiProvinces
+     * @summary  (only for authorized users)
      * @request GET:/api/PayzenApi/Provinces
      */
     payzenApiProvinces: (
@@ -15474,6 +17308,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiAreas
+     * @summary  (only for authorized users)
      * @request GET:/api/PayzenApi/Areas
      */
     payzenApiAreas: (
@@ -15505,6 +17340,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzenApi/Add
      */
     payzenApiAdd: (model: PortalPsPayzenModelsApiAddModel, params: RequestParams = {}) =>
@@ -15522,10 +17358,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzenApi/Notice
      */
     payzenApiNotice: (model: PortalPsPayzenModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PayzenApi/Notice`,
         method: 'POST',
         body: model,
@@ -15539,6 +17376,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzenApi/Withdraw
      */
     payzenApiWithdraw: (model: PortalPsPayzenModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15556,6 +17394,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Payzen
      * @name PayzenApiBankTransferWithdrawal
+     * @summary  (only for authorized users)
      * @request POST:/api/PayzenApi/BankTransferWithdrawal
      */
     payzenApiBankTransferWithdrawal: (
@@ -15576,6 +17415,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PerfectMoney
      * @name PerfectMoneyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PerfectMoneyApi/Add
      */
     perfectMoneyApiAdd: (
@@ -15596,13 +17436,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PerfectMoney
      * @name PerfectMoneyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PerfectMoneyApi/Notice
      */
     perfectMoneyApiNotice: (
       model: PortalPsPerfectmoneyModelsApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PerfectMoneyApi/Notice`,
         method: 'POST',
         body: model,
@@ -15616,6 +17457,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PerfectMoney
      * @name PerfectMoneyApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PerfectMoneyApi/Withdraw
      */
     perfectMoneyApiWithdraw: (
@@ -15636,6 +17478,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Poli
      * @name PoliApiBanks
+     * @summary  (only for authorized users)
      * @request GET:/api/PoliApi/Banks
      */
     poliApiBanks: (
@@ -15655,6 +17498,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Poli
      * @name PoliApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PoliApi/Add
      */
     poliApiAdd: (model: PortalPsPoliModelsApiAddModel, params: RequestParams = {}) =>
@@ -15672,10 +17516,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Poli
      * @name PoliApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/PoliApi/Notice
      */
     poliApiNotice: (model: PortalPsPoliModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PoliApi/Notice`,
         method: 'POST',
         body: model,
@@ -15689,6 +17534,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Poli
      * @name PoliApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PoliApi/Withdraw
      */
     poliApiWithdraw: (model: PortalPsPoliModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15706,6 +17552,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PrepaidCard
      * @name PrepaidCardApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/PrepaidCardApi/Add
      */
     prepaidCardApiAdd: (model: PortalPsPrepaidcardModelsApiAddModel, params: RequestParams = {}) =>
@@ -15723,6 +17570,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags PrepaidCard
      * @name PrepaidCardApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/PrepaidCardApi/Withdraw
      */
     prepaidCardApiWithdraw: (
@@ -15793,13 +17641,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Profile
      * @name ProfileApiCorporate
+     * @summary  (only for authorized users)
      * @request POST:/api/ProfileApi/Corporate
      */
     profileApiCorporate: (
       model: PortalUserSettingsModelsApiCorporateProfileUpdateModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/ProfileApi/Corporate`,
         method: 'POST',
         body: model,
@@ -15813,13 +17662,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Profile
      * @name ProfileApiJoint
+     * @summary  (only for authorized users)
      * @request POST:/api/ProfileApi/Joint
      */
     profileApiJoint: (
       model: PortalUserSettingsModelsApiJointProfileUpdateModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/ProfileApi/Joint`,
         method: 'POST',
         body: model,
@@ -15833,13 +17683,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Profile
      * @name ProfileApiPersonal
+     * @summary  (only for authorized users)
      * @request POST:/api/ProfileApi/Personal
      */
     profileApiPersonal: (
       model: PortalUserSettingsModelsApiPersonalProfileUpdateModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/ProfileApi/Personal`,
         method: 'POST',
         body: model,
@@ -15853,6 +17704,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Qiwi
      * @name QiwiApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/QiwiApi/Add
      */
     qiwiApiAdd: (model: PortalPsQiwiModelsApiAddModel, params: RequestParams = {}) =>
@@ -15870,10 +17722,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Qiwi
      * @name QiwiApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/QiwiApi/Notice
      */
     qiwiApiNotice: (model: PortalPsQiwiModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/QiwiApi/Notice`,
         method: 'POST',
         body: model,
@@ -15887,6 +17740,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Qiwi
      * @name QiwiApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/QiwiApi/Withdraw
      */
     qiwiApiWithdraw: (model: PortalPsQiwiModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -15904,13 +17758,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Questionnaire
      * @name QuestionnaireApiCheckAnswers
+     * @summary  (only for authorized users)
      * @request POST:/api/QuestionnaireApi/CheckAnswers
      */
     questionnaireApiCheckAnswers: (
-      model: PortalUserQuestionnaireModelsApiQuestionnaireAnswersModel,
+      model: PortalUserQuestionnaireModelsApiQuestionnaireAnswerModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/QuestionnaireApi/CheckAnswers`,
         method: 'POST',
         body: model,
@@ -15924,6 +17779,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Questionnaire
      * @name QuestionnaireApiTemplate
+     * @summary  (only for authorized users)
      * @request GET:/api/QuestionnaireApi/Template
      */
     questionnaireApiTemplate: (
@@ -15943,6 +17799,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags RbkMoney
      * @name RbkMoneyApiCreditDebitCardsAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/RbkMoneyApi/CreditDebitCardsAdd
      */
     rbkMoneyApiCreditDebitCardsAdd: (
@@ -15963,6 +17820,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags RbkMoney
      * @name RbkMoneyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/RbkMoneyApi/Add
      */
     rbkMoneyApiAdd: (model: PortalPsRbkmoneyModelsApiAddModel, params: RequestParams = {}) =>
@@ -15980,10 +17838,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags RbkMoney
      * @name RbkMoneyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/RbkMoneyApi/Notice
      */
     rbkMoneyApiNotice: (model: PortalPsRbkmoneyModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/RbkMoneyApi/Notice`,
         method: 'POST',
         body: model,
@@ -16003,7 +17862,7 @@ ToDo: verify if required factor is not configured for user
       model: PortalUserIdentityPasswordModelsApiRecoverPasswordModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PasswordApi/Recover`,
         method: 'POST',
         body: model,
@@ -16023,7 +17882,7 @@ ToDo: verify if required factor is not configured for user
       model: PortalUserIdentityPasswordModelsApiResetPasswordModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/PasswordApi/Reset`,
         method: 'POST',
         body: model,
@@ -16037,6 +17896,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Recovery
      * @name RecoveryApiAccounts
+     * @summary  (only for authorized users)
      * @request GET:/api/RecoveryApi/Accounts
      */
     recoveryApiAccounts: (
@@ -16056,7 +17916,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Recovery
      * @name RecoveryApiActions
-     * @summary Recovery action history
+     * @summary Recovery action history (only for authorized users)
      * @request GET:/api/RecoveryApi/Actions
      */
     recoveryApiActions: (
@@ -16085,7 +17945,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Recovery
      * @name RecoveryApiCreate
-     * @summary Request recovery
+     * @summary Request recovery (only for authorized users)
      * @request POST:/api/RecoveryApi/Create
      */
     recoveryApiCreate: (
@@ -16106,14 +17966,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Recovery
      * @name RecoveryApiUpdate
-     * @summary Update recovery action
+     * @summary Update recovery action (only for authorized users)
      * @request POST:/api/RecoveryApi/Update
      */
     recoveryApiUpdate: (
       model: PortalUserRecoveryModelsApiRecoveryActionUpdateModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/RecoveryApi/Update`,
         method: 'POST',
         body: model,
@@ -16127,11 +17987,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Recovery
      * @name RecoveryApiReset
-     * @summary Reset forgotten password/PIN code/etc.
+     * @summary Reset forgotten password/PIN code/etc. (only for authorized users)
      * @request POST:/api/RecoveryApi/Reset
      */
     recoveryApiReset: (model: PortalUserRecoveryModelsApiResetModel, params: RequestParams = {}) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/RecoveryApi/Reset`,
         method: 'POST',
         body: model,
@@ -16145,6 +18005,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Redeem
      * @name RedeemApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/RedeemApi/Add
      */
     redeemApiAdd: (model: PortalPsRedeemModelsApiAddModel, params: RequestParams = {}) =>
@@ -16162,6 +18023,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Redeem
      * @name RedeemApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/RedeemApi/Withdraw
      */
     redeemApiWithdraw: (model: PortalPsRedeemModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -16179,6 +18041,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Redeem
      * @name RedeemApiCodes
+     * @summary  (only for authorized users)
      * @request GET:/api/RedeemApi/Codes
      */
     redeemApiCodes: (
@@ -16195,6 +18058,106 @@ ToDo: verify if required factor is not configured for user
         path: `/api/RedeemApi/Codes`,
         method: 'GET',
         query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Region
+     * @name RegionApiCountries
+     * @summary  (only for authorized users)
+     * @request GET:/api/RegionApi/Countries
+     */
+    regionApiCountries: (
+      query?: { regionName?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiRegionCountryModel[], any>({
+        path: `/api/RegionApi/Countries`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Region
+     * @name RegionApiRegions
+     * @summary  (only for authorized users)
+     * @request GET:/api/RegionApi/Regions
+     */
+    regionApiRegions: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiRegionRegionModel[], any>({
+        path: `/api/RegionApi/Regions`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Region
+     * @name RegionApiCreate
+     * @summary  (only for authorized users)
+     * @request POST:/api/RegionApi/Create
+     */
+    regionApiCreate: (
+      model: PortalModuleConfigurationModelsApiRegionCreateRegionModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/RegionApi/Create`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Region
+     * @name RegionApiUpdate
+     * @summary  (only for authorized users)
+     * @request POST:/api/RegionApi/Update
+     */
+    regionApiUpdate: (
+      model: PortalModuleConfigurationModelsApiRegionUpdateRegionModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/RegionApi/Update`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Region
+     * @name RegionApiDelete
+     * @summary  (only for authorized users)
+     * @request POST:/api/RegionApi/Delete
+     */
+    regionApiDelete: (
+      model: PortalModuleConfigurationModelsApiRegionDeleteRegionModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/RegionApi/Delete`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
@@ -16228,7 +18191,7 @@ ToDo: verify if required factor is not configured for user
      * @request POST:/api/SalvApi/Result
      */
     salvApiResult: (model: SalvServiceModelsWebhookWebhook, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/SalvApi/Result`,
         method: 'POST',
         body: model,
@@ -16240,17 +18203,189 @@ ToDo: verify if required factor is not configured for user
     /**
      * No description
      *
-     * @tags SmsNotification
-     * @name SmsNotificationApiSendNotification
-     * @summary Send notification
-     * @request POST:/api/SmsNotificationApi/SendNotification
+     * @tags Skrill
+     * @name SkrillApiIssueParameters
+     * @summary  (only for authorized users)
+     * @request GET:/api/SkrillApi/Parameters/Issue
      */
-    smsNotificationApiSendNotification: (
-      model: PortalUserSettingsModelsApiSmsNotificationSendNotificationModel,
+    skrillApiIssueParameters: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalPsSkrillModelsApiCardIssueParametersResponseModel, any>({
+        path: `/api/SkrillApi/Parameters/Issue`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiCreditDebitCardsAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/CreditDebitCards/Add
+     */
+    skrillApiCreditDebitCardsAdd: (
+      model: PortalPsSkrillModelsApiCreditDebitCardsAddModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
-        path: `/api/SmsNotificationApi/SendNotification`,
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/SkrillApi/CreditDebitCards/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiCreditDebitCardsWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/CreditDebitCards/Withdraw
+     */
+    skrillApiCreditDebitCardsWithdraw: (
+      model: PortalPsSkrillModelsApiCreditDebitCardsWithdrawModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/SkrillApi/CreditDebitCards/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiGet
+     * @summary  (only for authorized users)
+     * @request GET:/api/SkrillApi/Get
+     */
+    skrillApiGet: (
+      query?: { payemntOptionCode?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsSkrillModelsApiCardModel[], any>({
+        path: `/api/SkrillApi/Get`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiIssue
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/Issue
+     */
+    skrillApiIssue: (
+      model: PortalPsSkrillModelsApiCardIssueRequestModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalPsSkrillModelsApiCardModel, any>({
+        path: `/api/SkrillApi/Issue`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiAdd
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/Add
+     */
+    skrillApiAdd: (model: PortalPsSkrillModelsApiAddModel, params: RequestParams = {}) =>
+      this.request<PortalPsSkrillModelsApiDepositModel, any>({
+        path: `/api/SkrillApi/Add`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiWithdraw
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/Withdraw
+     */
+    skrillApiWithdraw: (model: PortalPsSkrillModelsApiWithdrawModel, params: RequestParams = {}) =>
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
+        path: `/api/SkrillApi/Withdraw`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiNotice
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/Notice
+     */
+    skrillApiNotice: (model: PortalPsSkrillModelsApiNoticeModel, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/SkrillApi/Notice`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Skrill
+     * @name SkrillApiDelete
+     * @summary  (only for authorized users)
+     * @request POST:/api/SkrillApi/Delete
+     */
+    skrillApiDelete: (model: PortalPsSkrillModelsApiCardDeleteModel, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/SkrillApi/Delete`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags SmsNotification
+     * @name SmsNotificationApiSendProfileVerificationStatusNotification
+     * @summary Send profile verification status notification (only for authorized users)
+     * @request POST:/api/SmsNotificationApi/SendProfileVerificationStatusNotification
+     */
+    smsNotificationApiSendProfileVerificationStatusNotification: (
+      model: PortalUserSettingsModelsApiSmsNotificationSendProfileVerificationStatusNotificationModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
+        path: `/api/SmsNotificationApi/SendProfileVerificationStatusNotification`,
         method: 'POST',
         body: model,
         type: ContentType.Json,
@@ -16263,14 +18398,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SmsNotification
      * @name SmsNotificationApiSendRecoveryStatusChangeNotification
-     * @summary Send notification of recovery
+     * @summary Send notification of recovery (only for authorized users)
      * @request POST:/api/SmsNotificationApi/SendRecoveryStatusChangeNotification
      */
     smsNotificationApiSendRecoveryStatusChangeNotification: (
       model: PortalUserSettingsModelsApiSmsNotificationSendRecoveryNotificationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/SmsNotificationApi/SendRecoveryStatusChangeNotification`,
         method: 'POST',
         body: model,
@@ -16284,14 +18419,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SmsNotification
      * @name SmsNotificationApiSendFinanceOperationStatusChangeNotification
-     * @summary Send notification of finance operation status change
+     * @summary Send notification of finance operation status change (only for authorized users)
      * @request POST:/api/SmsNotificationApi/SendFinanceOperationStatusChangeNotification
      */
     smsNotificationApiSendFinanceOperationStatusChangeNotification: (
       model: PortalUserSettingsModelsApiSmsNotificationSendFinanceOperationStatusChangeNotificationModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/SmsNotificationApi/SendFinanceOperationStatusChangeNotification`,
         method: 'POST',
         body: model,
@@ -16305,7 +18440,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SorexPay
      * @name SorexPayApiWithdrawParameters
-     * @summary SorexPay withdrawal parameters
+     * @summary SorexPay withdrawal parameters (only for authorized users)
      * @request GET:/api/SorexPayApi/Parameters/Withdraw
      */
     sorexPayApiWithdrawParameters: (
@@ -16335,7 +18470,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SorexPay
      * @name SorexPayApiWithdrawConfiguration
-     * @summary SorexPay withdrawal configuration
+     * @summary SorexPay withdrawal configuration (only for authorized users)
      * @request GET:/api/SorexPayApi/Configuration/Withdraw
      */
     sorexPayApiWithdrawConfiguration: (
@@ -16355,7 +18490,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SorexPay
      * @name SorexPayApiWithdraw
-     * @summary Withdraw funds via SorexPay
+     * @summary Withdraw funds via SorexPay (only for authorized users)
      * @request POST:/api/SorexPayApi/Withdraw
      */
     sorexPayApiWithdraw: (
@@ -16376,7 +18511,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SorexPay
      * @name SorexPayApiAdd
-     * @summary Add funds via SorexPay
+     * @summary Add funds via SorexPay (only for authorized users)
      * @request POST:/api/SorexPayApi/Add
      */
     sorexPayApiAdd: (model: PortalPsSorexpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -16401,7 +18536,7 @@ ToDo: verify if required factor is not configured for user
       model: VerificationServicesSumsubModelsJsonWebhook,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/SumSubApi/Result`,
         method: 'POST',
         body: model,
@@ -16415,7 +18550,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags SumSub
      * @name SumSubApiVerificationForm
-     * @summary Get SumSub verification form
+     * @summary Get SumSub verification form (only for authorized users)
      * @request GET:/api/SumSubApi/VerificationForm
      */
     sumSubApiVerificationForm: (
@@ -16435,6 +18570,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Tether
      * @name TetherApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/TetherApi/Add
      */
     tetherApiAdd: (model: PortalPsTetherModelsApiAddModel, params: RequestParams = {}) =>
@@ -16452,10 +18588,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Tether
      * @name TetherApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/TetherApi/Notice
      */
     tetherApiNotice: (model: PortalPsTetherModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/TetherApi/Notice`,
         method: 'POST',
         body: model,
@@ -16469,10 +18606,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Tether
      * @name TetherApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/TetherApi/Withdraw
      */
     tetherApiWithdraw: (model: PortalPsTetherModelsApiWithdrawModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<FinanceTransferModelsApiFinanceOperationModelBase, any>({
         path: `/api/TetherApi/Withdraw`,
         method: 'POST',
         body: model,
@@ -16486,7 +18624,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Trading
      * @name TradingProductApiConfiguration
-     * @summary Trading product configuration
+     * @summary Trading product configuration (only for authorized users)
      * @request GET:/api/TradingProductApi/Configuration
      */
     tradingProductApiConfiguration: (
@@ -16511,14 +18649,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Trading
      * @name TradingAccountApiCreate
-     * @summary Create trading account
+     * @summary Create trading account (only for authorized users)
      * @request POST:/api/TradingAccountApi/Create
      */
     tradingAccountApiCreate: (
       model: AtTradingModelsTradingAccountCreateModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/TradingAccountApi/Create`,
         method: 'POST',
         body: model,
@@ -16532,6 +18670,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags TransactPro
      * @name TransactProApiDepositConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/TransactProApi/Configuration/Deposit
      */
     transactProApiDepositConfiguration: (params: RequestParams = {}) =>
@@ -16547,6 +18686,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags TransactPro
      * @name TransactProApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/TransactProApi/Add
      */
     transactProApiAdd: (model: PortalPsTransactproModelsApiAddModel, params: RequestParams = {}) =>
@@ -16564,13 +18704,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name RequestTransferApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/RequestTransferApi/Add
      */
     requestTransferApiAdd: (
       model: PortalPsTransferModelsApiRequestTransferAddModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/RequestTransferApi/Add`,
         method: 'POST',
         body: model,
@@ -16584,6 +18725,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name RequestTransferApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/RequestTransferApi/Notice
      */
     requestTransferApiNotice: (
@@ -16604,13 +18746,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name RequestTransferApiChangeStatus
+     * @summary  (only for authorized users)
      * @request POST:/api/RequestTransferApi/ChangeStatus
      */
     requestTransferApiChangeStatus: (
       model: PortalPsTransferModelsApiRequestTransferActionModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/RequestTransferApi/ChangeStatus`,
         method: 'POST',
         body: model,
@@ -16624,7 +18767,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name TransferApiCreate
-     * @summary OBSOLETE!!! Use POST api/TransferApi/Create instead
+     * @summary OBSOLETE!!! Use POST api/TransferApi/Create instead (only for authorized users)
      * @request GET:/api/TransferApi/Create
      * @deprecated
      */
@@ -16652,7 +18795,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name TransferApiCreate2
-     * @summary Transfer funds
+     * @summary Transfer funds (only for authorized users)
      * @request POST:/api/TransferApi/Create
      * @originalName transferApiCreate
      * @duplicate
@@ -16695,7 +18838,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name TransferApiPockets
-     * @summary Gets pockets of account
+     * @summary Gets pockets of account (only for authorized users)
      * @request GET:/api/TransferApi/Pockets
      */
     transferApiPockets: (
@@ -16715,7 +18858,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Transfer
      * @name TransferApiPocketsTo
-     * @summary Gets pockets of trading account
+     * @summary Gets pockets of trading account (only for authorized users)
      * @request GET:/api/TransferApi/PocketsTo
      */
     transferApiPocketsTo: (
@@ -16735,6 +18878,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Trustly
      * @name TrustlyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/TrustlyApi/Add
      */
     trustlyApiAdd: (model: PortalPsTrustlyModelsApiAddModel, params: RequestParams = {}) =>
@@ -16752,10 +18896,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Trustly
      * @name TrustlyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/TrustlyApi/Notice
      */
     trustlyApiNotice: (model: PortalPsTrustlyModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/TrustlyApi/Notice`,
         method: 'POST',
         body: model,
@@ -16769,6 +18914,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Trustly
      * @name TrustlyApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/TrustlyApi/Withdraw
      */
     trustlyApiWithdraw: (
@@ -16789,6 +18935,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Uphold
      * @name UpholdApiPaymentConfiguration
+     * @summary  (only for authorized users)
      * @request GET:/api/UpholdApi/Configuration
      */
     upholdApiPaymentConfiguration: (query?: { domainName?: string }, params: RequestParams = {}) =>
@@ -16805,6 +18952,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Uphold
      * @name UpholdApiUpholdCards
+     * @summary  (only for authorized users)
      * @request GET:/api/UpholdApi/UpholdCards
      */
     upholdApiUpholdCards: (
@@ -16831,6 +18979,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Uphold
      * @name UpholdApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/UpholdApi/Add
      */
     upholdApiAdd: (model: PortalPsUpholdModelsApiAddModel, params: RequestParams = {}) =>
@@ -16848,10 +18997,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Uphold
      * @name UpholdApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/UpholdApi/Notice
      */
     upholdApiNotice: (model: PortalPsUpholdModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/UpholdApi/Notice`,
         method: 'POST',
         body: model,
@@ -16865,6 +19015,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Uphold
      * @name UpholdApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/UpholdApi/Withdraw
      */
     upholdApiWithdraw: (model: PortalPsUpholdModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -16882,7 +19033,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserApiRegisterApplicant
-     * @summary Applicant registration
+     * @summary Applicant registration (only for authorized users)
      * @request POST:/api/UserApi/RegisterApplicant
      */
     userApiRegisterApplicant: (
@@ -16903,7 +19054,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiActivity
-     * @summary User activity information
+     * @summary User activity information (only for authorized users)
      * @request GET:/api/UserInformationApi/Activity
      */
     userInformationApiActivity: (
@@ -16923,7 +19074,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiIpLists
-     * @summary Ip access lists information
+     * @summary Ip access lists information (only for authorized users)
      * @request GET:/api/UserInformationApi/IpLists
      */
     userInformationApiIpLists: (
@@ -16943,7 +19094,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiIpList
-     * @summary Add an IP address to the Black/White list
+     * @summary Add an IP address to the Black/White list (only for authorized users)
      * @request PUT:/api/UserInformationApi/IpList
      */
     userInformationApiIpList: (
@@ -16964,7 +19115,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiIpList2
-     * @summary Delete Ip adress from Black/White list
+     * @summary Delete Ip adress from Black/White list (only for authorized users)
      * @request DELETE:/api/UserInformationApi/IpList
      * @originalName userInformationApiIpList
      * @duplicate
@@ -16987,7 +19138,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiSummary
-     * @summary User summary information
+     * @summary User summary information (only for authorized users)
      * @request GET:/api/UserInformationApi/Summary
      */
     userInformationApiSummary: (params: RequestParams = {}) =>
@@ -17003,15 +19154,56 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags User
      * @name UserInformationApiSearchUser
-     * @summary Search user
+     * @summary Search user (only for authorized users)
      * @request POST:/api/UserInformationApi/SearchUser
      */
     userInformationApiSearchUser: (
       model: PortalUserSettingsModelsUserInformationSearchUserRequestModel,
       params: RequestParams = {},
     ) =>
-      this.request<PortalUserSettingsModelsUserInformationUserAccountNumberModel[], void>({
+      this.request<PortalUserSettingsModelsUserInformationUserModel[], void>({
         path: `/api/UserInformationApi/SearchUser`,
+        method: 'POST',
+        body: model,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags UserBlock
+     * @name UserBlockApiUserStatus
+     * @summary  (only for authorized users)
+     * @request GET:/api/UserBlockApi/UserStatus
+     */
+    userBlockApiUserStatus: (
+      query?: { userId?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalUserBlockModelsApiAccountBlockModel[], any>({
+        path: `/api/UserBlockApi/UserStatus`,
+        method: 'GET',
+        query: query,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags UserBlock
+     * @name UserBlockApiBlock
+     * @summary  (only for authorized users)
+     * @request POST:/api/UserBlockApi/Block
+     */
+    userBlockApiBlock: (
+      model: PortalUserBlockModelsApiUserBlockModel,
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
+        path: `/api/UserBlockApi/Block`,
         method: 'POST',
         body: model,
         type: ContentType.Json,
@@ -17024,11 +19216,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name DocumentApiVerificationForm
-     * @summary Gets documents verification form info
+     * @summary Gets documents verification form info (only for authorized users)
      * @request GET:/api/DocumentApi/VerificationForm
      */
     documentApiVerificationForm: (
-      query?: { 'model.gradeName'?: string; 'model.domainName'?: string },
+      query?: { gradeName?: string; domainName?: string },
       params: RequestParams = {},
     ) =>
       this.request<
@@ -17047,11 +19239,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name DocumentApiVerify
-     * @summary Request documents verification
+     * @summary Request documents verification (only for authorized users)
      * @request POST:/api/DocumentApi/Verify
      */
-    documentApiVerify: (query?: { 'model.domainName'?: string }, params: RequestParams = {}) =>
-      this.request<object, void>({
+    documentApiVerify: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/DocumentApi/Verify`,
         method: 'POST',
         query: query,
@@ -17064,14 +19256,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name DocumentApiUpload
-     * @summary Upload document
+     * @summary Upload document (only for authorized users)
      * @request POST:/api/DocumentApi/Upload
      */
     documentApiUpload: (
       query?: { documentSetId?: string; documentType?: string; domainName?: string },
       params: RequestParams = {},
     ) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/DocumentApi/Upload`,
         method: 'POST',
         query: query,
@@ -17084,11 +19276,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name DocumentApiGet
-     * @summary Gets documents for current user
+     * @summary Gets documents for current user (only for authorized users)
      * @request GET:/api/DocumentApi/Get
      */
-    documentApiGet: (query?: { 'model.domainName'?: string }, params: RequestParams = {}) =>
-      this.request<PortalModuleVerificationModelsDocumentsVerificationDocumentModel[], void>({
+    documentApiGet: (query?: { domainName?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleVerificationModelsApiDocumentsVerificationDocumentModel[], void>({
         path: `/api/DocumentApi/Get`,
         method: 'GET',
         query: query,
@@ -17101,11 +19293,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name DocumentApiDelete
-     * @summary Deletes document
+     * @summary Deletes document (only for authorized users)
      * @request DELETE:/api/DocumentApi/Delete/{Id}
      */
-    documentApiDelete: (id: string, query?: { 'model.id'?: string }, params: RequestParams = {}) =>
-      this.request<object, void>({
+    documentApiDelete: (id: string, query?: { id?: string }, params: RequestParams = {}) =>
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/DocumentApi/Delete/${id}`,
         method: 'DELETE',
         query: query,
@@ -17118,7 +19310,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name VerificationApiDocumentTypesCollection
-     * @summary Gets documents type
+     * @summary Gets documents type (only for authorized users)
      * @request GET:/api/VerificationApi/DocumentTypesCollection
      */
     verificationApiDocumentTypesCollection: (
@@ -17143,6 +19335,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name VerificationApiUserGrades
+     * @summary  (only for authorized users)
      * @request GET:/api/VerificationApi/UserGrades
      * @deprecated
      */
@@ -17155,14 +19348,18 @@ ToDo: verify if required factor is not configured for user
       }),
 
     /**
-     * No description
+     * @description The method returns all grades that currently exist in the system and the chain of verifications steps that the user must pass in order to acquire each grade. To pass a verification step, the user must pass one of the verification forms associated with this step. The response also includes user's current grade and each form's status, by which the caller can define user's current verification state.
      *
      * @tags Verification
      * @name VerificationApiConfiguration
+     * @summary Verification chain configuration (only for authorized users)
      * @request GET:/api/VerificationApi/Configuration
      */
-    verificationApiConfiguration: (query?: { domainName?: string }, params: RequestParams = {}) =>
-      this.request<PortalModuleVerificationModelsApiVerificationConfigurationModel, any>({
+    verificationApiConfiguration: (
+      query?: { countryCode?: string; domainName?: string },
+      params: RequestParams = {},
+    ) =>
+      this.request<PortalModuleVerificationModelsApiVerificationConfigurationModel, void>({
         path: `/api/VerificationApi/Configuration`,
         method: 'GET',
         query: query,
@@ -17194,6 +19391,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Verification
      * @name VerificationApiUserType
+     * @summary  (only for authorized users)
      * @request POST:/api/VerificationApi/UserType
      */
     verificationApiUserType: (
@@ -17214,6 +19412,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags W1
      * @name W1ApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/W1Api/Add
      */
     w1ApiAdd: (model: PortalPsWalletoneModelsApiAddModel, params: RequestParams = {}) =>
@@ -17231,10 +19430,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags W1
      * @name W1ApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/W1Api/Notice
      */
     w1ApiNotice: (model: PortalPsWalletoneModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/W1Api/Notice`,
         method: 'POST',
         body: model,
@@ -17248,7 +19448,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Webmoney
      * @name WebmoneyApiAdd
-     * @summary Add funds via Webmoney
+     * @summary Add funds via Webmoney (only for authorized users)
      * @request POST:/api/WebmoneyApi/Add
      */
     webmoneyApiAdd: (model: PortalPsWebmoneyModelsApiAddModel, params: RequestParams = {}) =>
@@ -17266,11 +19466,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Webmoney
      * @name WebmoneyApiNotice
-     * @summary Notice about adding funds via Webmoney
+     * @summary Notice about adding funds via Webmoney (only for authorized users)
      * @request POST:/api/WebmoneyApi/Notice
      */
     webmoneyApiNotice: (model: PortalPsWebmoneyModelsApiNoticeModel, params: RequestParams = {}) =>
-      this.request<object, void>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, void>({
         path: `/api/WebmoneyApi/Notice`,
         method: 'POST',
         body: model,
@@ -17284,7 +19484,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Webmoney
      * @name WebmoneyApiWithdraw
-     * @summary Withdraw funds via Webmoney
+     * @summary Withdraw funds via Webmoney (only for authorized users)
      * @request POST:/api/WebmoneyApi/Withdraw
      */
     webmoneyApiWithdraw: (
@@ -17305,6 +19505,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Webpay
      * @name WebpayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/WebpayApi/Add
      */
     webpayApiAdd: (model: PortalPsWebpayModelsApiAddModel, params: RequestParams = {}) =>
@@ -17322,6 +19523,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Webpay
      * @name WebpayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/WebpayApi/Withdraw
      */
     webpayApiWithdraw: (model: PortalPsWebpayModelsApiWithdrawModel, params: RequestParams = {}) =>
@@ -17339,6 +19541,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/WireTransferApi/Add
      */
     wireTransferApiAdd: (model: PortalPsWireModelsApiAddModel, params: RequestParams = {}) =>
@@ -17356,6 +19559,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiBankDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/BankDetails
      */
     wireTransferApiBankDetails: (
@@ -17383,6 +19587,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiSelectBank
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/SelectBank
      */
     wireTransferApiSelectBank: (
@@ -17412,6 +19617,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiTransferDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/TransferDetails
      */
     wireTransferApiTransferDetails: (
@@ -17431,6 +19637,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiAdditionalDetails
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/AdditionalDetails
      */
     wireTransferApiAdditionalDetails: (
@@ -17461,6 +19668,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/WireTransferApi/Withdraw
      */
     wireTransferApiWithdraw: (
@@ -17540,6 +19748,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiNfsOptions
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/NfsOptions
      */
     wireTransferApiNfsOptions: (
@@ -17589,6 +19798,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiCountryByAccountNumber
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/CountryByAccountNumber
      */
     wireTransferApiCountryByAccountNumber: (
@@ -17617,6 +19827,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiInvoices
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/Invoices
      */
     wireTransferApiInvoices: (params: RequestParams = {}) =>
@@ -17632,10 +19843,11 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiDeleteInvoice
+     * @summary  (only for authorized users)
      * @request DELETE:/api/WireTransferApi/DeleteInvoice
      */
     wireTransferApiDeleteInvoice: (query: { wireId: string }, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/WireTransferApi/DeleteInvoice`,
         method: 'DELETE',
         query: query,
@@ -17648,13 +19860,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags WireTransfer
      * @name WireTransferApiInvoice
+     * @summary  (only for authorized users)
      * @request GET:/api/WireTransferApi/Invoice
      */
     wireTransferApiInvoice: (
       query?: { wireId?: string; domainName?: string },
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/WireTransferApi/Invoice`,
         method: 'GET',
         query: query,
@@ -17667,6 +19880,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags YandexMoney
      * @name YandexMoneyApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/YandexMoneyApi/Add
      */
     yandexMoneyApiAdd: (model: PortalPsYandexmoneyModelApiAddModel, params: RequestParams = {}) =>
@@ -17684,13 +19898,14 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags YandexMoney
      * @name YandexMoneyApiNotice
+     * @summary  (only for authorized users)
      * @request POST:/api/YandexMoneyApi/Notice
      */
     yandexMoneyApiNotice: (
       model: PortalPsYandexmoneyModelApiNoticeModel,
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<PortalModuleConfigurationModelsApiDomainDomainConfigurationRequestModel, any>({
         path: `/api/YandexMoneyApi/Notice`,
         method: 'POST',
         body: model,
@@ -17704,6 +19919,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags YandexMoney
      * @name YandexMoneyApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/YandexMoneyApi/Withdraw
      */
     yandexMoneyApiWithdraw: (
@@ -17724,6 +19940,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ZotaPay
      * @name ZotaPayApiAdd
+     * @summary  (only for authorized users)
      * @request POST:/api/ZotaPayApi/Add
      */
     zotaPayApiAdd: (model: PortalPsZotapayModelsApiAddModel, params: RequestParams = {}) =>
@@ -17741,6 +19958,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags ZotaPay
      * @name ZotaPayApiWithdraw
+     * @summary  (only for authorized users)
      * @request POST:/api/ZotaPayApi/Withdraw
      */
     zotaPayApiWithdraw: (
@@ -17793,7 +20011,7 @@ ToDo: verify if required factor is not configured for user
      *
      * @tags Account
      * @name AccountApiGetUserInfo
-     * @summary Get user information
+     * @summary Get user information (only for authorized users)
      * @request GET:/Account/UserInfo
      */
     accountApiGetUserInfo: (params: RequestParams = {}) =>
