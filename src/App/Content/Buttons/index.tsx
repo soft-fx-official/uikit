@@ -1,7 +1,7 @@
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 import { Grid, Typography } from '@mui/material'
 
-import { ButtonCard } from '../../../components'
+import { ButtonCard, ButtonLoader } from '../../../components'
 import ButtonExamples from './ButtonExamples'
 
 const Buttons = () => (
@@ -9,6 +9,11 @@ const Buttons = () => (
     <ButtonExamples title="Default buttons" />
     <ButtonExamples title="Outlined buttons" variant="outlined" />
     <ButtonExamples title="Contained buttons" variant="contained" />
+
+    <Grid item xs={3}>
+      <ButtonLoader isLoad={false} label="loading" />
+      <ButtonLoader isLoad={true} label="loading" />
+    </Grid>
 
     <Grid item xs={12}>
       <ButtonCard>

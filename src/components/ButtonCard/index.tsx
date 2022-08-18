@@ -23,11 +23,11 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
       gap: '20px',
       border: '1px solid #FFFFFF0C',
       borderRadius: '24px',
-      backgroundColor: 'grey.600',
-      transition: 'background-color border-color .2s',
+      backgroundColor: '#161616',
+      transition: 'background-color .2s, border-color .2s',
       '&:hover': {
         borderColor: 'common.white',
-        backgroundColor: 'grey.500',
+        backgroundColor: '#242424',
       },
       svg: {
         height: '80px',

@@ -8,7 +8,8 @@ type CustomTooltipProps = Pick<
   TooltipProps,
   'children' | 'title' | 'open' | 'arrow' | 'placement'
 > & {
-  color?: 'warning' | 'success'
+  color?: 'warning' | 'success' | 'default'
+  timeout?: number
 }
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({
@@ -18,6 +19,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   color = 'warning',
   placement = 'right',
   children,
+  timeout = 200,
 }) => {
   const styles = useMemo(() => {
     switch (color) {
@@ -28,10 +30,21 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         }
 
       case 'warning':
-      default:
         return {
           borderColor: 'warning.main',
           background: colors.error['700'],
+        }
+
+      case 'default':
+        return {
+          borderColor: 'secondary.main',
+          background: colors.light['600'],
+        }
+
+      default:
+        return {
+          borderColor: 'primary.main',
+          background: colors.primary['700'],
         }
     }
   }, [color])
@@ -89,6 +102,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
           ],
         },
       }}
+      TransitionProps={{ timeout }}
     >
       {children}
     </Tooltip>

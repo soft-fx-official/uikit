@@ -36,11 +36,11 @@ const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
   const Component = React.lazy(loadDynamicComponent(scope, module))
 
   return (
-    <React.Suspense fallback={fallback}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <React.Suspense fallback={fallback}>
         <Component bus={bus} />
-      </ErrorBoundary>
-    </React.Suspense>
+      </React.Suspense>
+    </ErrorBoundary>
   )
 }
 

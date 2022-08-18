@@ -21,6 +21,14 @@ export const theme: ThemeOptions = {
         variant: 'subtitle1',
         color: 'text.primary',
       },
+      styleOverrides: {
+        root: ({ theme }: ITheme) => ({
+          transition: 'color .2s',
+          '&:hover': {
+            color: theme.palette.text.secondary,
+          },
+        }),
+      },
     },
     MuiButton: {
       defaultProps: {
@@ -59,7 +67,6 @@ export const theme: ThemeOptions = {
           },
           '&:hover .MuiButtonBase-root': {
             color: 'white',
-            transition: 'color .2s',
           },
         }),
       },
@@ -94,7 +101,6 @@ export const theme: ThemeOptions = {
           },
           '&:hover .MuiButtonBase-root': {
             color: 'white',
-            transition: 'color .2s',
           },
 
           '.MuiOutlinedInput-notchedOutline': {
@@ -130,7 +136,6 @@ export const theme: ThemeOptions = {
         root: {
           '&:hover .MuiInputLabel-filled:not(.Mui-error)': {
             color: 'white',
-            transition: 'color .2s',
           },
         },
       },

@@ -14,11 +14,24 @@ export { ButtonCardContainer };
 
 };
 
+declare module 'uikit/components/ButtonLoader' {
+/// <reference types="react" />
+interface IButtonLoader {
+    isLoad: boolean;
+    label: string;
+    buttonProps?: any;
+}
+declare const ButtonLoader: ({ isLoad, label, buttonProps }: IButtonLoader) => JSX.Element;
+export { ButtonLoader };
+
+};
+
 declare module 'uikit/components/CustomTooltip' {
 import React from 'react';
 import { TooltipProps } from '@mui/material';
 declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
-    color?: 'warning' | 'success';
+    color?: 'warning' | 'success' | 'default';
+    timeout?: number;
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };
@@ -92,10 +105,20 @@ import React from 'react';
 declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
 export { ButtonCardContainer };
 
+/// <reference types="react" />
+interface IButtonLoader {
+    isLoad: boolean;
+    label: string;
+    buttonProps?: any;
+}
+declare const ButtonLoader: ({ isLoad, label, buttonProps }: IButtonLoader) => JSX.Element;
+export { ButtonLoader };
+
 import React from 'react';
 import { TooltipProps } from '@mui/material';
 declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
-    color?: 'warning' | 'success';
+    color?: 'warning' | 'success' | 'default';
+    timeout?: number;
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };
@@ -152,6 +175,7 @@ export { default as WindowsIcon } from '../../icons/WindowsIcon';
 
 export { ButtonCard } from './ButtonCard';
 export { ButtonCardContainer } from './ButtonCardContainer';
+export { ButtonLoader } from './ButtonLoader';
 export { CustomTooltip } from './CustomTooltip';
 export type { IErrorBoundary } from './ErrorBoundary';
 export { ErrorBoundary } from './ErrorBoundary';
