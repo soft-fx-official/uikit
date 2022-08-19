@@ -9,7 +9,11 @@ export { ButtonCard };
 
 declare module 'uikit/components/ButtonCardContainer' {
 import React from 'react';
-declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
+interface IButtonCardContainer {
+    children: any;
+    sx?: any;
+}
+declare const ButtonCardContainer: React.FC<IButtonCardContainer>;
 export { ButtonCardContainer };
 
 };
@@ -102,7 +106,11 @@ declare const ButtonCard: React.FC<ButtonCardProps>;
 export { ButtonCard };
 
 import React from 'react';
-declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
+interface IButtonCardContainer {
+    children: any;
+    sx?: any;
+}
+declare const ButtonCardContainer: React.FC<IButtonCardContainer>;
 export { ButtonCardContainer };
 
 /// <reference types="react" />

@@ -17,13 +17,15 @@ export const theme: ThemeOptions = {
     },
     MuiLink: {
       defaultProps: {
-        underline: 'none',
+        underline: 'always',
         variant: 'subtitle1',
         color: 'text.primary',
       },
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
           transition: 'color .2s',
+          textUnderlineOffset: '3px',
+          textDecorationColor: theme.palette.text.primary,
           '&:hover': {
             color: theme.palette.text.secondary,
           },

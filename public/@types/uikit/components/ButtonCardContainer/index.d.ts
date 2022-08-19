@@ -1,3 +1,7 @@
 import React from 'react';
-declare const ButtonCardContainer: React.FC<React.PropsWithChildren>;
+interface IButtonCardContainer {
+    children: any;
+    sx?: any;
+}
+declare const ButtonCardContainer: React.FC<IButtonCardContainer>;
 export { ButtonCardContainer };
