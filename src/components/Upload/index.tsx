@@ -245,6 +245,7 @@ const Upload: React.FC<UploadProps> = ({
                   borderRadius: '50%',
                   height: '40px',
                   width: '40px',
+                  display: 'flex',
                 }}
               >
                 <AddPlusIcon viewBox="0 0 16 16" sx={{ width: '15.29px', height: '16px' }} />
