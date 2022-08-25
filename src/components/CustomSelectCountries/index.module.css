@@ -1,0 +1,28 @@
+.main {
+}
+
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.countryname {
+  text-transform: capitalize;
+}
+
+.inputAdornment {
+  margin-top: unset !important;
+  margin-left: 4px;
+}
+
+.inputAdornment img {
+  margin-right: unset !important;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.select {
+  width: 100%;
+}

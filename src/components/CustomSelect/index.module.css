@@ -1,0 +1,35 @@
+.main {}
+
+.option {
+  display: flex;
+  padding-top: 15px;
+  align-items: center;
+}
+
+.countryname {
+  text-transform: capitalize;
+}
+
+.inputAdornment {
+  margin-top: unset !important;
+  margin-left: 4px;
+}
+
+.inputAdornment img {
+  margin-right: unset !important;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.select {
+  width: 100%;
+}
+
+.modalLine {
+  background: #3b3b3c;
+  border-radius: 30px;
+  min-height: 5px;
+  width: 40px;
+}
