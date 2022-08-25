@@ -141,8 +141,9 @@ const CustomSelect = ({
                   props: {
                     countryCode: option.code,
                     className: styles.option,
-                    onClick: (e: any, value: string | undefined) => {
+                    onClick: () => {
                       handleChange(option)
+                      setModalSearch('')
                       setSelectModalStatus(false)
                     },
                   },
