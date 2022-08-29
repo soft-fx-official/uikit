@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, InputAdornment } from '@mui/material'
 
 import { useContext } from '../../main/context'
-import CustomSelect from '../CustomSelect'
+import { CustomSelect } from '../CustomSelect'
 import styles from './index.module.css'
 
 type CustomSelectCountriesProps = {

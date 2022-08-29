@@ -21,9 +21,11 @@ interface CustomSelectProps {
   onChange: Function
   variant: 'standard' | 'outlined' | 'filled'
   optionTemplate: (props: any) => any
-  label: string
+  label: string | null
+  onFocus?: () => any
+  onBlur?: () => any
   placeholder: string
-  inputProps: (props: any) => object
+  inputProps: (props: any) => object | void
   name: string
   modalProps: {
     style?: object
@@ -41,6 +43,8 @@ const CustomSelect = ({
   label,
   name,
   placeholder,
+  onBlur,
+  onFocus,
   inputProps,
   modalProps,
 }: CustomSelectProps) => {
@@ -67,6 +71,8 @@ const CustomSelect = ({
             open={!smallWindow && isOpenSelectModal}
             onOpen={() => setSelectModalStatus(true)}
             onClose={() => setSelectModalStatus(false)}
+            onFocus={onFocus}
+            onBlur={onBlur}
             onChange={(e, value) => {
               handleChange(value)
             }}
@@ -156,4 +162,4 @@ const CustomSelect = ({
   )
 }
 
-export default CustomSelect
+export { CustomSelect }

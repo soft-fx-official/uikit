@@ -48,9 +48,11 @@ interface CustomSelectProps {
     onChange: Function;
     variant: 'standard' | 'outlined' | 'filled';
     optionTemplate: (props: any) => any;
-    label: string;
+    label: string | null;
+    onFocus?: () => any;
+    onBlur?: () => any;
     placeholder: string;
-    inputProps: (props: any) => object;
+    inputProps: (props: any) => object | void;
     name: string;
     modalProps: {
         style?: object;
@@ -58,8 +60,8 @@ interface CustomSelectProps {
         title: string;
     };
 }
-declare const CustomSelect: ({ data, options, onChange, variant, optionTemplate, label, name, placeholder, inputProps, modalProps, }: CustomSelectProps) => JSX.Element;
-export default CustomSelect;
+declare const CustomSelect: ({ data, options, onChange, variant, optionTemplate, label, name, placeholder, onBlur, onFocus, inputProps, modalProps, }: CustomSelectProps) => JSX.Element;
+export { CustomSelect };
 
 };
 
@@ -242,9 +244,11 @@ interface CustomSelectProps {
     onChange: Function;
     variant: 'standard' | 'outlined' | 'filled';
     optionTemplate: (props: any) => any;
-    label: string;
+    label: string | null;
+    onFocus?: () => any;
+    onBlur?: () => any;
     placeholder: string;
-    inputProps: (props: any) => object;
+    inputProps: (props: any) => object | void;
     name: string;
     modalProps: {
         style?: object;
@@ -252,8 +256,8 @@ interface CustomSelectProps {
         title: string;
     };
 }
-declare const CustomSelect: ({ data, options, onChange, variant, optionTemplate, label, name, placeholder, inputProps, modalProps, }: CustomSelectProps) => JSX.Element;
-export default CustomSelect;
+declare const CustomSelect: ({ data, options, onChange, variant, optionTemplate, label, name, placeholder, onBlur, onFocus, inputProps, modalProps, }: CustomSelectProps) => JSX.Element;
+export { CustomSelect };
 
 import React from 'react';
 declare type CustomSelectCountriesProps = {
@@ -375,6 +379,7 @@ export { memoUpload as Upload };
 export { ButtonCard } from './ButtonCard';
 export { ButtonCardContainer } from './ButtonCardContainer';
 export { ButtonLoader } from './ButtonLoader';
+export { CustomSelect } from './CustomSelect';
 export { CustomSelectCountries } from './CustomSelectCountries';
 export { CustomTooltip } from './CustomTooltip';
 export type { IErrorBoundary } from './ErrorBoundary';
