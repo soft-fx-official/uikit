@@ -16,6 +16,7 @@ export { default as FinanceLawIcon } from './FinanceLawIcon';
 export { default as HealthcareIcon } from './HealthcareIcon';
 export { default as HedgingIcon } from './HedgingIcon';
 export { default as IOSIcon } from './IOSIcon';
+export { default as LeftArrow } from './LeftArrowMobilMode';
 export { default as LockIcon } from './LockIcon';
 export { default as MemorandumAssociationIcon } from './MemorandumAssociationIcon';
 export { default as NationalIdCardIcon } from './NationalIdCardIcon';
