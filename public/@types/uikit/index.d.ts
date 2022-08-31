@@ -535,6 +535,14 @@ export default _default;
 
 };
 
+declare module 'uikit/icons/LeftArrowMobilMode' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
 declare module 'uikit/icons/LockIcon' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -834,6 +842,11 @@ import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
 export default _default;
 
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
 export { default as AddPlusIcon } from './AddPlusIcon';
 export { default as AndroidIcon } from './AndroidIcon';
 export { default as ArchitectureIcon } from './ArchitectureIcon';
@@ -852,6 +865,7 @@ export { default as FinanceLawIcon } from './FinanceLawIcon';
 export { default as HealthcareIcon } from './HealthcareIcon';
 export { default as HedgingIcon } from './HedgingIcon';
 export { default as IOSIcon } from './IOSIcon';
+export { default as LeftArrow } from './LeftArrowMobilMode';
 export { default as LockIcon } from './LockIcon';
 export { default as MemorandumAssociationIcon } from './MemorandumAssociationIcon';
 export { default as NationalIdCardIcon } from './NationalIdCardIcon';
