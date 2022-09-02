@@ -98,57 +98,6 @@ export { default as WindowsIcon } from '../../icons/WindowsIcon';
 
 };
 
-declare module 'uikit/components/ModuleLoader' {
-/// <reference types="common" />
-import React from 'react';
-import { IBus } from 'common/tools';
-interface IModuleLoader {
-    url: string;
-    scope: string;
-    module: string;
-    bus: IBus | null;
-    fallback: React.ReactElement | string | undefined;
-}
-declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
-export { ModuleLoader };
-export type { IModuleLoader };
-
-};
-
-declare module 'uikit/components/ThemeSwitch' {
-/// <reference types="react" />
-interface IThemeSwitch {
-    isDarkTheme: boolean;
-    onChange: () => void;
-}
-declare const ThemeSwitch: ({ isDarkTheme, onChange }: IThemeSwitch) => JSX.Element;
-export { ThemeSwitch };
-
-};
-
-declare module 'uikit/components/Upload' {
-/// <reference types="react" />
-export declare enum UploadDocumentType {
-    idCard = "idCard",
-    certificate = "certificate",
-    passport = "passport"
-}
-interface UploadProps {
-    title?: string;
-    description?: string;
-    minFileSize?: number;
-    maxFileSize?: number;
-    documentType?: UploadDocumentType;
-    acceptFormats?: string;
-    onSelect: (file: File | null) => void;
-    customError?: string;
-    onError?: (errCode: string) => string;
-}
-declare const memoUpload: import("react").MemoExoticComponent<React.FC<UploadProps>>;
-export { memoUpload as Upload };
-
-};
-
 declare module 'uikit/components' {
 import React from 'react';
 import { BoxProps } from '@mui/material';
@@ -232,6 +181,17 @@ export { default as UnemployedIcon } from '../../icons/UnemployedIcon';
 export { default as UtilityBillIcon } from '../../icons/UtilityBillIcon';
 export { default as WindowsIcon } from '../../icons/WindowsIcon';
 
+export { ButtonCard } from './ButtonCard';
+export { ButtonCardContainer } from './ButtonCardContainer';
+export { ButtonLoader } from './ButtonLoader';
+export { CustomTooltip } from './CustomTooltip';
+export type { IErrorBoundary } from './ErrorBoundary';
+export { ErrorBoundary } from './ErrorBoundary';
+export type { IModuleLoader } from './ModuleLoader';
+export { ModuleLoader } from './ModuleLoader';
+export { ThemeSwitch } from './ThemeSwitch';
+export { Upload } from './Upload';
+
 /// <reference types="common" />
 import React from 'react';
 import { IBus } from 'common/tools';
@@ -274,16 +234,56 @@ interface UploadProps {
 declare const memoUpload: import("react").MemoExoticComponent<React.FC<UploadProps>>;
 export { memoUpload as Upload };
 
-export { ButtonCard } from './ButtonCard';
-export { ButtonCardContainer } from './ButtonCardContainer';
-export { ButtonLoader } from './ButtonLoader';
-export { CustomTooltip } from './CustomTooltip';
-export type { IErrorBoundary } from './ErrorBoundary';
-export { ErrorBoundary } from './ErrorBoundary';
-export type { IModuleLoader } from './ModuleLoader';
-export { ModuleLoader } from './ModuleLoader';
-export { ThemeSwitch } from './ThemeSwitch';
-export { Upload } from './Upload';
+};
+
+declare module 'uikit/components/ModuleLoader' {
+/// <reference types="common" />
+import React from 'react';
+import { IBus } from 'common/tools';
+interface IModuleLoader {
+    url: string;
+    scope: string;
+    module: string;
+    bus: IBus | null;
+    fallback: React.ReactElement | string | undefined;
+}
+declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+export { ModuleLoader };
+export type { IModuleLoader };
+
+};
+
+declare module 'uikit/components/ThemeSwitch' {
+/// <reference types="react" />
+interface IThemeSwitch {
+    isDarkTheme: boolean;
+    onChange: () => void;
+}
+declare const ThemeSwitch: ({ isDarkTheme, onChange }: IThemeSwitch) => JSX.Element;
+export { ThemeSwitch };
+
+};
+
+declare module 'uikit/components/Upload' {
+/// <reference types="react" />
+export declare enum UploadDocumentType {
+    idCard = "idCard",
+    certificate = "certificate",
+    passport = "passport"
+}
+interface UploadProps {
+    title?: string;
+    description?: string;
+    minFileSize?: number;
+    maxFileSize?: number;
+    documentType?: UploadDocumentType;
+    acceptFormats?: string;
+    onSelect: (file: File | null) => void;
+    customError?: string;
+    onError?: (errCode: string) => string;
+}
+declare const memoUpload: import("react").MemoExoticComponent<React.FC<UploadProps>>;
+export { memoUpload as Upload };
 
 };
 
@@ -423,241 +423,7 @@ export default _default;
 
 };
 
-declare module 'uikit/icons/IOSIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/LeftArrowMobilMode' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/LockIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/MemorandumAssociationIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/NationalIdCardIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/PDFIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/PassportIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/PersonalAccountIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/PowerAttorneyIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/PrintIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/RetiredIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/SalesMarketingIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/ScienceIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/SpeculationIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/StandingIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/UnemployedIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/UtilityBillIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
-declare module 'uikit/icons/WindowsIcon' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-};
-
 declare module 'uikit/icons' {
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
-/// <reference types="react" />
-import { SvgIconProps } from '@mui/material';
-declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
-export default _default;
-
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
@@ -778,6 +544,240 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/IOSIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/LeftArrowMobilMode' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/LockIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/MemorandumAssociationIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/NationalIdCardIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/PassportIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/PDFIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/PersonalAccountIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/PowerAttorneyIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/PrintIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/RetiredIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/SalesMarketingIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/ScienceIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/SpeculationIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/StandingIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/UnemployedIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/UtilityBillIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/WindowsIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
 
 };
 
