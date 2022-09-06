@@ -1,0 +1,16 @@
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.countryName {
+  text-transform: capitalize;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.select {
+  width: 100%;
+}
