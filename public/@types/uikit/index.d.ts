@@ -67,10 +67,11 @@ export { CustomSelect };
 
 declare module 'uikit/components/CustomSelectCountries' {
 import React from 'react';
+import { TFunction } from 'react-i18next';
 declare type CustomSelectCountriesProps = {
     form: any;
-    countries: any;
-    bus: any;
+    countries: Array<object>;
+    t: TFunction<'', undefined>;
 };
 declare const CustomSelectCountries: React.FC<CustomSelectCountriesProps>;
 export { CustomSelectCountries };
@@ -260,10 +261,11 @@ declare const CustomSelect: ({ data, options, onChange, variant, optionTemplate,
 export { CustomSelect };
 
 import React from 'react';
+import { TFunction } from 'react-i18next';
 declare type CustomSelectCountriesProps = {
     form: any;
-    countries: any;
-    bus: any;
+    countries: Array<object>;
+    t: TFunction<'', undefined>;
 };
 declare const CustomSelectCountries: React.FC<CustomSelectCountriesProps>;
 export { CustomSelectCountries };
