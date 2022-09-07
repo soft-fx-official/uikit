@@ -143,7 +143,7 @@ export const theme: ThemeOptions = {
         },
       },
     },
-    //Note: понижение z-index тултипа ошибки
+    //NOTE: понижение z-index тултипа ошибки
     // MuiTooltip: {
     //   styleOverrides: {
     //     popper: {
@@ -151,7 +151,7 @@ export const theme: ThemeOptions = {
     //     },
     //   },
     // },
-    //Note: повышение z-index дропдаунов
+    //NOTE: повышение z-index дропдаунов
     MuiAutocomplete: {
       styleOverrides: {
         popper: {
@@ -162,7 +162,7 @@ export const theme: ThemeOptions = {
   },
   typography: {
     fontFamily: 'Inter, Arial, sans-serif',
-    //Note: Изменение отображение текста во всех элементах button
+    //NOTE: Изменение отображение текста во всех элементах button
     button: {
       textTransform: 'capitalize',
     },
