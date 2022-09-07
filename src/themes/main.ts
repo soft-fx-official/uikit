@@ -116,7 +116,7 @@ export const theme: ThemeOptions = {
         root: ({ theme }: ITheme) => ({
           color: theme.palette.secondary.main,
           '&.Mui-error': {
-            color: theme.palette.warning.main,
+            color: theme.palette.grey['400'],
           },
         }),
       },
@@ -124,11 +124,12 @@ export const theme: ThemeOptions = {
     MuiInputLabel: {
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
+          color: theme.palette.grey['400'],
           '&.Mui-focused': {
             color: 'white',
           },
           '&.Mui-focused.Mui-error': {
-            color: theme.palette.warning.main,
+            color: theme.palette.grey['400'],
           },
         }),
       },
@@ -142,9 +143,37 @@ export const theme: ThemeOptions = {
         },
       },
     },
+    //Note: понижение z-index тултипа ошибки
+    // MuiTooltip: {
+    //   styleOverrides: {
+    //     popper: {
+    //       zIndex: 1300,
+    //     },
+    //   },
+    // },
+    //Note: повышение z-index дропдаунов
+    MuiAutocomplete: {
+      styleOverrides: {
+        popper: {
+          zIndex: 1501,
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Inter, Arial, sans-serif',
+    //Note: Изменение отображение текста во всех элементах button
+    button: {
+      textTransform: 'capitalize',
+    },
+    h4: {
+      fontWeight: 700,
+      color: colors.light['100'],
+    },
+    subtitle1: {
+      fontWeight: 400,
+      color: colors.alpha['400'],
+    },
   },
   palette: {
     primary: {
@@ -159,6 +188,6 @@ export const theme: ThemeOptions = {
     success: {
       main: colors.success['400'],
     },
-    grey: colors.neutral,
+    grey: colors.grey,
   },
 }
