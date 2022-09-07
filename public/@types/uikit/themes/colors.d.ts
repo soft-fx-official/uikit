@@ -73,9 +73,6 @@ declare const colors: {
         600: string;
         700: string;
     };
-    grey: {
-        400: string;
-    };
     alpha: {
         100: string;
         200: string;
@@ -84,7 +81,6 @@ declare const colors: {
         500: string;
         600: string;
         700: string;
-        800: string;
     };
 };
 export { colors };
