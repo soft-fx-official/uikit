@@ -138,7 +138,7 @@ export const theme: ThemeOptions = {
         root: ({ theme }: ITheme) => ({
           color: theme.palette.secondary.main,
           '&.Mui-error': {
-            color: theme.palette.grey['400'],
+            color: theme.palette.warning.main,
           },
         }),
       },
@@ -146,12 +146,11 @@ export const theme: ThemeOptions = {
     MuiInputLabel: {
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
-          color: theme.palette.grey['400'],
           '&.Mui-focused': {
             color: 'white',
           },
           '&.Mui-focused.Mui-error': {
-            color: theme.palette.grey['400'],
+            color: theme.palette.warning.main,
           },
         }),
       },
@@ -228,6 +227,6 @@ export const theme: ThemeOptions = {
     success: {
       main: colors.success['400'],
     },
-    grey: colors.grey,
+    grey: colors.neutral,
   },
 }
