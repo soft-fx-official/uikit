@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { Theme, ThemeOptions } from '@mui/material'
 
 import { colors } from './colors'
@@ -33,6 +35,26 @@ export const theme: ThemeOptions = {
       },
     },
     MuiButton: {
+      //NOTE: Изменение отображение текста во всех элементах button
+      styleOverrides: {
+        root: ({ theme }: ITheme) => ({
+          textTransform: 'capitalize',
+          fontSize: 18,
+          lineHeight: '22px',
+          boxShadow: 'none',
+          backgroundColor: colors.primary['500'],
+          borderRadius: '8px',
+          height: '54px',
+          '&:hover': {
+            boxShadow: 'none',
+            backgroundColor: colors.primary['600'],
+          },
+          [theme.breakpoints.down('lg')]: {
+            fontSize: 16,
+            lineHeight: '19px',
+          },
+        }),
+      },
       defaultProps: {
         size: 'large',
       },
@@ -159,21 +181,39 @@ export const theme: ThemeOptions = {
         },
       },
     },
+    //NOTE: измениене стилей заголовков и подщаголовков, ссфлок
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: 'h4' },
+          style: ({ theme }: ITheme) => ({
+            fontWeight: 700,
+            fontSize: 26,
+            lineHeight: '36px',
+            color: colors.light['100'],
+            [theme.breakpoints.down('lg')]: {
+              fontSize: 22,
+              lineHeight: '30px',
+            },
+          }),
+        },
+        {
+          props: { variant: 'subtitle1' },
+          style: ({ theme }: ITheme) => ({
+            fontSize: 18,
+            lineHeight: '21px',
+            color: colors.alpha['600'],
+            [theme.breakpoints.down('lg')]: {
+              fontSize: 14,
+              lineHeight: '22px',
+            },
+          }),
+        },
+      ],
+    },
   },
   typography: {
     fontFamily: 'Inter, Arial, sans-serif',
-    //NOTE: Изменение отображение текста во всех элементах button
-    button: {
-      textTransform: 'capitalize',
-    },
-    h4: {
-      fontWeight: 700,
-      color: colors.light['100'],
-    },
-    subtitle1: {
-      fontWeight: 400,
-      color: colors.alpha['400'],
-    },
   },
   palette: {
     primary: {
