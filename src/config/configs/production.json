@@ -1,7 +1,7 @@
 {
   "debug": false,
   "remotes": {
-    "common": "common@https://common.s3w.soft-fx.lv/main.develop/remoteEntry.js"
+    "common": "common@https://common.s3w.soft-fx.lv/preprod/remoteEntry.js"
   },
   "i18next": {
     "debug": false,
@@ -9,7 +9,7 @@
   },
   "api": {
     "main": {
-      "baseUrl": "https://api.fxopen.b2et.com"
+      "baseUrl": "https://api.fxopen.co.uk"
     }
   }
 }

@@ -9,7 +9,7 @@
   },
   "api": {
     "main": {
-      "baseUrl": "https://api.fxopen.b2et.com"
+      "baseUrl": "https://api.fxopen.co.uk"
     }
   }
 }
