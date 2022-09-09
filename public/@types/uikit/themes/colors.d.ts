@@ -81,6 +81,7 @@ declare const colors: {
         500: string;
         600: string;
         700: string;
+        800: string;
     };
 };
 export { colors };

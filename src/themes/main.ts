@@ -13,7 +13,7 @@ export const theme: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
-          bgColor: theme.palette.background.default,
+          bgColor: theme.palette.mode === 'dark' ? theme.palette.grey['700'] : 'white',
         }),
       },
     },
@@ -67,15 +67,21 @@ export const theme: ThemeOptions = {
         root: ({ theme }: ITheme) => ({
           backgroundColor: 'inherit',
           borderRadius: '6px',
-          border: `1px solid ${theme.palette.secondary.main}`,
+          border: `1px solid ${
+            theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.grey['500']
+          }`,
           transition: 'border-color .2s',
           '&:hover': {
             backgroundColor: 'inherit',
-            border: `1px solid white`,
+            border: `1px solid ${
+              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
+            }`,
           },
           '&.Mui-focused': {
             backgroundColor: 'inherit',
-            border: `1px solid white`,
+            border: `1px solid ${
+              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
+            }`,
           },
           '&.Mui-error': {
             border: `1px solid ${theme.palette.warning.main}`,
@@ -87,10 +93,10 @@ export const theme: ThemeOptions = {
             color: theme.palette.secondary.main,
           },
           '&.Mui-focused .MuiButtonBase-root': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
           '&:hover .MuiButtonBase-root': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
         }),
       },
@@ -100,16 +106,22 @@ export const theme: ThemeOptions = {
         root: ({ theme }: ITheme) => ({
           backgroundColor: 'inherit',
           borderRadius: '6px',
-          border: `1px solid ${theme.palette.secondary.main}`,
+          border: `1px solid ${
+            theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.grey['700']
+          }`,
 
           transition: 'border-color .2s',
           '&:hover': {
             backgroundColor: 'inherit',
-            border: `1px solid white`,
+            border: `1px solid ${
+              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
+            }`,
           },
           '&.Mui-focused': {
             backgroundColor: 'inherit',
-            border: `1px solid white`,
+            border: `1px solid ${
+              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
+            }`,
           },
           '&.Mui-error': {
             border: `1px solid ${theme.palette.warning.main}`,
@@ -121,10 +133,10 @@ export const theme: ThemeOptions = {
             color: theme.palette.secondary.main,
           },
           '&.Mui-focused .MuiButtonBase-root': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
           '&:hover .MuiButtonBase-root': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
 
           '.MuiOutlinedInput-notchedOutline': {
@@ -147,7 +159,7 @@ export const theme: ThemeOptions = {
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
           '&.Mui-focused': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
           '&.Mui-focused.Mui-error': {
             color: theme.palette.warning.main,
@@ -157,11 +169,11 @@ export const theme: ThemeOptions = {
     },
     MuiFormControl: {
       styleOverrides: {
-        root: {
+        root: ({ theme }: ITheme) => ({
           '&:hover .MuiInputLabel-filled:not(.Mui-error)': {
-            color: 'white',
+            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
           },
-        },
+        }),
       },
     },
     //NOTE: понижение z-index тултипа ошибки
@@ -189,7 +201,9 @@ export const theme: ThemeOptions = {
             fontWeight: 700,
             fontSize: 26,
             lineHeight: '36px',
-            color: colors.light['100'],
+            color: `${
+              theme.palette.mode === 'dark' ? colors.light['100'] : theme.palette.grey['500']
+            }`,
             [theme.breakpoints.down('lg')]: {
               fontSize: 22,
               lineHeight: '30px',
@@ -201,7 +215,9 @@ export const theme: ThemeOptions = {
           style: ({ theme }: ITheme) => ({
             fontSize: 18,
             lineHeight: '21px',
-            color: colors.alpha['600'],
+            color: `${
+              theme.palette.mode === 'dark' ? colors.alpha['600'] : theme.palette.grey['500']
+            }`,
             [theme.breakpoints.down('lg')]: {
               fontSize: 14,
               lineHeight: '22px',
@@ -228,5 +244,12 @@ export const theme: ThemeOptions = {
       main: colors.success['400'],
     },
     grey: colors.neutral,
+    background: {
+      // @ts-ignore
+      secondary: colors.neutral['600'],
+      default: '#000000',
+      paper: '#000000',
+    },
+    neutral: colors.neutral,
   },
 }

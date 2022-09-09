@@ -21,13 +21,13 @@ const ButtonCard: React.FC<ButtonCardProps> = ({ sx = {}, ...props }) => (
       flexDirection: 'column',
       padding: '8px',
       gap: '20px',
-      border: '1px solid #FFFFFF0C',
+      border: '1px solid rgba(255, 255, 255, 0.05)',
       borderRadius: '24px',
-      backgroundColor: '#161616',
+      backgroundColor: '#0E0E12',
       transition: 'background-color .2s, border-color .2s',
       '&:hover': {
-        borderColor: 'common.white',
-        backgroundColor: '#242424',
+        borderColor: '#ffffff',
+        backgroundColor: '#1a1a1e',
       },
       svg: {
         height: '80px',

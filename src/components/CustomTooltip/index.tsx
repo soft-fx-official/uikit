@@ -38,7 +38,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
       case 'default':
         return {
           borderColor: 'secondary.main',
-          background: colors.light['600'],
+          background: colors.neutral['400'],
         }
 
       default:
@@ -67,6 +67,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
               [`.${tooltipClasses.arrow}`]: {
                 left: '10px !important',
                 transform: 'unset !important',
+                color: styles.background,
               },
             },
           },

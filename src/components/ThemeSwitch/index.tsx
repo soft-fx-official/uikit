@@ -1,7 +1,7 @@
 import React from 'react'
 
 import BedtimeIcon from '@mui/icons-material/Bedtime'
-import BrightnessLowIcon from '@mui/icons-material/BrightnessLow'
+import LightModeIcon from '@mui/icons-material/LightMode'
 import { Box, Stack, styled, Switch, SwitchProps } from '@mui/material'
 
 import styles from './index.module.css'
@@ -9,7 +9,7 @@ import styles from './index.module.css'
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
-  width: 42,
+  width: 52,
   height: 26,
   padding: 0,
   '& .MuiSwitch-switchBase': {
@@ -17,7 +17,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
     margin: 2,
     transitionDuration: '300ms',
     '&.Mui-checked': {
-      transform: 'translateX(16px)',
+      transform: 'translateX(26px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
         backgroundColor: theme.palette.mode === 'dark' ? '#333334' : '#65C466',
@@ -61,9 +61,9 @@ interface IThemeSwitch {
 
 const ThemeSwitch = ({ isDarkTheme, onChange }: IThemeSwitch) => (
   <Stack direction="row" spacing={1} className={styles.stackcontainer}>
-    <BrightnessLowIcon />
+    <LightModeIcon sx={{ opacity: isDarkTheme ? '.2' : '1' }} />
     <IOSSwitch onChange={onChange} checked={isDarkTheme} />
-    <BedtimeIcon />
+    <BedtimeIcon sx={{ opacity: isDarkTheme ? '1' : '.2' }} />
   </Stack>
 )
 
