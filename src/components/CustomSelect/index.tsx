@@ -114,7 +114,7 @@ const CustomSelect = ({
             padding: '12px 16px',
             borderTop: 'none',
             borderRadius: '32px 32px 0px 0px',
-            background: '#16191E',
+            background: 'background.paper',
             display: 'flex',
             flexDirection: 'column',
             gap: '24px',

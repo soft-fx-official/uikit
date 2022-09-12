@@ -10,6 +10,7 @@ type CustomTooltipProps = Pick<
 > & {
   color?: 'warning' | 'success' | 'default'
   timeout?: number
+  onClose?: () => void
 }
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({
@@ -20,6 +21,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   placement = 'right',
   children,
   timeout = 200,
+  onClose = () => {},
 }) => {
   const styles = useMemo(() => {
     switch (color) {
@@ -54,6 +56,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
       title={title ?? ''}
       arrow={arrow}
       open={open}
+      onClose={onClose}
       componentsProps={{
         popper: {
           sx: {

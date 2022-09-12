@@ -21,13 +21,14 @@ export const theme: ThemeOptions = {
       defaultProps: {
         underline: 'always',
         variant: 'subtitle1',
-        color: 'text.primary',
+        // color: 'text.primary',
       },
       styleOverrides: {
         root: ({ theme }: ITheme) => ({
           transition: 'color .2s',
           textUnderlineOffset: '3px',
           textDecorationColor: theme.palette.text.primary,
+          color: '#fff',
           '&:hover': {
             color: theme.palette.text.secondary,
           },
@@ -247,9 +248,18 @@ export const theme: ThemeOptions = {
     background: {
       // @ts-ignore
       secondary: colors.neutral['600'],
-      default: '#000000',
-      paper: '#000000',
+      default: '#121418',
+      paper: '#16191E',
     },
     neutral: colors.neutral,
+    text: {
+      secondary: colors.light['300'],
+      // @ts-ignore
+      dark: colors.light['600'],
+      // @ts-ignore
+      light: colors.light['200'],
+      // @ts-ignore
+      white: colors.light['100'],
+    },
   },
 }

@@ -16,11 +16,22 @@ const IOSSwitch = styled((props: SwitchProps) => (
     padding: 0,
     margin: 2,
     transitionDuration: '300ms',
+    color: '#fff',
+    transition: 'color .2s',
+    '&:hover': {
+      color: theme.palette.text.secondary,
+    },
     '&.Mui-checked': {
       transform: 'translateX(26px)',
       color: '#fff',
+      transition: 'color .2s',
+      '&:hover': {
+        color: theme.palette.text.secondary,
+      },
       '& + .MuiSwitch-track': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#333334' : '#65C466',
+        backgroundColor:
+          // @ts-ignore
+          theme.palette.mode === 'dark' ? theme.palette.text.dark : theme.palette.text.light,
         opacity: 1,
         border: 0,
       },
@@ -61,9 +72,9 @@ interface IThemeSwitch {
 
 const ThemeSwitch = ({ isDarkTheme, onChange }: IThemeSwitch) => (
   <Stack direction="row" spacing={1} className={styles.stackcontainer}>
-    <LightModeIcon sx={{ opacity: isDarkTheme ? '.2' : '1' }} />
+    <LightModeIcon sx={{ color: isDarkTheme ? 'text.dark' : 'text.dark' }} />
     <IOSSwitch onChange={onChange} checked={isDarkTheme} />
-    <BedtimeIcon sx={{ opacity: isDarkTheme ? '1' : '.2' }} />
+    <BedtimeIcon sx={{ color: isDarkTheme ? '#fff' : 'text.light' }} />
   </Stack>
 )
 

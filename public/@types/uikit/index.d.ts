@@ -84,6 +84,7 @@ import { TooltipProps } from '@mui/material';
 declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
     color?: 'warning' | 'success' | 'default';
     timeout?: number;
+    onClose?: () => void;
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };
@@ -214,6 +215,7 @@ import { TooltipProps } from '@mui/material';
 declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'open' | 'arrow' | 'placement'> & {
     color?: 'warning' | 'success' | 'default';
     timeout?: number;
+    onClose?: () => void;
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };

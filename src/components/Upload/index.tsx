@@ -169,11 +169,13 @@ const Upload: React.FC<UploadProps> = ({
       sx={theme => ({
         minWidth: '288px',
         minHeight: '288px',
-        maxWidth: '580px',
-        padding: '32px 32px',
+        // maxWidth: '580px',
+        width: '100%',
+        padding: '40px 0',
         borderRadius: '24px',
         borderWidth: '2px',
         borderStyle: 'dashed',
+        borderColor: 'text.secondary',
         transitionDuration: '0.3s',
         ':hover': { backgroundColor: `${theme.palette.secondary.main}40` },
       })}
@@ -218,14 +220,9 @@ const Upload: React.FC<UploadProps> = ({
               alignItems="center"
               sx={{ width: '100%', height: '100%' }}
             >
-              <SvgIcon
-                sx={{ width: '100%', height: '100%' }}
-                viewBox={documentTemplates[documentType].viewBox}
-              >
-                {!error
-                  ? documentTemplates[documentType].component()
-                  : documentTemplates[documentType].errorIcon()}
-              </SvgIcon>
+              {!error
+                ? documentTemplates[documentType].component()
+                : documentTemplates[documentType].errorIcon()}
             </Stack>
           )}
           {!preview && (
