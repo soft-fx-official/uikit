@@ -178,13 +178,13 @@ export const theme: ThemeOptions = {
       },
     },
     //NOTE: понижение z-index тултипа ошибки
-    // MuiTooltip: {
-    //   styleOverrides: {
-    //     popper: {
-    //       zIndex: 1300,
-    //     },
-    //   },
-    // },
+    MuiTooltip: {
+      styleOverrides: {
+        popper: {
+          zIndex: 1300,
+        },
+      },
+    },
     //NOTE: повышение z-index дропдаунов
     MuiAutocomplete: {
       styleOverrides: {

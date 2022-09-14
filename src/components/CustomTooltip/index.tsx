@@ -10,6 +10,8 @@ type CustomTooltipProps = Pick<
 > & {
   color?: 'warning' | 'success' | 'default'
   timeout?: number
+  stylesProp?: Record<string, any>
+  stylesName?: string
   onClose?: () => void
 }
 
