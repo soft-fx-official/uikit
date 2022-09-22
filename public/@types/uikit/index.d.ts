@@ -637,6 +637,7 @@ export { default as HedgingIcon } from './HedgingIcon';
 export { default as IOSIcon } from './IOSIcon';
 export { default as LeftArrow } from './LeftArrowMobilMode';
 export { default as LockIcon } from './LockIcon';
+export { default as MacIcon } from './MacIcon';
 export { default as MemorandumAssociationIcon } from './MemorandumAssociationIcon';
 export { default as NationalIdCardIcon } from './NationalIdCardIcon';
 export { default as PassportIcon } from './PassportIcon';
@@ -652,6 +653,11 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
 
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -762,6 +768,14 @@ export default _default;
 };
 
 declare module 'uikit/icons/LockIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/MacIcon' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
