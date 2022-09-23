@@ -240,6 +240,8 @@ export const theme: ThemeOptions = {
     },
     warning: {
       main: colors.warning['400'],
+      // @ts-ignore
+      secondary: colors.warning['600'],
     },
     success: {
       main: colors.success['400'],

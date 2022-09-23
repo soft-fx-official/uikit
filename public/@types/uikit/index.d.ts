@@ -7,6 +7,15 @@ export { ButtonCard };
 
 };
 
+declare module 'uikit/components/ButtonCard.1' {
+import React from 'react';
+import { BoxProps } from '@mui/material';
+declare type ButtonCardProps = BoxProps;
+declare const ButtonCard: React.FC<ButtonCardProps>;
+export { ButtonCard };
+
+};
+
 declare module 'uikit/components/ButtonCardContainer' {
 import React from 'react';
 interface IButtonCardContainer {
@@ -109,6 +118,17 @@ export type { IErrorBoundary };
 
 };
 
+declare module 'uikit/components/Failed' {
+/// <reference types="react" />
+interface IFailed {
+    title: string;
+}
+declare const Failed: ({ title }: IFailed) => JSX.Element;
+export { Failed };
+export type { IFailed };
+
+};
+
 declare module 'uikit/components/Icons' {
 export { default as AddPlusIcon } from '../../icons/AddPlusIcon';
 export { default as AndroidIcon } from '../../icons/AndroidIcon';
@@ -148,6 +168,12 @@ export { default as WindowsIcon } from '../../icons/WindowsIcon';
 };
 
 declare module 'uikit/components' {
+import React from 'react';
+import { BoxProps } from '@mui/material';
+declare type ButtonCardProps = BoxProps;
+declare const ButtonCard: React.FC<ButtonCardProps>;
+export { ButtonCard };
+
 import React from 'react';
 import { BoxProps } from '@mui/material';
 declare type ButtonCardProps = BoxProps;
@@ -235,6 +261,14 @@ declare class ErrorBoundary extends React.Component<IErrorBoundary> {
 export { ErrorBoundary };
 export type { IErrorBoundary };
 
+/// <reference types="react" />
+interface IFailed {
+    title: string;
+}
+declare const Failed: ({ title }: IFailed) => JSX.Element;
+export { Failed };
+export type { IFailed };
+
 export { default as AddPlusIcon } from '../../icons/AddPlusIcon';
 export { default as AndroidIcon } from '../../icons/AndroidIcon';
 export { default as ArchitectureIcon } from '../../icons/ArchitectureIcon';
@@ -278,6 +312,8 @@ export { CustomSelectCountries } from './CustomSelectCountries';
 export { CustomTooltip } from './CustomTooltip';
 export type { IErrorBoundary } from './ErrorBoundary';
 export { ErrorBoundary } from './ErrorBoundary';
+export type { IFailed } from './Failed';
+export { Failed } from './Failed';
 export type { IModuleLoader } from './ModuleLoader';
 export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
