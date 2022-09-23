@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Failed } from '../Failed'
 import { ErrorIcon } from '../Icons'
 
 interface IErrorBoundary {
@@ -28,7 +29,7 @@ class ErrorBoundary extends React.Component<IErrorBoundary> {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.hasError) {
       console.info('[COMPONENT][ERROR]: Has error')
-      return <ErrorIcon />
+      return <Failed title="Has error" />
     }
     // @ts-ignore
     return this.props.children // eslint-disable-line react/destructuring-assignment
