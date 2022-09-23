@@ -21,6 +21,7 @@ import { ReactComponent as ErrorPassport } from '../../assets/error_passport.svg
 import { ReactComponent as IDdoc } from '../../assets/ID_doc.svg'
 import { ReactComponent as Passport } from '../../assets/passport.svg'
 import { AddPlusIcon } from '../../icons'
+import styles from './index.module.css'
 
 const options = {
   cMapUrl: 'cmaps/',
@@ -204,7 +205,7 @@ const Upload: React.FC<UploadProps> = ({
                   <Page pageNumber={1} width={isTablet ? 240 : 400} />
                 </Document>
               )}
-              {!isPDF && <img src={preview} width="100%" alt="" />}
+              {!isPDF && <img src={preview} className={styles.uploadDocument} alt="" />}
               <Fab
                 color="secondary"
                 size="small"
