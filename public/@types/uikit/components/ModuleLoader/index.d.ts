@@ -8,6 +8,6 @@ interface IModuleLoader {
     bus: IBus | null;
     fallback: React.ReactElement | string | undefined;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => any;
 export { ModuleLoader };
 export type { IModuleLoader };
