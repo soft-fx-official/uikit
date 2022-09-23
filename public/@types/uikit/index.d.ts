@@ -14242,12 +14242,18 @@ declare const colors: {
         400: string;
         500: string;
         600: string;
+        A100: string;
+        A200: string;
+        A300: string;
     };
     dark: {
+        50: string;
         100: string;
         200: string;
         300: string;
         400: string;
+        500: string;
+        600: string;
     };
     primary: {
         100: string;
@@ -14265,6 +14271,13 @@ declare const colors: {
         400: string;
         500: string;
         600: string;
+        A100: string;
+        A200: string;
+        A300: string;
+        A400: string;
+        A500: string;
+        A600: string;
+        A700: string;
     };
     error: {
         100: string;
@@ -14282,6 +14295,13 @@ declare const colors: {
         400: string;
         500: string;
         600: string;
+        A100: string;
+        A200: string;
+        A300: string;
+        A400: string;
+        A500: string;
+        A600: string;
+        A700: string;
     };
     red: {
         100: string;
@@ -14318,7 +14338,7 @@ declare const init: (nameTheme: string, updateTheme: ThemeOptions) => Theme;
 export { init as initTheme };
 export type { Theme };
 
-import { ThemeOptions } from '@mui/material';
-export declare const theme: ThemeOptions;
+import { PaletteMode, ThemeOptions } from '@mui/material';
+export declare const getTheme: (mode?: PaletteMode) => ThemeOptions;
 
 };
