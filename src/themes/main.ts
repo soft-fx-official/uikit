@@ -9,8 +9,6 @@ interface ITheme {
 }
 
 export const getTheme = (mode?: PaletteMode): ThemeOptions => {
-  console.log('mode', mode)
-
   const isDarkMode = mode === 'dark'
 
   return {
@@ -260,6 +258,8 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
       },
       warning: {
         main: colors.warning['400'],
+        // @ts-ignore
+        secondary: colors.warning['600'],
       },
       success: {
         main: colors.success['400'],

@@ -1,0 +1,17 @@
+.main {
+  padding: 50px;
+  border-radius: 16px;
+  color: white;
+  width: 500px;
+}
+
+.stack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.text {
+  text-align: center;
+}
