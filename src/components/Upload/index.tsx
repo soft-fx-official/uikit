@@ -170,7 +170,6 @@ const Upload: React.FC<UploadProps> = ({
       sx={theme => ({
         minWidth: '288px',
         minHeight: '288px',
-        // maxWidth: '580px',
         width: '100%',
         padding: '40px 0',
         borderRadius: '24px',
