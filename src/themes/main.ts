@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 
-import { Theme, ThemeOptions } from '@mui/material'
+import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
 
 import { colors } from './colors'
 
@@ -8,258 +8,292 @@ interface ITheme {
   theme: Theme
 }
 
-export const theme: ThemeOptions = {
-  components: {
-    MuiContainer: {
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          bgColor: theme.palette.mode === 'dark' ? theme.palette.grey['700'] : 'white',
-        }),
-      },
-    },
-    MuiLink: {
-      defaultProps: {
-        underline: 'always',
-        variant: 'subtitle1',
-        // color: 'text.primary',
-      },
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          transition: 'color .2s',
-          textUnderlineOffset: '3px',
-          textDecorationColor: theme.palette.text.primary,
-          color: '#fff',
-          '&:hover': {
-            color: theme.palette.text.secondary,
-          },
-        }),
-      },
-    },
-    MuiButton: {
-      //NOTE: Изменение отображение текста во всех элементах button
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          textTransform: 'capitalize',
-          fontSize: 18,
-          lineHeight: '22px',
-          boxShadow: 'none',
-          backgroundColor: colors.primary['500'],
-          borderRadius: '8px',
-          height: '54px',
-          '&:hover': {
-            boxShadow: 'none',
-            backgroundColor: colors.primary['600'],
-          },
-          [theme.breakpoints.down('lg')]: {
-            fontSize: 16,
-            lineHeight: '19px',
-          },
-        }),
-      },
-      defaultProps: {
-        size: 'large',
-      },
-    },
-    MuiFilledInput: {
-      defaultProps: {
-        disableUnderline: true,
-      },
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          backgroundColor: 'inherit',
-          borderRadius: '6px',
-          border: `1px solid ${
-            theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.grey['500']
-          }`,
-          transition: 'border-color .2s',
-          '&:hover': {
-            backgroundColor: 'inherit',
-            border: `1px solid ${
-              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
-            }`,
-          },
-          '&.Mui-focused': {
-            backgroundColor: 'inherit',
-            border: `1px solid ${
-              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
-            }`,
-          },
-          '&.Mui-error': {
-            border: `1px solid ${theme.palette.warning.main}`,
-          },
-          '&.MuiInputBase-colorSuccess': {
-            borderColor: theme.palette.success.main,
-          },
-          '& .MuiButtonBase-root': {
-            color: theme.palette.secondary.main,
-          },
-          '&.Mui-focused .MuiButtonBase-root': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
-          '&:hover .MuiButtonBase-root': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
-        }),
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          backgroundColor: 'inherit',
-          borderRadius: '6px',
-          border: `1px solid ${
-            theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.grey['700']
-          }`,
+export const getTheme = (mode?: PaletteMode): ThemeOptions => {
+  console.log('mode', mode)
 
-          transition: 'border-color .2s',
-          '&:hover': {
-            backgroundColor: 'inherit',
-            border: `1px solid ${
-              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
-            }`,
-          },
-          '&.Mui-focused': {
-            backgroundColor: 'inherit',
-            border: `1px solid ${
-              theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']
-            }`,
-          },
-          '&.Mui-error': {
-            border: `1px solid ${theme.palette.warning.main}`,
-          },
-          '&.MuiInputBase-colorSuccess': {
-            borderColor: theme.palette.success.main,
-          },
-          '& .MuiButtonBase-root': {
-            color: theme.palette.secondary.main,
-          },
-          '&.Mui-focused .MuiButtonBase-root': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
-          '&:hover .MuiButtonBase-root': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
+  const isDarkMode = mode === 'dark'
 
-          '.MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
-        }),
-      },
-    },
-    MuiFormLabel: {
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          color: theme.palette.secondary.main,
-          '&.Mui-error': {
-            color: theme.palette.warning.main,
-          },
-        }),
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          '&.Mui-focused': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
-          '&.Mui-focused.Mui-error': {
-            color: theme.palette.warning.main,
-          },
-        }),
-      },
-    },
-    MuiFormControl: {
-      styleOverrides: {
-        root: ({ theme }: ITheme) => ({
-          '&:hover .MuiInputLabel-filled:not(.Mui-error)': {
-            color: `${theme.palette.mode === 'dark' ? 'white' : theme.palette.grey['500']}`,
-          },
-        }),
-      },
-    },
-    //NOTE: понижение z-index тултипа ошибки
-    MuiTooltip: {
-      styleOverrides: {
-        popper: {
-          zIndex: 1300,
+  return {
+    components: {
+      MuiContainer: {
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            bgColor: isDarkMode ? colors.neutral['700'] : colors.light['100'],
+          }),
         },
       },
-    },
-    //NOTE: повышение z-index дропдаунов
-    MuiAutocomplete: {
-      styleOverrides: {
-        popper: {
-          zIndex: 1501,
+      MuiLink: {
+        defaultProps: {
+          underline: 'always',
+          variant: 'subtitle1',
+          // color: 'text.primary',
         },
-      },
-    },
-    //NOTE: измениене стилей заголовков и подщаголовков, ссфлок
-    MuiTypography: {
-      variants: [
-        {
-          props: { variant: 'h4' },
-          style: ({ theme }: ITheme) => ({
-            fontWeight: 700,
-            fontSize: 26,
-            lineHeight: '36px',
-            color: `${
-              theme.palette.mode === 'dark' ? colors.light['100'] : theme.palette.grey['500']
-            }`,
-            [theme.breakpoints.down('lg')]: {
-              fontSize: 22,
-              lineHeight: '30px',
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            transition: 'color .2s',
+            textUnderlineOffset: '3px',
+            textDecorationColor: theme.palette.text.primary,
+            color: isDarkMode ? colors.light['100'] : colors.dark['600'],
+            '&:hover': {
+              color: theme.palette.text.secondary,
             },
           }),
         },
-        {
-          props: { variant: 'subtitle1' },
-          style: ({ theme }: ITheme) => ({
+      },
+      MuiButton: {
+        //NOTE: Изменение отображение текста во всех элементах button
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            textTransform: 'capitalize',
             fontSize: 18,
-            lineHeight: '21px',
-            color: `${
-              theme.palette.mode === 'dark' ? colors.alpha['600'] : theme.palette.grey['500']
-            }`,
+            lineHeight: '22px',
+            boxShadow: 'none',
+            backgroundColor: colors.primary['500'],
+            borderRadius: '8px',
+            height: '54px',
+            '&:hover': {
+              boxShadow: 'none',
+              backgroundColor: colors.primary['600'],
+            },
             [theme.breakpoints.down('lg')]: {
-              fontSize: 14,
-              lineHeight: '22px',
+              fontSize: 16,
+              lineHeight: '19px',
             },
           }),
         },
-      ],
+        defaultProps: {
+          size: 'large',
+        },
+      },
+      MuiFilledInput: {
+        defaultProps: {
+          disableUnderline: true,
+        },
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            backgroundColor: 'inherit',
+            borderRadius: '6px',
+            border: `1px solid ${theme.palette.secondary.main}`,
+            transition: 'border-color .2s',
+            '&:hover': {
+              backgroundColor: 'inherit',
+              border: `1px solid ${isDarkMode ? colors.light['100'] : colors.dark['400']}`,
+            },
+            '&.Mui-focused': {
+              backgroundColor: 'inherit',
+              border: `1px solid ${isDarkMode ? colors.light['100'] : colors.dark['400']}`,
+            },
+            '&.Mui-error': {
+              border: `1px solid ${theme.palette.warning.main}`,
+            },
+            '&.MuiInputBase-colorSuccess': {
+              borderColor: theme.palette.success.main,
+            },
+            '&.MuiButtonBase-root': {
+              color: theme.palette.secondary.main,
+            },
+            '&.Mui-focused .MuiButtonBase-root': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+            '&:hover .MuiButtonBase-root': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+          }),
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            backgroundColor: 'inherit',
+            borderRadius: '6px',
+            border: `1px solid ${
+              isDarkMode ? theme.palette.secondary.main : colors.neutral['700']
+            }`,
+            transition: 'border-color .2s',
+            '&:hover': {
+              backgroundColor: 'inherit',
+              border: `1px solid ${isDarkMode ? colors.light['100'] : colors.neutral['500']}`,
+            },
+            '&.Mui-focused': {
+              backgroundColor: 'inherit',
+              border: `1px solid ${isDarkMode ? colors.light['100'] : colors.neutral['500']}`,
+            },
+            '&.Mui-error': {
+              border: `1px solid ${theme.palette.warning.main}`,
+            },
+            '&.MuiInputBase-colorSuccess': {
+              borderColor: theme.palette.success.main,
+            },
+            '& .MuiButtonBase-root': {
+              color: theme.palette.secondary.main,
+            },
+            '&.Mui-focused .MuiButtonBase-root': {
+              color: `${isDarkMode ? colors.light['100'] : colors.neutral['500']}`,
+            },
+            '&:hover .MuiButtonBase-root': {
+              color: `${isDarkMode ? colors.light['100'] : colors.neutral['500']}`,
+            },
+
+            '.MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+          }),
+        },
+      },
+      MuiFormLabel: {
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            color: theme.palette.secondary.main,
+            '&.Mui-error': {
+              color: theme.palette.warning.main,
+            },
+          }),
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            '&.Mui-focused': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+            '&.Mui-focused.Mui-error': {
+              color: theme.palette.warning.main,
+            },
+          }),
+        },
+      },
+      MuiFormControl: {
+        styleOverrides: {
+          root: ({ theme }: ITheme) => ({
+            '&:hover .MuiInputLabel-filled:not(.Mui-error)': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+          }),
+        },
+      },
+      //NOTE: понижение z-index тултипа ошибки
+      MuiTooltip: {
+        styleOverrides: {
+          popper: {
+            zIndex: 1300,
+          },
+
+          tooltip: ({ theme }: ITheme) => ({
+            color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+          }),
+        },
+      },
+      //NOTE: повышение z-index дропдаунов
+      MuiAutocomplete: {
+        styleOverrides: {
+          popper: {
+            zIndex: 1501,
+          },
+
+          root: ({ theme }: ITheme) => ({
+            '& .MuiAutocomplete-paper': {
+              border: `1px solid ${colors.alpha['500']}`,
+              backgroundColor: colors.neutral['600'],
+              borderRadius: '8px',
+            },
+            '& .MuiInputLabel-root': {
+              color: theme.palette.secondary.main,
+            },
+            '&:hover .MuiInputLabel-root': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+            '&:hover .MuiInputLabel-root.Mui-error': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+            '& .MuiInputLabel-root.Mui-error': {
+              color: theme.palette.secondary.main,
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+            '& .MuiInputLabel-root.Mui-error.Mui-focused': {
+              color: isDarkMode ? colors.light['100'] : colors.neutral['500'],
+            },
+          }),
+        },
+      },
+      //NOTE: измениене стилей заголовков и подщаголовков, ссфлок
+      MuiTypography: {
+        variants: [
+          {
+            props: { variant: 'h4' },
+            style: ({ theme }: ITheme) => ({
+              fontWeight: 700,
+              fontSize: 26,
+              lineHeight: '36px',
+              color: isDarkMode ? colors.light['100'] : colors.dark['600'],
+              [theme.breakpoints.down('lg')]: {
+                fontSize: 22,
+                lineHeight: '30px',
+              },
+            }),
+          },
+          {
+            props: { variant: 'subtitle1' },
+            style: ({ theme }: ITheme) => ({
+              fontSize: 18,
+              lineHeight: '21px',
+              color: isDarkMode ? colors.alpha['600'] : colors.dark['400'],
+              [theme.breakpoints.down('lg')]: {
+                fontSize: 14,
+                lineHeight: '22px',
+              },
+            }),
+          },
+        ],
+      },
     },
-  },
-  typography: {
-    fontFamily: 'Inter, Arial, sans-serif',
-  },
-  palette: {
-    primary: {
-      main: colors.primary['400'],
+    typography: {
+      fontFamily: 'Inter, Arial, sans-serif',
     },
-    secondary: {
-      main: colors.light['300'],
+    palette: {
+      primary: {
+        main: colors.primary['400'],
+      },
+      secondary: {
+        main: isDarkMode ? colors.light['300'] : colors.dark['400'],
+      },
+      warning: {
+        main: colors.warning['400'],
+      },
+      success: {
+        main: colors.success['400'],
+      },
+      grey: colors.neutral,
+      background: isDarkMode
+        ? {
+            // @ts-ignore
+            secondary: colors.neutral['600'],
+
+            default: colors.neutral['700'],
+            paper: colors.neutral['600'],
+          }
+        : {
+            default: colors.light['100'],
+            paper: colors.light['100'],
+          },
+      // neutral: colors.neutral,
+      text: isDarkMode
+        ? {
+            primary: colors.light['100'],
+            secondary: colors.light['300'],
+
+            // @ts-ignore // todo remove
+            dark: colors.light['600'],
+            // @ts-ignore
+            light: colors.light['200'],
+            // @ts-ignore
+            white: colors.light['100'],
+          }
+        : {
+            primary: colors.dark['600'],
+            secondary: colors.neutral['500'],
+          },
     },
-    warning: {
-      main: colors.warning['400'],
-    },
-    success: {
-      main: colors.success['400'],
-    },
-    grey: colors.neutral,
-    background: {
-      // @ts-ignore
-      secondary: colors.neutral['600'],
-      default: '#121418',
-      paper: '#16191E',
-    },
-    neutral: colors.neutral,
-    text: {
-      secondary: colors.light['300'],
-      // @ts-ignore
-      dark: colors.light['600'],
-      // @ts-ignore
-      light: colors.light['200'],
-      // @ts-ignore
-      white: colors.light['100'],
-    },
-  },
+  }
 }
