@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { Tooltip, tooltipClasses, TooltipProps } from '@mui/material'
+import { Tooltip, tooltipClasses, TooltipProps, useTheme } from '@mui/material'
 
 import { colors } from '../../themes/colors'
 
@@ -23,24 +23,29 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   timeout = 200,
   onClose = () => {},
 }) => {
+  const theme = useTheme()
+
   const styles = useMemo(() => {
+    const isDarkTheme = theme.palette.mode === 'dark'
+
     switch (color) {
+      // todo move colors to theme vars
       case 'success':
         return {
           borderColor: 'success.main',
-          background: colors.green['700'],
+          background: isDarkTheme ? colors.green['700'] : colors.success['A100'],
         }
 
       case 'warning':
         return {
           borderColor: 'warning.main',
-          background: colors.error['700'],
+          background: isDarkTheme ? colors.error['700'] : colors.warning['A100'],
         }
 
       case 'default':
         return {
           borderColor: 'secondary.main',
-          background: colors.neutral['400'],
+          background: isDarkTheme ? colors.neutral['400'] : colors.light['A300'],
         }
 
       default:
@@ -49,7 +54,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
           background: colors.primary['700'],
         }
     }
-  }, [color])
+  }, [color, theme.palette.mode])
 
   return (
     <Tooltip
