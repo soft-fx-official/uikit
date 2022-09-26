@@ -3,24 +3,10 @@ import React, { ChangeEvent, memo, useCallback, useEffect, useMemo, useState } f
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
-import {
-  Box,
-  Fab,
-  IconButton,
-  Stack,
-  SvgIcon,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Box, Fab, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 
-import { ReactComponent as Certificate } from '../../assets/certificate.svg'
-import { ReactComponent as ErrorCertificate } from '../../assets/error_certificate.svg'
-import { ReactComponent as ErrorIdIcon } from '../../assets/error_ID.svg'
-import { ReactComponent as ErrorPassport } from '../../assets/error_passport.svg'
-import { ReactComponent as IDdoc } from '../../assets/ID_doc.svg'
-import { ReactComponent as Passport } from '../../assets/passport.svg'
 import { AddPlusIcon } from '../../icons'
+import { DOCUMENT_TEMPLATES } from './constants'
 import styles from './index.module.css'
 
 const options = {
@@ -38,30 +24,6 @@ export enum UploadDocumentType {
 enum ErrorCode {
   minFileSizeErr = 'MIN_FILE_SIZE_ERR',
   maxFileSizeErr = 'MAX_FILE_SIZE_ERR',
-}
-
-type DocumentTemplate = {
-  viewBox: string
-  component: () => React.ReactNode
-  errorIcon: () => React.ReactNode
-}
-
-const documentTemplates: Record<UploadDocumentType, DocumentTemplate> = {
-  idCard: {
-    viewBox: '0 0 320 188',
-    component: () => <IDdoc style={{ width: '320px', height: '187.83px' }} />,
-    errorIcon: () => <ErrorIdIcon style={{ width: '320px', height: '187.83px' }} />,
-  },
-  certificate: {
-    viewBox: '0 0 240 274',
-    component: () => <Certificate style={{ width: '240px', height: '274px' }} />,
-    errorIcon: () => <ErrorCertificate style={{ width: '240px', height: '274px' }} />,
-  },
-  passport: {
-    viewBox: '0 0 240 274',
-    component: () => <Passport style={{ width: '240px', height: '274px' }} />,
-    errorIcon: () => <ErrorPassport style={{ width: '240px', height: '274px' }} />,
-  },
 }
 
 interface UploadProps {
@@ -167,7 +129,7 @@ const Upload: React.FC<UploadProps> = ({
       display="flex"
       justifyContent="center"
       alignItems="center"
-      sx={theme => ({
+      sx={{
         minWidth: '288px',
         minHeight: '288px',
         width: '100%',
@@ -175,10 +137,12 @@ const Upload: React.FC<UploadProps> = ({
         borderRadius: '24px',
         borderWidth: '2px',
         borderStyle: 'dashed',
-        borderColor: 'text.secondary',
+        borderColor: 'border.neutral',
         transitionDuration: '0.3s',
-        ':hover': { backgroundColor: `${theme.palette.secondary.main}40` },
-      })}
+        ':hover': {
+          backgroundColor: `card.hover.background`,
+        },
+      }}
     >
       <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
         <Box
@@ -221,8 +185,8 @@ const Upload: React.FC<UploadProps> = ({
               sx={{ width: '100%', height: '100%' }}
             >
               {!error
-                ? documentTemplates[documentType].component()
-                : documentTemplates[documentType].errorIcon()}
+                ? DOCUMENT_TEMPLATES[documentType].component
+                : DOCUMENT_TEMPLATES[documentType].errorIcon}
             </Stack>
           )}
           {!preview && (
