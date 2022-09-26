@@ -57,16 +57,16 @@ const CustomSelectCountries: React.FC<CustomSelectCountriesProps> = ({ form, cou
                 <ReactCountryFlag
                   countryCode={data.field.value || ''}
                   svg
-                  className={styles.flag}
+                  className={styles.uikit_flag}
                 />
               </InputAdornment>
             ),
         autoComplete: 'new-password',
       })}
       optionTemplate={({ props, option }) => (
-        <Box component="li" key={option?.code} className={styles?.option} {...props}>
-          <ReactCountryFlag countryCode={option?.code || ''} svg className={styles.flag} />
-          <Box className={styles.countryName}>{option?.name || props?.key}</Box>
+        <Box component="li" key={option?.code} className={styles?.uikit_option} {...props}>
+          <ReactCountryFlag countryCode={option?.code || ''} svg className={styles.uikit_flag} />
+          <Box className={styles.uikit_countryName}>{option?.name || props?.key}</Box>
         </Box>
       )}
     />
