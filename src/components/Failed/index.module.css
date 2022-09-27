@@ -1,17 +1,17 @@
-.main {
+.uikit_main {
   padding: 50px;
   border-radius: 16px;
   color: white;
   width: 500px;
 }
 
-.stack {
+.uikit_stack {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.text {
+.uikit_text {
   text-align: center;
 }

@@ -71,7 +71,7 @@ interface IThemeSwitch {
 }
 
 const ThemeSwitch = ({ isDarkTheme, onChange }: IThemeSwitch) => (
-  <Stack direction="row" spacing={1} className={styles.stackcontainer}>
+  <Stack direction="row" spacing={1} className={styles.uikit_stackcontainer}>
     <LightModeIcon sx={{ color: isDarkTheme ? 'text.dark' : 'text.dark' }} />
     <IOSSwitch onChange={onChange} checked={isDarkTheme} />
     <BedtimeIcon sx={{ color: isDarkTheme ? '#fff' : 'text.light' }} />

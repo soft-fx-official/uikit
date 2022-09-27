@@ -204,7 +204,7 @@ const Upload: React.FC<UploadProps> = ({
                   <Page pageNumber={1} width={isTablet ? 240 : 400} />
                 </Document>
               )}
-              {!isPDF && <img src={preview} className={styles.uploadDocument} alt="" />}
+              {!isPDF && <img src={preview} className={styles.uikit_uploadDocument} alt="" />}
               <Fab
                 color="secondary"
                 size="small"
