@@ -129,6 +129,17 @@ export type { IFailed };
 
 };
 
+declare module 'uikit/components/Failed.1' {
+/// <reference types="react" />
+interface IFailed {
+    title: string;
+}
+declare const Failed: ({ title }: IFailed) => JSX.Element;
+export { Failed };
+export type { IFailed };
+
+};
+
 declare module 'uikit/components/Icons' {
 export { default as AddPlusIcon } from '../../icons/AddPlusIcon';
 export { default as AndroidIcon } from '../../icons/AndroidIcon';
@@ -269,6 +280,14 @@ declare const Failed: ({ title }: IFailed) => JSX.Element;
 export { Failed };
 export type { IFailed };
 
+/// <reference types="react" />
+interface IFailed {
+    title: string;
+}
+declare const Failed: ({ title }: IFailed) => JSX.Element;
+export { Failed };
+export type { IFailed };
+
 export { default as AddPlusIcon } from '../../icons/AddPlusIcon';
 export { default as AndroidIcon } from '../../icons/AndroidIcon';
 export { default as ArchitectureIcon } from '../../icons/ArchitectureIcon';
@@ -318,6 +337,17 @@ export type { IModuleLoader } from './ModuleLoader';
 export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Upload } from './Upload';
+export { Loader } from './Loader';
+export type { ILoader } from './Loader';
+
+/// <reference types="react" />
+interface ILoader {
+    style: object;
+    isStop: boolean;
+}
+declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
+export { Loader };
+export type { ILoader };
 
 /// <reference types="common" />
 import React from 'react';
@@ -328,8 +358,11 @@ interface IModuleLoader {
     module: string;
     bus: IBus | null;
     fallback: React.ReactElement | string | undefined;
+    onError: () => void;
+    onLoad: () => void;
+    onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: ({ url, scope, module, bus, fallback, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
 export { ModuleLoader };
 export type { IModuleLoader };
 
@@ -370,6 +403,18 @@ export { memoUpload as Upload };
 
 };
 
+declare module 'uikit/components/Loader' {
+/// <reference types="react" />
+interface ILoader {
+    style: object;
+    isStop: boolean;
+}
+declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
+export { Loader };
+export type { ILoader };
+
+};
+
 declare module 'uikit/components/ModuleLoader' {
 /// <reference types="common" />
 import React from 'react';
@@ -380,8 +425,11 @@ interface IModuleLoader {
     module: string;
     bus: IBus | null;
     fallback: React.ReactElement | string | undefined;
+    onError: () => void;
+    onLoad: () => void;
+    onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, fallback }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: ({ url, scope, module, bus, fallback, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
 export { ModuleLoader };
 export type { IModuleLoader };
 
@@ -689,6 +737,12 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
+export { default as Logo } from './Logo';
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
 
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -804,6 +858,14 @@ export default _default;
 };
 
 declare module 'uikit/icons/LockIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+};
+
+declare module 'uikit/icons/Logo' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;

@@ -14,6 +14,9 @@ interface IModuleLoader {
   module: string
   bus: IBus | null
   fallback: React.ReactElement | string | undefined
+  onError: () => void
+  onLoad: () => void
+  onDone: () => void
 }
 
 enum EStatus {
@@ -23,7 +26,16 @@ enum EStatus {
   done,
 }
 
-const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
+const ModuleLoader = ({
+  url,
+  scope,
+  module,
+  bus,
+  fallback,
+  onError = () => null,
+  onLoad = () => null,
+  onDone = () => null,
+}: IModuleLoader) => {
   const { ready, failed } = useDynamicScript(url)
 
   const [status, setStatus] = useState<EStatus>(EStatus.load)
@@ -55,14 +67,18 @@ const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
 
     if (item === EStatus.error) {
       Component = <Failed title="Not system specified" />
+      onError()
     }
 
     if (item === EStatus.failed) {
       Component = <Failed title={`Failed to load dynamic script: ${url}`} />
+      onError()
     }
 
     if (item === EStatus.load) {
-      Component = <CircularProgress sx={{ position: 'absolute', top: 0, right: 0 }} />
+      // Component = <CircularProgress sx={{ position: 'absolute', top: 0, right: 0 }} />
+      Component = <></>
+      onLoad()
     }
 
     if (item === EStatus.done && ready) {
@@ -74,6 +90,7 @@ const ModuleLoader = ({ url, scope, module, bus, fallback }: IModuleLoader) => {
           </React.Suspense>
         </ErrorBoundary>
       )
+      onDone()
     }
 
     return (
