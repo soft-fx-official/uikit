@@ -98,6 +98,8 @@ const ModuleLoader = ({
         style={{
           position: 'absolute',
           top: '0',
+          display: 'flex',
+          alignItems: 'center',
           width: '100%',
           minHeight: '100%',
           opacity: data.opacity,
