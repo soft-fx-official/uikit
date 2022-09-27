@@ -57,6 +57,12 @@ declare module '@mui/material/styles/createPalette' {
     root: string
     sumsub: string
   }
+
+  export interface TypeText {
+    dark?: string
+    light?: string
+    white?: string
+  }
 }
 
 interface ITheme {
@@ -87,6 +93,9 @@ const DARK_PALETTE: PaletteOptions = {
   text: {
     primary: colors.light['100'],
     secondary: colors.light['300'],
+    dark: colors.light['600'],
+    light: colors.light['200'],
+    white: colors.light['100'],
   },
   border: {
     neutral: colors.alpha['500'],
@@ -127,6 +136,9 @@ const LIGHT_PALETTE: Partial<PaletteOptions> = {
   text: {
     primary: colors.dark['600'],
     secondary: colors.neutral['500'],
+    dark: colors.light['600'],
+    light: colors.light['200'],
+    white: colors.light['100'],
   },
   border: {
     neutral: colors.dark['400'],
