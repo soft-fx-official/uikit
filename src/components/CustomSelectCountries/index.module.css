@@ -1,16 +1,16 @@
-.option {
+.uikit_option {
   display: flex;
   align-items: center;
 }
 
-.countryName {
+.uikit_countryName {
   text-transform: capitalize;
 }
 
-.flag {
+.uikit_flag {
   margin-right: 10px;
 }
 
-.select {
+.uikit_select {
   width: 100%;
 }

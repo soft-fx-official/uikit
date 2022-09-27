@@ -95,7 +95,13 @@ const ModuleLoader = ({
 
     return (
       <animated.div
-        style={{ position: 'absolute', width: '100%', height: '100%', opacity: data.opacity }}
+        style={{
+          position: 'absolute',
+          top: '0',
+          width: '100%',
+          minHeight: '100%',
+          opacity: data.opacity,
+        }}
       >
         {Component}
       </animated.div>

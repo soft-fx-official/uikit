@@ -22,14 +22,14 @@ const Failed = ({ title }: IFailed) => (
     }}
   >
     <Box
-      className={styles.main}
+      className={styles.uikit_main}
       sx={{
         backgroundColor: 'warning.secondary',
       }}
     >
-      <Stack spacing={4} className={styles.stack}>
+      <Stack spacing={4} className={styles.uikit_stack}>
         <CancelModalIcon sx={{ fontSize: 150 }} />
-        <Typography variant="h5" className={styles.text}>
+        <Typography variant="h5" className={styles.uikit_text}>
           {title}
         </Typography>
       </Stack>
