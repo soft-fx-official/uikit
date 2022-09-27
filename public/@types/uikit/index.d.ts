@@ -309,6 +309,15 @@ interface IThemeSwitch {
 declare const ThemeSwitch: ({ isDarkTheme, onChange }: IThemeSwitch) => JSX.Element;
 export { ThemeSwitch };
 
+import React from 'react';
+import { UploadDocumentType } from '../index';
+declare type DocumentTemplate = {
+    component: React.ReactNode;
+    errorIcon: React.ReactNode;
+};
+export declare const DOCUMENT_TEMPLATES: Record<UploadDocumentType, DocumentTemplate>;
+export {};
+
 /// <reference types="react" />
 export declare enum UploadDocumentType {
     idCard = "idCard",
@@ -359,7 +368,28 @@ export { ThemeSwitch };
 
 };
 
+declare module 'uikit/components/Upload/constants' {
+import React from 'react';
+import { UploadDocumentType } from '../index';
+declare type DocumentTemplate = {
+    component: React.ReactNode;
+    errorIcon: React.ReactNode;
+};
+export declare const DOCUMENT_TEMPLATES: Record<UploadDocumentType, DocumentTemplate>;
+export {};
+
+};
+
 declare module 'uikit/components/Upload' {
+import React from 'react';
+import { UploadDocumentType } from '../index';
+declare type DocumentTemplate = {
+    component: React.ReactNode;
+    errorIcon: React.ReactNode;
+};
+export declare const DOCUMENT_TEMPLATES: Record<UploadDocumentType, DocumentTemplate>;
+export {};
+
 /// <reference types="react" />
 export declare enum UploadDocumentType {
     idCard = "idCard",
@@ -1005,6 +1035,54 @@ export { init as initTheme };
 export type { Theme };
 
 import { PaletteMode, ThemeOptions } from '@mui/material';
+declare type TCard = {
+    color?: string;
+    border?: string;
+    background?: string;
+    hover: {
+        color?: string;
+        border?: string;
+        background?: string;
+    };
+    disabled: {
+        color?: string;
+        border?: string;
+        background?: string;
+    };
+};
+declare type TInput = {
+    primary?: string;
+};
+declare type TDocumentPlaceholder = {
+    primary?: string;
+    secondary?: string;
+};
+declare module '@mui/material/styles/createPalette' {
+    interface Palette {
+        border?: {
+            neutral: string;
+        };
+        card?: TCard;
+        input?: TInput;
+        document?: TDocumentPlaceholder;
+    }
+    interface PaletteOptions {
+        border?: {
+            neutral: string;
+        };
+        card?: TCard;
+        input?: TInput;
+        document?: TDocumentPlaceholder;
+    }
+    interface SimplePaletteColorOptions {
+        secondary?: string;
+    }
+    interface TypeBackground {
+        root: string;
+        sumsub: string;
+    }
+}
 export declare const getTheme: (mode?: PaletteMode) => ThemeOptions;
+export {};
 
 };
