@@ -1,25 +1,25 @@
-.main {
+.uikit_main {
 }
 
-.option {
+.uikit_option {
   display: flex;
   padding-top: 15px;
   align-items: center;
 }
 
-.countryname {
+.uikit_countryname {
   text-transform: capitalize;
 }
 
-.flag {
+.uikit_flag {
   margin-right: 10px;
 }
 
-.select {
+.uikit_select {
   width: 100%;
 }
 
-.modalLine {
+.uikit_modalLine {
   background: #3b3b3c;
   border-radius: 30px;
   min-height: 5px;

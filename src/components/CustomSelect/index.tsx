@@ -58,8 +58,8 @@ const CustomSelect = ({
   const hasError = Boolean(data.fieldState.error)
 
   return (
-    <Box className={styles.main}>
-      <FormControl variant={variant} className={styles.select}>
+    <Box className={styles.uikit_main}>
+      <FormControl variant={variant} className={styles.uikit_select}>
         <Tooltip
           title={data.fieldState.error?.message || ''}
           arrow
@@ -123,7 +123,7 @@ const CustomSelect = ({
           }}
           role="presentation"
         >
-          <div className={styles.modalLine} />
+          <div className={styles.uikit_modalLine} />
           <Typography sx={{ fontWeight: 600, fontSize: '16px', lineHeight: '19px' }}>
             {modalProps.title}
           </Typography>
@@ -146,7 +146,7 @@ const CustomSelect = ({
                   option,
                   props: {
                     countryCode: option.code,
-                    className: styles.option,
+                    className: styles.uikit_option,
                     onClick: () => {
                       handleChange(option)
                       setModalSearch('')
