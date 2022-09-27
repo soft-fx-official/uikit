@@ -301,12 +301,12 @@ export type { IErrorBoundary } from './ErrorBoundary';
 export { ErrorBoundary } from './ErrorBoundary';
 export type { IFailed } from './Failed';
 export { Failed } from './Failed';
+export type { ILoader } from './Loader';
+export { Loader } from './Loader';
 export type { IModuleLoader } from './ModuleLoader';
 export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Upload } from './Upload';
-export { Loader } from './Loader';
-export type { ILoader } from './Loader';
 
 /// <reference types="react" />
 interface ILoader {
@@ -702,6 +702,7 @@ export { default as HedgingIcon } from './HedgingIcon';
 export { default as IOSIcon } from './IOSIcon';
 export { default as LeftArrow } from './LeftArrowMobilMode';
 export { default as LockIcon } from './LockIcon';
+export { default as Logo } from './Logo';
 export { default as MacIcon } from './MacIcon';
 export { default as MemorandumAssociationIcon } from './MemorandumAssociationIcon';
 export { default as NationalIdCardIcon } from './NationalIdCardIcon';
@@ -718,7 +719,6 @@ export { default as StandingIcon } from './StandingIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
-export { default as Logo } from './Logo';
 
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -1142,6 +1142,11 @@ declare module '@mui/material/styles/createPalette' {
     interface TypeBackground {
         root: string;
         sumsub: string;
+    }
+    interface TypeText {
+        dark?: string;
+        light?: string;
+        white?: string;
     }
 }
 export declare const getTheme: (mode?: PaletteMode) => ThemeOptions;

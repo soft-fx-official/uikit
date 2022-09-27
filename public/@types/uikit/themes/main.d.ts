@@ -45,6 +45,11 @@ declare module '@mui/material/styles/createPalette' {
         root: string;
         sumsub: string;
     }
+    interface TypeText {
+        dark?: string;
+        light?: string;
+        white?: string;
+    }
 }
 export declare const getTheme: (mode?: PaletteMode) => ThemeOptions;
 export {};
