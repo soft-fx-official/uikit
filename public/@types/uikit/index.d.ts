@@ -572,6 +572,14 @@ export default _default;
 
 };
 
+declare module 'uikit/icons/FileCrossIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").MemoExoticComponent<React.FC<SvgIconProps<"svg", {}>>>;
+export default _default;
+
+};
+
 declare module 'uikit/icons/FinanceLawIcon' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -669,6 +677,11 @@ export default _default;
 
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").MemoExoticComponent<React.FC<SvgIconProps<"svg", {}>>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
 export default _default;
 
@@ -696,6 +709,7 @@ export { default as CorporateAccountIcon } from './CorporateAccountIcon';
 export { default as DrivingLicenseIcon } from './DrivingLicenseIcon';
 export { default as EmployedIcon } from './EmployedIcon';
 export { default as ErrorIcon } from './ErrorIcon';
+export { default as FileCrossIcon } from './FileCrossIcon';
 export { default as FinanceLawIcon } from './FinanceLawIcon';
 export { default as HealthcareIcon } from './HealthcareIcon';
 export { default as HedgingIcon } from './HedgingIcon';
@@ -716,6 +730,7 @@ export { default as SalesMarketingIcon } from './SalesMarketingIcon';
 export { default as ScienceIcon } from './ScienceIcon';
 export { default as SpeculationIcon } from './SpeculationIcon';
 export { default as StandingIcon } from './StandingIcon';
+export { default as TickIcon } from './TickIcon';
 export { default as UnemployedIcon } from './UnemployedIcon';
 export { default as UtilityBillIcon } from './UtilityBillIcon';
 export { default as WindowsIcon } from './WindowsIcon';
@@ -803,6 +818,11 @@ export default _default;
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
 declare const _default: import("react").NamedExoticComponent<SvgIconProps<"svg", {}>>;
+export default _default;
+
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").MemoExoticComponent<React.FC<SvgIconProps<"svg", {}>>>;
 export default _default;
 
 /// <reference types="react" />
@@ -958,6 +978,14 @@ export default _default;
 
 };
 
+declare module 'uikit/icons/TickIcon' {
+/// <reference types="react" />
+import { SvgIconProps } from '@mui/material';
+declare const _default: import("react").MemoExoticComponent<React.FC<SvgIconProps<"svg", {}>>>;
+export default _default;
+
+};
+
 declare module 'uikit/icons/UnemployedIcon' {
 /// <reference types="react" />
 import { SvgIconProps } from '@mui/material';
@@ -1012,6 +1040,8 @@ declare const colors: {
         400: string;
         500: string;
         600: string;
+        A200: string;
+        A300: string;
     };
     primary: {
         100: string;
@@ -1115,10 +1145,11 @@ declare type TCard = {
 declare type TInput = {
     primary?: string;
 };
-declare type TDocumentPlaceholder = {
+declare type TPaletteBase = {
     primary?: string;
     secondary?: string;
 };
+declare type TDocumentPlaceholder = TPaletteBase;
 declare module '@mui/material/styles/createPalette' {
     interface Palette {
         border?: {
@@ -1135,6 +1166,8 @@ declare module '@mui/material/styles/createPalette' {
         card?: TCard;
         input?: TInput;
         document?: TDocumentPlaceholder;
+        icon?: TPaletteBase;
+        progress?: TPaletteBase;
     }
     interface SimplePaletteColorOptions {
         secondary?: string;
