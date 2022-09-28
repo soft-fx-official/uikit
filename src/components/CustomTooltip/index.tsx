@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 
 import { Tooltip, tooltipClasses, TooltipProps, useTheme } from '@mui/material'
 
@@ -10,6 +10,8 @@ type CustomTooltipProps = Pick<
 > & {
   color?: 'warning' | 'success' | 'default'
   timeout?: number
+  arrowBottomOffset?: number
+  fallbackPlacements?: ('bottom-end' | 'bottom-start' | 'bottom')[]
   onClose?: () => void
 }
 
@@ -21,6 +23,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   placement = 'right',
   children,
   timeout = 200,
+  arrowBottomOffset = 10,
+  fallbackPlacements = ['bottom'],
   onClose = () => {},
 }) => {
   const theme = useTheme()
@@ -56,9 +60,15 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     }
   }, [color, theme.palette.mode])
 
+  // Note: for fade animation to prevent the tooltip from being displayed with an empty title
+  const prevTitle = useRef<NonNullable<React.ReactNode>>('')
+  useEffect(() => {
+    prevTitle.current = title
+  }, [title])
+
   return (
     <Tooltip
-      title={title ?? ''}
+      title={title || prevTitle.current}
       arrow={arrow}
       open={open}
       onClose={onClose}
@@ -71,13 +81,21 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
               [`.${tooltipClasses.tooltip}`]: {
                 maxWidth: 'unset',
                 textAlign: 'center',
+                marginTop: '8px !important',
               },
               [`.${tooltipClasses.arrow}`]: {
-                left: '10px !important',
+                left: `${arrowBottomOffset}px !important`,
                 transform: 'unset !important',
                 color: styles.background,
               },
             },
+            '&[data-popper-placement="bottom-end"]': {
+              [`.${tooltipClasses.arrow}`]: {
+                left: 'unset !important',
+                right: `${arrowBottomOffset}px !important`,
+              },
+            },
+            // todo handle transition
           },
         },
         tooltip: {
@@ -105,7 +123,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
               name: 'flip',
               options: {
                 flipVariations: true,
-                fallbackPlacements: ['bottom'],
+                fallbackPlacements: fallbackPlacements,
               },
             },
           ],
