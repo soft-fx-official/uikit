@@ -25,10 +25,12 @@ type TInput = {
   primary?: string
 }
 
-type TDocumentPlaceholder = {
+type TPaletteBase = {
   primary?: string
   secondary?: string
 }
+
+type TDocumentPlaceholder = TPaletteBase
 
 declare module '@mui/material/styles/createPalette' {
   export interface Palette {
@@ -47,6 +49,8 @@ declare module '@mui/material/styles/createPalette' {
     card?: TCard
     input?: TInput
     document?: TDocumentPlaceholder
+    icon?: TPaletteBase
+    progress?: TPaletteBase
   }
 
   export interface SimplePaletteColorOptions {
@@ -106,7 +110,7 @@ const DARK_PALETTE: PaletteOptions = {
     background: colors.neutral['600'],
     hover: {
       border: colors.light['100'],
-      background: '#20242a',
+      background: colors.dark['A200'],
     },
     disabled: {
       color: colors.light['100'],
@@ -119,7 +123,15 @@ const DARK_PALETTE: PaletteOptions = {
   },
   document: {
     primary: colors.neutral['600'],
-    secondary: '#23272F',
+    secondary: colors.dark['A300'],
+  },
+  icon: {
+    primary: colors.light['300'],
+    secondary: colors.dark['A300'],
+  },
+  progress: {
+    primary: colors.neutral['400'],
+    secondary: colors.dark['A200'],
   },
 }
 
@@ -163,6 +175,14 @@ const LIGHT_PALETTE: Partial<PaletteOptions> = {
   document: {
     primary: colors.light['A300'],
     secondary: colors.light['A100'],
+  },
+  icon: {
+    primary: colors.light['A100'],
+    secondary: colors.light['A300'],
+  },
+  progress: {
+    primary: colors.light['A200'],
+    secondary: colors.light['A300'],
   },
 }
 

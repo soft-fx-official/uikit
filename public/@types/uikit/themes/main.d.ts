@@ -17,10 +17,11 @@ declare type TCard = {
 declare type TInput = {
     primary?: string;
 };
-declare type TDocumentPlaceholder = {
+declare type TPaletteBase = {
     primary?: string;
     secondary?: string;
 };
+declare type TDocumentPlaceholder = TPaletteBase;
 declare module '@mui/material/styles/createPalette' {
     interface Palette {
         border?: {
@@ -37,6 +38,8 @@ declare module '@mui/material/styles/createPalette' {
         card?: TCard;
         input?: TInput;
         document?: TDocumentPlaceholder;
+        icon?: TPaletteBase;
+        progress?: TPaletteBase;
     }
     interface SimplePaletteColorOptions {
         secondary?: string;
