@@ -27,6 +27,8 @@ declare const colors: {
         400: string;
         500: string;
         600: string;
+        A200: string;
+        A300: string;
     };
     primary: {
         100: string;
