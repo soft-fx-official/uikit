@@ -55,6 +55,7 @@ declare module '@mui/material/styles/createPalette' {
 
   export interface SimplePaletteColorOptions {
     secondary?: string
+    alternative?: string
   }
 
   export interface TypeBackground {
@@ -79,6 +80,7 @@ const DARK_PALETTE: PaletteOptions = {
   },
   secondary: {
     main: colors.light['300'],
+    alternative: colors.alpha['600'],
   },
   warning: {
     main: colors.warning['400'],
@@ -138,6 +140,7 @@ const DARK_PALETTE: PaletteOptions = {
 const LIGHT_PALETTE: Partial<PaletteOptions> = {
   secondary: {
     main: colors.dark['400'],
+    alternative: colors.dark['300'],
   },
   background: {
     root: colors.light['100'],

@@ -215,7 +215,7 @@ const Upload: React.FC<UploadProps> = ({
           )}
         </Box>
         {!error && !preview && description && (
-          <Typography variant="subtitle2" color="secondary" align="center">
+          <Typography variant="subtitle2" color="secondary.alternative" align="center">
             {description}
           </Typography>
         )}

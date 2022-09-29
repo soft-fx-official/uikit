@@ -1171,6 +1171,7 @@ declare module '@mui/material/styles/createPalette' {
     }
     interface SimplePaletteColorOptions {
         secondary?: string;
+        alternative?: string;
     }
     interface TypeBackground {
         root: string;
