@@ -3,11 +3,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Failed } from '../Failed'
-import { ErrorIcon } from '../Icons'
-
 interface IErrorBoundary {
   children: React.ReactElement
+  onError: (error: any) => void
 }
 
 class ErrorBoundary extends React.Component<IErrorBoundary> {
@@ -29,7 +27,9 @@ class ErrorBoundary extends React.Component<IErrorBoundary> {
     // eslint-disable-next-line react/destructuring-assignment
     if (this.state.hasError) {
       console.info('[COMPONENT][ERROR]: Has error')
-      return <Failed title="Has error" />
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.onError('Has error')
+      return null
     }
     // @ts-ignore
     return this.props.children // eslint-disable-line react/destructuring-assignment

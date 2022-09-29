@@ -37,3 +37,9 @@
 ## Update API
 
     npm run update:api:main
+
+## Commands
+
+#### Sort package.json :
+
+`$ npx sort-package-json`

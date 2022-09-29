@@ -1,6 +1,7 @@
 import React from 'react';
 interface IErrorBoundary {
     children: React.ReactElement;
+    onError: (error: any) => void;
 }
 declare class ErrorBoundary extends React.Component<IErrorBoundary> {
     constructor(props: IErrorBoundary);

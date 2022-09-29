@@ -85,6 +85,7 @@ declare module 'uikit/components/ErrorBoundary' {
 import React from 'react';
 interface IErrorBoundary {
     children: React.ReactElement;
+    onError: (error: any) => void;
 }
 declare class ErrorBoundary extends React.Component<IErrorBoundary> {
     constructor(props: IErrorBoundary);
@@ -100,17 +101,6 @@ export type { IErrorBoundary };
 };
 
 declare module 'uikit/components/Failed' {
-/// <reference types="react" />
-interface IFailed {
-    title: string;
-}
-declare const Failed: ({ title }: IFailed) => JSX.Element;
-export { Failed };
-export type { IFailed };
-
-};
-
-declare module 'uikit/components/Failed.1' {
 /// <reference types="react" />
 interface IFailed {
     title: string;
@@ -228,6 +218,7 @@ export { CustomTooltip };
 import React from 'react';
 interface IErrorBoundary {
     children: React.ReactElement;
+    onError: (error: any) => void;
 }
 declare class ErrorBoundary extends React.Component<IErrorBoundary> {
     constructor(props: IErrorBoundary);
@@ -239,14 +230,6 @@ declare class ErrorBoundary extends React.Component<IErrorBoundary> {
 }
 export { ErrorBoundary };
 export type { IErrorBoundary };
-
-/// <reference types="react" />
-interface IFailed {
-    title: string;
-}
-declare const Failed: ({ title }: IFailed) => JSX.Element;
-export { Failed };
-export type { IFailed };
 
 /// <reference types="react" />
 interface IFailed {
@@ -317,20 +300,18 @@ declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
 export { Loader };
 export type { ILoader };
 
-/// <reference types="common" />
-import React from 'react';
+/// <reference types="react" />
 import { IBus } from 'common/tools';
 interface IModuleLoader {
     url: string;
     scope: string;
     module: string;
     bus: IBus | null;
-    fallback: React.ReactElement | string | undefined;
-    onError: () => void;
+    onError: (error: any) => void;
     onLoad: () => void;
     onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, fallback, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: ({ url, scope, module, bus, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
 export { ModuleLoader };
 export type { IModuleLoader };
 
@@ -386,20 +367,18 @@ export type { ILoader };
 };
 
 declare module 'uikit/components/ModuleLoader' {
-/// <reference types="common" />
-import React from 'react';
+/// <reference types="react" />
 import { IBus } from 'common/tools';
 interface IModuleLoader {
     url: string;
     scope: string;
     module: string;
     bus: IBus | null;
-    fallback: React.ReactElement | string | undefined;
-    onError: () => void;
+    onError: (error: any) => void;
     onLoad: () => void;
     onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, fallback, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: ({ url, scope, module, bus, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
 export { ModuleLoader };
 export type { IModuleLoader };
 
