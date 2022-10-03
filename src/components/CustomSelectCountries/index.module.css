@@ -1,0 +1,16 @@
+.uikit_option {
+  display: flex;
+  align-items: center;
+}
+
+.uikit_countryName {
+  text-transform: capitalize;
+}
+
+.uikit_flag {
+  margin-right: 10px;
+}
+
+.uikit_select {
+  width: 100%;
+}
