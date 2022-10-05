@@ -304,6 +304,7 @@ declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
 export { Loader };
 export type { ILoader };
 
+/// <reference types="common" />
 /// <reference types="react" />
 import { IBus } from 'common/tools';
 interface IModuleLoader {
@@ -371,6 +372,7 @@ export type { ILoader };
 };
 
 declare module 'uikit/components/ModuleLoader' {
+/// <reference types="common" />
 /// <reference types="react" />
 import { IBus } from 'common/tools';
 interface IModuleLoader {
