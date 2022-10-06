@@ -122,6 +122,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
             {
               name: 'flip',
               options: {
+                rootBoundary: 'document',
                 flipVariations: true,
                 fallbackPlacements: fallbackPlacements,
               },
