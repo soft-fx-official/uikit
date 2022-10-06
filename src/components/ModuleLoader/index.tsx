@@ -1,4 +1,4 @@
-import React, { lazy, memo } from 'react'
+import React, { lazy, memo, useMemo } from 'react'
 import { useDynamicScript } from 'common/hooks'
 import { IBus, loadDynamicComponent } from 'common/tools'
 
@@ -14,55 +14,58 @@ interface IModuleLoader {
   onDone: () => void
 }
 
-const ModuleLoader = ({
-  url,
-  scope,
-  module,
-  bus,
-  onError = console.info,
-  onLoad = () => null,
-  onDone = () => null,
-}: IModuleLoader) => {
-  const { ready, failed } = useDynamicScript(url)
+const ModuleLoader: React.FC<IModuleLoader> = React.memo(
+  ({
+    url,
+    scope,
+    module,
+    bus,
+    onError = console.info,
+    onLoad = () => null,
+    onDone = () => null,
+  }) => {
+    const { ready, failed } = useDynamicScript(url)
 
-  if (!url || !scope || !module) {
-    onError('Not system specified')
-    return null
-  }
+    const Component = useMemo(() => lazy(loadDynamicComponent(scope, module)), [scope, module])
 
-  if (failed) {
-    onError(`Failed to load dynamic script: ${url}`)
-    return null
-  }
+    if (!url || !scope || !module) {
+      onError('Not system specified')
+      return null
+    }
 
-  if (!ready) {
-    onLoad()
-    return null
-  }
+    if (failed) {
+      onError(`Failed to load dynamic script: ${url}`)
+      return null
+    }
 
-  const Component = lazy(loadDynamicComponent(scope, module))
-  const Fallback = memo(() => {
-    onLoad()
-    return null
-  })
-  onDone()
+    if (!ready) {
+      onLoad()
+      return null
+    }
 
-  return (
-    <ErrorBoundary onError={onError}>
-      <React.Suspense fallback={<Fallback />}>
-        <Component
-          bus={bus}
-          params={{
-            isLoader: false,
-            onLoad,
-            onError,
-            onDone,
-          }}
-        />
-      </React.Suspense>
-    </ErrorBoundary>
-  )
-}
+    const Fallback = memo(() => {
+      onLoad()
+      return null
+    })
+    onDone()
+
+    return (
+      <ErrorBoundary onError={onError}>
+        <React.Suspense fallback={<Fallback />}>
+          <Component
+            bus={bus}
+            params={{
+              isLoader: false,
+              onLoad,
+              onError,
+              onDone,
+            }}
+          />
+        </React.Suspense>
+      </ErrorBoundary>
+    )
+  },
+)
 
 export { ModuleLoader }
 export type { IModuleLoader }
