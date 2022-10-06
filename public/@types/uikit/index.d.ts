@@ -304,7 +304,8 @@ declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
 export { Loader };
 export type { ILoader };
 
-/// <reference types="react" />
+/// <reference types="common" />
+import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
     url: string;
@@ -315,7 +316,7 @@ interface IModuleLoader {
     onLoad: () => void;
     onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: React.FC<IModuleLoader>;
 export { ModuleLoader };
 export type { IModuleLoader };
 
@@ -371,7 +372,8 @@ export type { ILoader };
 };
 
 declare module 'uikit/components/ModuleLoader' {
-/// <reference types="react" />
+/// <reference types="common" />
+import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
     url: string;
@@ -382,7 +384,7 @@ interface IModuleLoader {
     onLoad: () => void;
     onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: React.FC<IModuleLoader>;
 export { ModuleLoader };
 export type { IModuleLoader };
 
