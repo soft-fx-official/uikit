@@ -1,5 +1,5 @@
 /// <reference types="common" />
-/// <reference types="react" />
+import React from 'react';
 import { IBus } from 'common/tools';
 interface IModuleLoader {
     url: string;
@@ -10,6 +10,6 @@ interface IModuleLoader {
     onLoad: () => void;
     onDone: () => void;
 }
-declare const ModuleLoader: ({ url, scope, module, bus, onError, onLoad, onDone, }: IModuleLoader) => JSX.Element;
+declare const ModuleLoader: React.FC<IModuleLoader>;
 export { ModuleLoader };
 export type { IModuleLoader };
