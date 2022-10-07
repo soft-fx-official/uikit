@@ -1,4 +1,4 @@
-import React, { lazy, memo, useMemo } from 'react'
+import React, { lazy, memo } from 'react'
 import { useDynamicScript } from 'common/hooks'
 import { IBus, loadDynamicComponent } from 'common/tools'
 
@@ -26,8 +26,6 @@ const ModuleLoader: React.FC<IModuleLoader> = React.memo(
   }) => {
     const { ready, failed } = useDynamicScript(url)
 
-    const Component = useMemo(() => lazy(loadDynamicComponent(scope, module)), [scope, module])
-
     if (!url || !scope || !module) {
       onError('Not system specified')
       return null
@@ -42,6 +40,8 @@ const ModuleLoader: React.FC<IModuleLoader> = React.memo(
       onLoad()
       return null
     }
+
+    const Component = lazy(loadDynamicComponent(scope, module))
 
     const Fallback = memo(() => {
       onLoad()
