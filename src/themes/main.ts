@@ -3,6 +3,7 @@
 import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
 
+import { CustromPopperAutocomplete } from '../components/CustomPopperAutocomplete'
 import { colors } from './colors'
 
 type TCard = {
@@ -366,6 +367,9 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
       },
       //NOTE: повышение z-index дропдаунов
       MuiAutocomplete: {
+        defaultProps: {
+          PopperComponent: CustromPopperAutocomplete,
+        },
         styleOverrides: {
           popper: ({ theme }: ITheme) => ({
             zIndex: 1501,
