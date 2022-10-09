@@ -9,6 +9,7 @@ type CustomTooltipProps = Pick<
   'children' | 'title' | 'open' | 'arrow' | 'placement'
 > & {
   color?: 'warning' | 'success' | 'default'
+  isDisabled?: boolean
   timeout?: number
   arrowBottomOffset?: number
   fallbackPlacements?: ('bottom-end' | 'bottom-start' | 'bottom')[]
@@ -26,6 +27,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   arrowBottomOffset = 10,
   fallbackPlacements = ['bottom'],
   onClose = () => {},
+  isDisabled = false,
 }) => {
   const theme = useTheme()
 
@@ -65,6 +67,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   useEffect(() => {
     prevTitle.current = title
   }, [title])
+
+  if (isDisabled) return children
 
   return (
     <Tooltip

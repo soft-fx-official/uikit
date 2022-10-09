@@ -1,0 +1,32 @@
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.countryName {
+  text-transform: capitalize;
+}
+
+.inputAdornment {
+  margin-top: unset !important;
+  margin-left: 4px;
+}
+
+.inputAdornment img {
+  margin-right: unset !important;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.phoneCode {
+  padding-left: 4px;
+}
+
+.inputRoot {
+}
+
+.inputRoot:global(.MuiInputBase-root.MuiFilledInput-root) {
+  padding: 9px 8px;
+}
