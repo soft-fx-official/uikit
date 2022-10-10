@@ -366,6 +366,7 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
       },
       MuiCssBaseline: {
         styleOverrides: theme => ({
+          // для webkit-браузеров
           '&::-webkit-scrollbar': {
             border: 'none',
           },
@@ -382,6 +383,7 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             backgroundColor: '#00000000',
             height: 43,
           },
+          // для firefox
           '*': {
             scrollbarWidth: 'thin',
             scrollbarColor: isDarkMode ? colors.alpha['500'] : colors.dark['100'],
