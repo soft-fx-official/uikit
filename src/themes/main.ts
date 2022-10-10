@@ -364,6 +364,30 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           }),
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: theme => ({
+          '&::-webkit-scrollbar': {
+            border: 'none',
+          },
+          '&::-webkit-scrollbar-track': {
+            margin: 3,
+            border: '7px solid #00000000',
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['500'] : colors.dark['100']}`,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            transition: '.3s',
+            borderRadius: 12,
+            border: '7px solid #00000000',
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['600'] : colors.dark['400']}`,
+            backgroundColor: '#00000000',
+            height: 43,
+          },
+          '*': {
+            scrollbarWidth: 'thin',
+            scrollbarColor: isDarkMode ? colors.alpha['500'] : colors.dark['100'],
+          },
+        }),
+      },
       //NOTE: повышение z-index дропдаунов
       MuiAutocomplete: {
         styleOverrides: {
