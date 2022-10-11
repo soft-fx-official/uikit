@@ -381,21 +381,33 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '& .MuiInputLabel-root': {
               color: theme.palette.secondary.main,
             },
+            '& .MuiInputLabel-root.Mui-error': {
+              color: theme.palette.secondary.main,
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: theme.palette.secondary.main,
+            },
             '&:hover .MuiInputLabel-root': {
               color: theme.palette.input?.primary,
             },
             '&:hover .MuiInputLabel-root.Mui-error': {
               color: theme.palette.input?.primary,
             },
-            '& .MuiInputLabel-root.Mui-error': {
-              color: theme.palette.secondary.main,
-            },
-            '& .MuiInputLabel-root.Mui-focused': {
+            '&.Mui-focused .MuiInputLabel-root.Mui-focused': {
               color: theme.palette.input?.primary,
             },
             '& .MuiInputLabel-root.Mui-error.Mui-focused': {
               color: theme.palette.input?.primary,
             },
+          }),
+          paper: ({ theme }: ITheme) => ({
+            "&.MuiPaper-root .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected='true']":
+              {
+                backgroundColor: 'transparent',
+                '&.Mui-focused': {
+                  backgroundColor: isDarkMode ? colors.alpha['400'] : colors.dark['50'],
+                },
+              },
           }),
         },
       },
