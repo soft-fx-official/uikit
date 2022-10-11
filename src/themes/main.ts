@@ -381,16 +381,19 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '& .MuiInputLabel-root': {
               color: theme.palette.secondary.main,
             },
+            '& .MuiInputLabel-root.Mui-error': {
+              color: theme.palette.secondary.main,
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: theme.palette.secondary.main,
+            },
             '&:hover .MuiInputLabel-root': {
               color: theme.palette.input?.primary,
             },
             '&:hover .MuiInputLabel-root.Mui-error': {
               color: theme.palette.input?.primary,
             },
-            '& .MuiInputLabel-root.Mui-error': {
-              color: theme.palette.secondary.main,
-            },
-            '& .MuiInputLabel-root.Mui-focused': {
+            '&.Mui-focused .MuiInputLabel-root.Mui-focused': {
               color: theme.palette.input?.primary,
             },
             '& .MuiInputLabel-root.Mui-error.Mui-focused': {
