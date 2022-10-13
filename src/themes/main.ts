@@ -281,6 +281,12 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
               color: theme.palette.input?.primary,
             },
           }),
+          input: ({ theme }: ITheme) => ({
+            '&:-webkit-autofill': {
+              WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.default} inset`,
+              borderRadius: 6,
+            },
+          }),
         },
       },
       MuiOutlinedInput: {
