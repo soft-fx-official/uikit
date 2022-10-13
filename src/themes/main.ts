@@ -372,15 +372,15 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           },
           '&::-webkit-scrollbar-track': {
             margin: 3,
-            border: '7px solid #00000000',
+            border: `7px solid ${colors.alpha['0']}`,
             boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['500'] : colors.dark['100']}`,
           },
           '&::-webkit-scrollbar-thumb': {
             transition: '.3s',
             borderRadius: 12,
-            border: '7px solid #00000000',
+            border: `7px solid ${colors.alpha['0']}`,
             boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['600'] : colors.dark['400']}`,
-            backgroundColor: '#00000000',
+            backgroundColor: colors.alpha['0'],
             height: 43,
           },
           // для firefox
