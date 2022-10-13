@@ -289,6 +289,47 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           }),
         },
       },
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            '&.MuiToggleButtonGroup-root': {
+              gap: theme.spacing(1),
+              '& .MuiToggleButtonGroup-grouped': {
+                '&:not(:first-of-type)': {
+                  borderLeftColor: theme.palette.card?.border,
+                  borderRadius: theme.shape.borderRadius,
+                },
+                '&:first-of-type': {
+                  borderRadius: theme.shape.borderRadius,
+                },
+              },
+              '& .MuiButtonBase-root': {
+                color: theme.palette.card?.color,
+                backgroundColor: theme.palette.card?.background,
+                borderColor: theme.palette.card?.border,
+                transition: 'background-color .2s, border-color .2s, opacity .2s',
+              },
+              '& .MuiButtonBase-root:hover': {
+                borderColor: theme.palette.card?.hover.border,
+                backgroundColor: theme.palette.card?.hover.background,
+              },
+              '& .MuiButtonBase-root.Mui-selected': {
+                color: theme.palette.card?.color,
+                borderColor: theme.palette.success.main,
+                backgroundColor: isDarkMode
+                  ? colors.green['700']
+                  : theme.palette.card?.hover.background,
+              },
+              '& .MuiButtonBase-root.Mui-disabled': {
+                opacity: '.5',
+                color: theme.palette.card?.disabled.color,
+                borderColor: theme.palette.card?.disabled.border,
+                backgroundColor: theme.palette.card?.disabled.background,
+              },
+            },
+          }),
+        },
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           root: ({ theme }: ITheme) => ({
