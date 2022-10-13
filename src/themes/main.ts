@@ -371,6 +371,32 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           }),
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: theme => ({
+          // для webkit-браузеров
+          '&::-webkit-scrollbar': {
+            border: 'none',
+          },
+          '&::-webkit-scrollbar-track': {
+            margin: 3,
+            border: `7px solid ${colors.alpha['0']}`,
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['500'] : colors.dark['100']}`,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            transition: '.3s',
+            borderRadius: 12,
+            border: `7px solid ${colors.alpha['0']}`,
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['600'] : colors.dark['400']}`,
+            backgroundColor: colors.alpha['0'],
+            height: 43,
+          },
+          // для firefox
+          '*': {
+            scrollbarWidth: 'thin',
+            scrollbarColor: isDarkMode ? colors.alpha['500'] : colors.dark['100'],
+          },
+        }),
+      },
       //NOTE: повышение z-index дропдаунов
       MuiAutocomplete: {
         defaultProps: {
