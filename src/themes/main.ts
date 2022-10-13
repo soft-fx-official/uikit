@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 
-import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
+import { darkScrollbar, PaletteMode, Theme, ThemeOptions } from '@mui/material'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
 
 import { CustromPopperAutocomplete } from '../components/CustomPopperAutocomplete'
@@ -371,6 +371,11 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           }),
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: themeParam => ({
+          body: themeParam.palette.mode === 'dark' ? darkScrollbar() : null,
+        }),
+      },
       //NOTE: повышение z-index дропдаунов
       MuiAutocomplete: {
         defaultProps: {
@@ -409,6 +414,15 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '& .MuiInputLabel-root.Mui-error.Mui-focused': {
               color: theme.palette.input?.primary,
             },
+          }),
+          paper: ({ theme }: ITheme) => ({
+            "&.MuiPaper-root .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected='true']":
+              {
+                backgroundColor: 'transparent',
+                '&.Mui-focused': {
+                  backgroundColor: isDarkMode ? colors.alpha['400'] : colors.dark['50'],
+                },
+              },
           }),
         },
       },
