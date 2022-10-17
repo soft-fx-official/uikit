@@ -1,8 +1,9 @@
 /* eslint-disable max-lines */
 
-import { darkScrollbar, PaletteMode, Theme, ThemeOptions } from '@mui/material'
+import { PaletteMode, Theme, ThemeOptions } from '@mui/material'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
 
+import { CustromPopperAutocomplete } from '../components/CustomPopperAutocomplete'
 import { colors } from './colors'
 
 type TCard = {
@@ -280,6 +281,53 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
               color: theme.palette.input?.primary,
             },
           }),
+          input: ({ theme }: ITheme) => ({
+            '&:-webkit-autofill': {
+              WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.default} inset`,
+              borderRadius: 6,
+            },
+          }),
+        },
+      },
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            '&.MuiToggleButtonGroup-root': {
+              gap: theme.spacing(1),
+              '& .MuiToggleButtonGroup-grouped': {
+                '&:not(:first-of-type)': {
+                  borderLeftColor: theme.palette.card?.border,
+                  borderRadius: theme.shape.borderRadius,
+                },
+                '&:first-of-type': {
+                  borderRadius: theme.shape.borderRadius,
+                },
+              },
+              '& .MuiButtonBase-root': {
+                color: theme.palette.card?.color,
+                backgroundColor: theme.palette.card?.background,
+                borderColor: theme.palette.card?.border,
+                transition: 'background-color .2s, border-color .2s, opacity .2s',
+              },
+              '& .MuiButtonBase-root:hover': {
+                borderColor: theme.palette.card?.hover.border,
+                backgroundColor: theme.palette.card?.hover.background,
+              },
+              '& .MuiButtonBase-root.Mui-selected': {
+                color: theme.palette.card?.color,
+                borderColor: theme.palette.success.main,
+                backgroundColor: isDarkMode
+                  ? colors.green['700']
+                  : theme.palette.card?.hover.background,
+              },
+              '& .MuiButtonBase-root.Mui-disabled': {
+                opacity: '.5',
+                color: theme.palette.card?.disabled.color,
+                borderColor: theme.palette.card?.disabled.border,
+                backgroundColor: theme.palette.card?.disabled.background,
+              },
+            },
+          }),
         },
       },
       MuiOutlinedInput: {
@@ -365,12 +413,36 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
         },
       },
       MuiCssBaseline: {
-        styleOverrides: themeParam => ({
-          body: themeParam.palette.mode === 'dark' ? darkScrollbar() : null,
+        styleOverrides: theme => ({
+          // для webkit-браузеров
+          '&::-webkit-scrollbar': {
+            border: 'none',
+          },
+          '&::-webkit-scrollbar-track': {
+            margin: 3,
+            border: `7px solid ${colors.alpha['0']}`,
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['500'] : colors.dark['100']}`,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            transition: '.3s',
+            borderRadius: 12,
+            border: `7px solid ${colors.alpha['0']}`,
+            boxShadow: `inset 0 0 0 3px ${isDarkMode ? colors.alpha['600'] : colors.dark['400']}`,
+            backgroundColor: colors.alpha['0'],
+            height: 43,
+          },
+          // для firefox
+          '*': {
+            scrollbarWidth: 'thin',
+            scrollbarColor: isDarkMode ? colors.alpha['500'] : colors.dark['100'],
+          },
         }),
       },
       //NOTE: повышение z-index дропдаунов
       MuiAutocomplete: {
+        defaultProps: {
+          PopperComponent: CustromPopperAutocomplete,
+        },
         styleOverrides: {
           popper: ({ theme }: ITheme) => ({
             zIndex: 1501,
@@ -386,16 +458,19 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '& .MuiInputLabel-root': {
               color: theme.palette.secondary.main,
             },
+            '& .MuiInputLabel-root.Mui-error': {
+              color: theme.palette.secondary.main,
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: theme.palette.secondary.main,
+            },
             '&:hover .MuiInputLabel-root': {
               color: theme.palette.input?.primary,
             },
             '&:hover .MuiInputLabel-root.Mui-error': {
               color: theme.palette.input?.primary,
             },
-            '& .MuiInputLabel-root.Mui-error': {
-              color: theme.palette.secondary.main,
-            },
-            '& .MuiInputLabel-root.Mui-focused': {
+            '&.Mui-focused .MuiInputLabel-root.Mui-focused': {
               color: theme.palette.input?.primary,
             },
             '& .MuiInputLabel-root.Mui-error.Mui-focused': {
