@@ -30,6 +30,13 @@ export { ButtonLoader };
 
 };
 
+declare module 'uikit/components/CustomPopperAutocomplete' {
+/// <reference types="react" />
+import { PopperProps } from '@mui/material';
+export declare const CustromPopperAutocomplete: ({ children, ...rest }: PopperProps) => JSX.Element;
+
+};
+
 declare module 'uikit/components/CustomSelect' {
 /// <reference types="react" />
 interface CustomSelectProps {
@@ -174,6 +181,10 @@ interface IButtonLoader {
 }
 declare const ButtonLoader: ({ isLoad, label, buttonProps }: IButtonLoader) => JSX.Element;
 export { ButtonLoader };
+
+/// <reference types="react" />
+import { PopperProps } from '@mui/material';
+export declare const CustromPopperAutocomplete: ({ children, ...rest }: PopperProps) => JSX.Element;
 
 /// <reference types="react" />
 interface CustomSelectProps {
@@ -1094,6 +1105,7 @@ declare const colors: {
         700: string;
     };
     alpha: {
+        0: string;
         100: string;
         200: string;
         300: string;

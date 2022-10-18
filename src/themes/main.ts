@@ -284,7 +284,11 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           input: ({ theme }: ITheme) => ({
             '&:-webkit-autofill': {
               WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.default} inset`,
-              borderRadius: 6,
+              borderRadius: 'inherit',
+            },
+            '&:-webkit-autofill:not(:last-child)': {
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
             },
           }),
         },
@@ -467,7 +471,7 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '&:hover .MuiInputLabel-root': {
               color: theme.palette.input?.primary,
             },
-            '&:hover .MuiInputLabel-root.Mui-error': {
+            '&:hover .MuiInputLabel-ro  ot.Mui-error': {
               color: theme.palette.input?.primary,
             },
             '&.Mui-focused .MuiInputLabel-root.Mui-focused': {
