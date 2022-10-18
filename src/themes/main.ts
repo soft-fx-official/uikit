@@ -477,15 +477,6 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
               color: theme.palette.input?.primary,
             },
           }),
-          paper: ({ theme }: ITheme) => ({
-            "&.MuiPaper-root .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected='true']":
-              {
-                backgroundColor: 'transparent',
-                '&.Mui-focused': {
-                  backgroundColor: isDarkMode ? colors.alpha['400'] : colors.dark['50'],
-                },
-              },
-          }),
         },
       },
       //NOTE: измениене стилей заголовков и подщаголовков, ссфлок
