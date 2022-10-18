@@ -96,6 +96,7 @@ declare const colors: {
         700: string;
     };
     alpha: {
+        0: string;
         100: string;
         200: string;
         300: string;

@@ -30,6 +30,13 @@ export { ButtonLoader };
 
 };
 
+declare module 'uikit/components/CustomPopperAutocomplete' {
+/// <reference types="react" />
+import { PopperProps } from '@mui/material';
+export declare const CustromPopperAutocomplete: ({ children, ...rest }: PopperProps) => JSX.Element;
+
+};
+
 declare module 'uikit/components/CustomSelect' {
 /// <reference types="react" />
 interface CustomSelectProps {
@@ -80,25 +87,6 @@ declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'ope
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };
-
-};
-
-declare module 'uikit/components/ErrorBoundary' {
-import React from 'react';
-interface IErrorBoundary {
-    children: React.ReactElement;
-    onError: (error: any) => void;
-}
-declare class ErrorBoundary extends React.Component<IErrorBoundary> {
-    constructor(props: IErrorBoundary);
-    static getDerivedStateFromError(): {
-        hasError: boolean;
-    };
-    componentDidCatch(error: any, errorInfo: any): void;
-    render(): any;
-}
-export { ErrorBoundary };
-export type { IErrorBoundary };
 
 };
 
@@ -176,6 +164,10 @@ declare const ButtonLoader: ({ isLoad, label, buttonProps }: IButtonLoader) => J
 export { ButtonLoader };
 
 /// <reference types="react" />
+import { PopperProps } from '@mui/material';
+export declare const CustromPopperAutocomplete: ({ children, ...rest }: PopperProps) => JSX.Element;
+
+/// <reference types="react" />
 interface CustomSelectProps {
     data: any;
     options: Array<any>;
@@ -218,22 +210,6 @@ declare type CustomTooltipProps = Pick<TooltipProps, 'children' | 'title' | 'ope
 };
 declare const CustomTooltip: React.FC<CustomTooltipProps>;
 export { CustomTooltip };
-
-import React from 'react';
-interface IErrorBoundary {
-    children: React.ReactElement;
-    onError: (error: any) => void;
-}
-declare class ErrorBoundary extends React.Component<IErrorBoundary> {
-    constructor(props: IErrorBoundary);
-    static getDerivedStateFromError(): {
-        hasError: boolean;
-    };
-    componentDidCatch(error: any, errorInfo: any): void;
-    render(): any;
-}
-export { ErrorBoundary };
-export type { IErrorBoundary };
 
 /// <reference types="react" />
 interface IFailed {
@@ -284,14 +260,10 @@ export { ButtonLoader } from './ButtonLoader';
 export { CustomSelect } from './CustomSelect';
 export { CustomSelectCountries } from './CustomSelectCountries';
 export { CustomTooltip } from './CustomTooltip';
-export type { IErrorBoundary } from './ErrorBoundary';
-export { ErrorBoundary } from './ErrorBoundary';
 export type { IFailed } from './Failed';
 export { Failed } from './Failed';
 export type { ILoader } from './Loader';
 export { Loader } from './Loader';
-export type { IModuleLoader } from './ModuleLoader';
-export { ModuleLoader } from './ModuleLoader';
 export { ThemeSwitch } from './ThemeSwitch';
 export { Upload } from './Upload';
 
@@ -303,22 +275,6 @@ interface ILoader {
 declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
 export { Loader };
 export type { ILoader };
-
-/// <reference types="common" />
-import React from 'react';
-import { IBus } from 'common/tools';
-interface IModuleLoader {
-    url: string;
-    scope: string;
-    module: string;
-    bus: IBus | null;
-    onError: (error: any) => void;
-    onLoad: () => void;
-    onDone: () => void;
-}
-declare const ModuleLoader: React.FC<IModuleLoader>;
-export { ModuleLoader };
-export type { IModuleLoader };
 
 /// <reference types="react" />
 interface IThemeSwitch {
@@ -368,25 +324,6 @@ interface ILoader {
 declare const Loader: ({ style, isStop }: ILoader) => JSX.Element;
 export { Loader };
 export type { ILoader };
-
-};
-
-declare module 'uikit/components/ModuleLoader' {
-/// <reference types="common" />
-import React from 'react';
-import { IBus } from 'common/tools';
-interface IModuleLoader {
-    url: string;
-    scope: string;
-    module: string;
-    bus: IBus | null;
-    onError: (error: any) => void;
-    onLoad: () => void;
-    onDone: () => void;
-}
-declare const ModuleLoader: React.FC<IModuleLoader>;
-export { ModuleLoader };
-export type { IModuleLoader };
 
 };
 
@@ -1094,6 +1031,7 @@ declare const colors: {
         700: string;
     };
     alpha: {
+        0: string;
         100: string;
         200: string;
         300: string;

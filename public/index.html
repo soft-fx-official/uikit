@@ -11,19 +11,14 @@
         padding: 0;
         border: 0;
       }
-      html, body, [data-name="%REACT_APP_ELEMENT_NAME%"][data-app="%REACT_APP_NAME%"] {
+      html, body, #root {
         width: 100%;
         height: 100%;
-      }
-
-      .page {
-        height: inherit;
-        width: inherit;
       }
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div data-name="%REACT_APP_ELEMENT_NAME%" data-app="%REACT_APP_NAME%"></div>
+    <div id="root"></div>
   </body>
 </html>
