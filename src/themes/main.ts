@@ -471,7 +471,7 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
             '&:hover .MuiInputLabel-root': {
               color: theme.palette.input?.primary,
             },
-            '&:hover .MuiInputLabel-ro  ot.Mui-error': {
+            '&:hover .MuiInputLabel-root.Mui-error': {
               color: theme.palette.input?.primary,
             },
             '&.Mui-focused .MuiInputLabel-root.Mui-focused': {
