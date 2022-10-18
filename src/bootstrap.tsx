@@ -1,10 +1,10 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+import config from './config'
 import Main from './main'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Main bus={null} params={null} />
-  </React.StrictMode>,
-)
+ReactDOM.createRoot(
+  document.querySelector(
+    `[data-name="${config.elementName}"][data-app="${config.appName}"]`,
+  ) as HTMLElement,
+).render(<Main bus={null} params={null} />)
