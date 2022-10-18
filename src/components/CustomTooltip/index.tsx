@@ -104,6 +104,8 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
             border: '1px solid',
             borderColor: styles.borderColor,
             background: styles.background,
+            fontSize: 10,
+            lineHeight: '16px',
             [`& .${tooltipClasses.arrow}`]: {
               color: styles.background,
             },
