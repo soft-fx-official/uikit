@@ -133,7 +133,7 @@ const Upload: React.FC<UploadProps> = ({
         minWidth: '288px',
         minHeight: '288px',
         width: '100%',
-        padding: '40px 0',
+        padding: '40px 20px',
         borderRadius: '24px',
         borderWidth: '2px',
         borderStyle: 'dashed',

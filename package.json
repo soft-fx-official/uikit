@@ -1,6 +1,6 @@
 {
   "name": "uikit",
-  "version": "0.8.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "build": "react-app-rewired build",
@@ -15,7 +15,8 @@
     "start": "react-app-rewired start",
     "stylelint": "stylelint \"src/**/*.{css,scss,less}\"",
     "stylelint:fix": "stylelint --fix \"src/**/*.{css,scss,less}\"",
-    "test": "react-app-rewired test"
+    "test": "react-app-rewired test",
+    "update:api:main": "npx swagger-typescript-api -p https://api.fxopen.co.uk/api/docs/v1/ -o ./src/services/api/ -n main.ts"
   },
   "browserslist": {
     "production": [
