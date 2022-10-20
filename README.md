@@ -1,3 +1,5 @@
+# UIKit React Components and MUI
+
 ## Install dev
 
     npm install
@@ -33,10 +35,6 @@
     npm run lint
     npm run lint:fix
     npm run lintstaged
-
-## Update API
-
-    npm run update:api:main
 
 ## Commands
 
