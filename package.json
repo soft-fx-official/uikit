@@ -1,22 +1,21 @@
 {
   "name": "uikit",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",
-    "eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
-    "eslint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "eslint": "eslint \"src/**/*.{jsx,ts,tsx}\"",
+    "eslint:fix": "eslint --fix \"src/**/*.{jsx,ts,tsx}\"",
     "lint": "npm run stylelint && npm run eslint",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix && npm run prettier",
     "lintstaged": "lint-staged",
     "prepare": "husky install",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md,yml,yaml}\"",
+    "prettier": "prettier --write \"src/**/*.{jsx,ts,tsx,json,css,scss,md,yml,yaml}\"",
     "start": "react-app-rewired start",
     "stylelint": "stylelint \"src/**/*.{css,scss,less}\"",
     "stylelint:fix": "stylelint --fix \"src/**/*.{css,scss,less}\"",
-    "test": "react-app-rewired test",
-    "update:api:main": "npx swagger-typescript-api -p https://api.fxopen.co.uk/api/docs/v1/ -o ./src/services/api/ -n main.ts"
+    "test": "react-app-rewired test"
   },
   "browserslist": {
     "production": [
@@ -45,6 +44,7 @@
     "@types/node": "16.11.39",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
+    "dts-loader": "0.1.8",
     "i18next": "21.8.9",
     "i18next-browser-languagedetector": "6.1.4",
     "lodash": "4.17.21",
@@ -60,8 +60,8 @@
     "react-scripts": "5.0.1",
     "react-spring": "9.5.5",
     "typescript": "4.7.3",
-    "w5mf-types": "0.2.x",
-    "yup": "0.32.11"
+    "yup": "0.32.11",
+    "w5mf-types-generate": "0.1.x"
   },
   "devDependencies": {
     "@types/lodash": "4.14.182",
