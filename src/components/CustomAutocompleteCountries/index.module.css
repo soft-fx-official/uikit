@@ -1,0 +1,21 @@
+.option {
+  display: flex;
+  align-items: center;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.optionName {
+  text-transform: capitalize;
+}
+
+.inputAdornment {
+  margin-top: unset !important;
+  margin-left: 4px;
+}
+
+.inputAdornment img {
+  margin-right: unset !important;
+}
