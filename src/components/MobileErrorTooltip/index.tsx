@@ -37,7 +37,7 @@ export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
             Please complete all data
           </Typography>
           {errors.map((e: Error, i: number) => (
-            <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start' }}>
+            <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }}>
               <Box
                 sx={theme => ({
                   color: theme.palette.warning.main,
