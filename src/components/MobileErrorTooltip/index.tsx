@@ -13,13 +13,15 @@ interface Error {
 }
 
 interface MobileErrorTooltipProps {
-  formErrors: { [key: string]: Error }
-  fieldNames: { [key: string]: string }
+  formErrors?: { [key: string]: Error }
+  fieldNames?: { [key: string]: string }
+  message?: string
 }
 
 export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
   formErrors,
   fieldNames,
+  message,
 }) => {
   const formErrorsObj = Object.assign({}, formErrors)
   delete formErrorsObj.password
@@ -36,29 +38,31 @@ export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
           >
             Please complete all data
           </Typography>
-          {errors.map((e: Error, i: number) => (
-            <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-              <Box
-                sx={theme => ({
-                  color: theme.palette.warning.main,
-                  display: 'inline',
-                  marginRight: '4px',
-                  '& svg': {
-                    width: '16px',
-                    height: '16px',
-                  },
-                })}
-              >
-                <ErrorIcon />
-              </Box>
-              <b>{capitalize(fieldNames[e.ref.name])}:</b>
-              &nbsp;
-              <Box sx={{ textAlign: 'left' }}>{e.message}</Box>
-            </Box>
-          ))}
+          {message
+            ? message
+            : errors.map((e: Error, i: number) => (
+                <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                  <Box
+                    sx={theme => ({
+                      color: theme.palette.warning.main,
+                      display: 'inline',
+                      marginRight: '4px',
+                      '& svg': {
+                        width: '16px',
+                        height: '16px',
+                      },
+                    })}
+                  >
+                    <ErrorIcon />
+                  </Box>
+                  <b>{fieldNames && capitalize(fieldNames[e.ref.name])}:</b>
+                  &nbsp;
+                  <Box sx={{ textAlign: 'left' }}>{e.message}</Box>
+                </Box>
+              ))}
         </Stack>
       }
-      open={isMobile && errors.length > 0}
+      open={isMobile && (errors.length > 0 || Boolean(message))}
       arrow={false}
       placement="bottom"
     >
