@@ -27,8 +27,8 @@ export const CustomAutocompleteCountries: React.FC<CustomAutocompleteCountriesPr
       <Autocomplete
         PopperComponent={CustromPopperAutocomplete}
         autoHighlight
-        getOptionLabel={option => capitalize(option.name)}
-        renderOption={(props, option) => (
+        getOptionLabel={(option: any) => capitalize(option.name)}
+        renderOption={(props, option: any) => (
           <Box component="li" className={styles.option} {...props}>
             <ReactCountryFlag
               countryCode={option.code || option.countryCode}
@@ -45,6 +45,7 @@ export const CustomAutocompleteCountries: React.FC<CustomAutocompleteCountriesPr
             label={label}
             placeholder={placeholder}
             variant="filled"
+            // @ts-ignore
             color={hasError ? 'warning' : rest.value && 'success'}
             error={hasError}
             InputProps={{
@@ -53,6 +54,7 @@ export const CustomAutocompleteCountries: React.FC<CustomAutocompleteCountriesPr
               startAdornment: rest.value && (
                 <InputAdornment position="start" className={styles.inputAdornment}>
                   <ReactCountryFlag
+                    // @ts-ignore
                     countryCode={rest.value.countryCode || rest.value}
                     svg
                     className={styles.flag}
