@@ -1,6 +1,7 @@
 export { ButtonCard } from './ButtonCard';
 export { ButtonCardContainer } from './ButtonCardContainer';
 export { ButtonLoader } from './ButtonLoader';
+export { CustomAutocompleteCountries } from './CustomAutocompleteCountries';
 export { CustomSelect } from './CustomSelect';
 export { CustomSelectCountries } from './CustomSelectCountries';
 export { CustomTooltip } from './CustomTooltip';
