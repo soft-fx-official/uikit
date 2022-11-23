@@ -48,7 +48,7 @@ const CustomSelect = ({
   inputProps,
   modalProps,
 }: CustomSelectProps) => {
-  const smallWindow = useMediaQuery('(max-width: 640px)')
+  const smallWindow = useMediaQuery('(max-width: 800px)')
   const [isOpenSelectModal, setSelectModalStatus] = useState(false)
   const handleChange = (value?: string) => {
     onChange(value)
