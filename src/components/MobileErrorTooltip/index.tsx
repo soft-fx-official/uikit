@@ -1,31 +1,25 @@
 import React from 'react'
+import { FieldErrors, FieldValues } from 'react-hook-form'
 
 import ErrorIcon from '@mui/icons-material/Error'
 import { Box, capitalize, Stack, Typography, useMediaQuery } from '@mui/material'
 
 import { CustomTooltip as Tooltip } from '../CustomTooltip'
 
-interface Error {
-  message: string
-  ref: { name: string }
-  type: string
-  types: { type: string }
-}
-
 interface MobileErrorTooltipProps {
-  formErrors?: { [key: string]: Error }
+  formErrors: FieldErrors<FieldValues>
   fieldNames?: { [key: string]: string }
   message?: string
 }
 
-export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
+const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
   formErrors,
   fieldNames,
   message,
 }) => {
   const formErrorsObj = Object.assign({}, formErrors)
   delete formErrorsObj.password
-  const errors: Error[] = Object.values(Object.assign({}, formErrorsObj))
+  const errors = Object.entries(Object.assign({}, formErrorsObj))
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   return (
@@ -40,7 +34,7 @@ export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
           </Typography>
           {message
             ? message
-            : errors.map((e: Error, i: number) => (
+            : errors.map(([fieldName, errorData], i: number) => (
                 <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                   <Box
                     sx={theme => ({
@@ -55,9 +49,9 @@ export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
                   >
                     <ErrorIcon />
                   </Box>
-                  <b>{fieldNames && capitalize(fieldNames[e.ref.name])}:</b>
+                  <b>{fieldNames?.[fieldName] ? capitalize(fieldNames[fieldName]) : fieldName}:</b>
                   &nbsp;
-                  <Box sx={{ textAlign: 'left' }}>{e.message}</Box>
+                  <Box sx={{ textAlign: 'left' }}>{(errorData?.message as string) ?? ''}</Box>
                 </Box>
               ))}
         </Stack>
@@ -70,3 +64,5 @@ export const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
     </Tooltip>
   )
 }
+
+export { MobileErrorTooltip }
