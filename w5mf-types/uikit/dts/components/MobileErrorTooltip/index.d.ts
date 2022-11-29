@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldErrors, FieldValues } from 'react-hook-form';
 interface MobileErrorTooltipProps {
-    formErrors: FieldErrors<FieldValues>;
+    formErrors?: FieldErrors<FieldValues>;
     fieldNames?: {
         [key: string]: string;
     };

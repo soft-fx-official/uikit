@@ -7,7 +7,7 @@ import { Box, capitalize, Stack, Typography, useMediaQuery } from '@mui/material
 import { CustomTooltip as Tooltip } from '../CustomTooltip'
 
 interface MobileErrorTooltipProps {
-  formErrors: FieldErrors<FieldValues>
+  formErrors?: FieldErrors<FieldValues>
   fieldNames?: { [key: string]: string }
   message?: string
 }
