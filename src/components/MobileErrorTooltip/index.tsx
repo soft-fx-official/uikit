@@ -10,55 +10,92 @@ interface MobileErrorTooltipProps {
   formErrors?: FieldErrors<FieldValues>
   fieldNames?: { [key: string]: string }
   message?: string
+  marginTop?: string
 }
+
+type ParsedErrors = Array<{ fieldName: string; errorMessage: string }>
 
 const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
   formErrors,
   fieldNames,
   message,
+  marginTop,
 }) => {
-  const formErrorsObj = Object.assign({}, formErrors)
-  delete formErrorsObj.password
-  const errors = Object.entries(Object.assign({}, formErrorsObj))
+  const errors: ParsedErrors = Object.entries(Object.assign({}, formErrors)).reduce<ParsedErrors>(
+    (acc, [fieldName, errorData]) => {
+      if (errorData?.types) {
+        const errorMessages = Object.values(Object.assign({}, errorData?.types)).flat()
+
+        errorMessages.forEach((errorMessage: string) => acc.push({ fieldName, errorMessage }))
+      } else {
+        const errorMessage = (errorData?.message as string) || ''
+
+        acc.push({ fieldName, errorMessage })
+      }
+
+      return acc
+    },
+    [],
+  )
+
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   return (
     <Tooltip
       title={
-        <Stack alignItems="flex-start">
+        <Box>
           <Typography
+            textAlign="start"
             variant="subtitle2"
-            sx={{ fontWeight: '700', paddingBottom: '6px', fontSize: '12px' }}
+            sx={{ fontWeight: '700', marginBottom: '6px', fontSize: '12px', lineHeight: '16px' }}
           >
-            Please complete all data
+            These fields are mandatory
           </Typography>
-          {message
-            ? message
-            : errors.map(([fieldName, errorData], i: number) => (
-                <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                  <Box
-                    sx={theme => ({
-                      color: theme.palette.warning.main,
-                      display: 'inline',
-                      marginRight: '4px',
-                      '& svg': {
-                        width: '16px',
-                        height: '16px',
-                      },
-                    })}
-                  >
-                    <ErrorIcon />
+          <Stack alignItems="flex-start" spacing="6px">
+            {message
+              ? message
+              : errors.map(({ fieldName, errorMessage }, i: number) => (
+                  <Box key={i}>
+                    <Typography
+                      component="p"
+                      sx={{
+                        fontSize: '10px',
+                        lineHeight: '16px',
+                        textAlign: 'start',
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          display: 'inline-block',
+                          lineHeight: '0px',
+                          verticalAlign: 'bottom',
+                          marginRight: '4px',
+                        }}
+                      >
+                        <ErrorIcon sx={{ fontSize: '16px' }} color="warning" />
+                      </Box>
+
+                      <Typography
+                        component="b"
+                        sx={{ fontSize: '10px', lineHeight: '16px', fontWeight: '700' }}
+                      >
+                        {`${
+                          fieldNames?.[fieldName] ? capitalize(fieldNames[fieldName]) : fieldName
+                        }: `}
+                      </Typography>
+
+                      {errorMessage}
+                    </Typography>
                   </Box>
-                  <b>{fieldNames?.[fieldName] ? capitalize(fieldNames[fieldName]) : fieldName}:</b>
-                  &nbsp;
-                  <Box sx={{ textAlign: 'left' }}>{(errorData?.message as string) ?? ''}</Box>
-                </Box>
-              ))}
-        </Stack>
+                ))}
+          </Stack>
+        </Box>
       }
       open={isMobile && (errors.length > 0 || Boolean(message))}
       arrow={false}
       placement="bottom"
+      marginTopWhenBottom={marginTop}
     >
       <div></div>
     </Tooltip>
