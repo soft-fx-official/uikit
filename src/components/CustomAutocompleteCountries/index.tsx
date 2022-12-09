@@ -12,18 +12,20 @@ export interface CustomAutocompleteCountriesProps<T>
   errorMessage?: string
   label?: string
   placeholder?: string
+  showTooltip?: boolean
 }
 
 export const CustomAutocompleteCountries: React.FC<CustomAutocompleteCountriesProps<any[]>> = ({
   errorMessage,
   label,
   placeholder,
+  showTooltip,
   ...rest
 }) => {
   const hasError = Boolean(errorMessage)
 
   return (
-    <Tooltip title={errorMessage || ''} arrow open={hasError} placement="right">
+    <Tooltip title={errorMessage || ''} arrow open={showTooltip} placement="right">
       <Autocomplete
         PopperComponent={CustromPopperAutocomplete}
         autoHighlight
