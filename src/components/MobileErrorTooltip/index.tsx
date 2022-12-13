@@ -38,10 +38,18 @@ const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
     [],
   )
 
-  const isMobile = useMediaQuery('(max-width: 768px)')
+  const isMobile = useMediaQuery('(max-width: 768px)') // TODO: fix on breakpoints
+
+  const hasErrors = errors.length > 0 || Boolean(message)
+
+  if (!hasErrors) return null
 
   return (
     <Tooltip
+      open={isMobile && hasErrors}
+      arrow={false}
+      placement="bottom"
+      marginTopWhenBottom={marginTop}
       title={
         <Box>
           <Typography
@@ -92,10 +100,6 @@ const MobileErrorTooltip: React.FC<MobileErrorTooltipProps> = ({
           </Stack>
         </Box>
       }
-      open={isMobile && (errors.length > 0 || Boolean(message))}
-      arrow={false}
-      placement="bottom"
-      marginTopWhenBottom={marginTop}
     >
       <div></div>
     </Tooltip>
