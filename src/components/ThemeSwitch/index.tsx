@@ -2,7 +2,7 @@ import React from 'react'
 
 import BedtimeIcon from '@mui/icons-material/Bedtime'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import { Box, Stack, styled, Switch, SwitchProps } from '@mui/material'
+import { Stack, styled, Switch, SwitchProps } from '@mui/material'
 
 import styles from './index.module.css'
 
@@ -17,14 +17,12 @@ const IOSSwitch = styled((props: SwitchProps) => (
     margin: 2,
     transitionDuration: '300ms',
     color: '#fff',
-    transition: 'color .2s',
     '&:hover': {
       color: theme.palette.text.secondary,
     },
     '&.Mui-checked': {
       transform: 'translateX(26px)',
       color: '#fff',
-      transition: 'color .2s',
       '&:hover': {
         color: theme.palette.text.secondary,
       },
@@ -54,6 +52,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
     boxSizing: 'border-box',
     width: 22,
     height: 22,
+    transition: 'color 300ms',
   },
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,

@@ -13,6 +13,7 @@ type CustomTooltipProps = Pick<
   arrowBottomOffset?: number
   fallbackPlacements?: ('bottom-end' | 'bottom-start' | 'bottom')[]
   onClose?: () => void
+  marginTopWhenBottom?: string
 }
 
 const CustomTooltip: React.FC<CustomTooltipProps> = ({
@@ -26,6 +27,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   arrowBottomOffset = 10,
   fallbackPlacements = ['bottom'],
   onClose = () => {},
+  marginTopWhenBottom = '8px',
 }) => {
   const theme = useTheme()
 
@@ -81,7 +83,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
               [`.${tooltipClasses.tooltip}`]: {
                 maxWidth: 'unset',
                 textAlign: 'center',
-                marginTop: '8px !important',
+                marginTop: `${marginTopWhenBottom} !important`,
               },
               [`.${tooltipClasses.arrow}`]: {
                 left: `${arrowBottomOffset}px !important`,
