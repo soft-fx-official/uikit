@@ -284,7 +284,11 @@ export const getTheme = (mode?: PaletteMode): ThemeOptions => {
           input: ({ theme }: ITheme) => ({
             '&:-webkit-autofill': {
               WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.default} inset`,
-              borderRadius: 6,
+              borderRadius: 'inherit',
+            },
+            '&:-webkit-autofill:not(:last-child)': {
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
             },
           }),
         },
